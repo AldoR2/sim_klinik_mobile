@@ -11,12 +11,12 @@ class HeaderReuse extends StatelessWidget {
       children: [
         ClipPath(
           clipper: BottomCurveClipper(),
-          child: Container(height: 300, color: const Color(0xff7134FC)),
+          child: Container(height: 330, color: const Color(0xff7134FC)),
         ),
         ClipPath(
           clipper: Bottom2CurveClipper(),
           child: Container(
-            height: 300,
+            height: 330,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [Color(0xff2088FF), Color(0xff7134FC)],
@@ -27,7 +27,7 @@ class HeaderReuse extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: 45,
+          top: 70,
           child: SizedBox(
             // height: 0,
             width: MediaQuery.of(context).size.width,

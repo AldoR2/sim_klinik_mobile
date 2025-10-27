@@ -91,10 +91,10 @@ class ForgetPasswordVerificationScreen extends StatelessWidget {
                     gradient: LinearGradient(
                       colors: [Color(0xff2088FF), Color(0xff7134FC)],
                     ),
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(20),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(2),
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
                     child: ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
@@ -102,7 +102,7 @@ class ForgetPasswordVerificationScreen extends StatelessWidget {
                         foregroundColor: Color(0xff7134FC),
                         shadowColor: Colors.transparent,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(13),
+                          borderRadius: BorderRadius.circular(15),
                         ),
                         fixedSize: Size(MediaQuery.of(context).size.width, 40),
                         alignment: Alignment.center,

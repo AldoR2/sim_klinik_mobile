@@ -17,7 +17,7 @@ class LoginScreen extends StatelessWidget {
           HeaderReuse(),
           Container(
             margin: EdgeInsets.symmetric(horizontal: 30),
-            padding: EdgeInsets.only(top: 80),
+            padding: EdgeInsets.only(top: 150),
             child: Center(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -38,7 +38,7 @@ class LoginScreen extends StatelessWidget {
                       color: Colors.black.withValues(alpha: 0.4),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 35),
                   ReusableTxtFieldStl(hint: "Username"),
                   SizedBox(height: 20),
                   ReusableTxtFieldStl(
@@ -107,10 +107,10 @@ class LoginScreen extends StatelessWidget {
                       gradient: LinearGradient(
                         colors: [Color(0xff2088FF), Color(0xff7134FC)],
                       ),
-                      borderRadius: BorderRadius.circular(15),
+                      borderRadius: BorderRadius.circular(20),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(2),
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
                       child: ElevatedButton(
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
@@ -118,7 +118,7 @@ class LoginScreen extends StatelessWidget {
                           foregroundColor: Color(0xff7134FC),
                           shadowColor: Colors.transparent,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(13),
+                            borderRadius: BorderRadius.circular(15),
                           ),
                           fixedSize: Size(
                             MediaQuery.of(context).size.width,

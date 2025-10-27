@@ -8,10 +8,14 @@ import 'package:sim_klinik_mobile/screens/auth/login_screen.dart';
 import 'package:sim_klinik_mobile/screens/auth/register_account_screen.dart';
 
 class AppScreens {
-  static final loginScreen = [
-    GetPage(name: "/", page: () => LoginScreen()),
+  static final screens = [
+    GetPage(name: "/", page: () => LandingPageScreen()),
+    GetPage(name: "/auth/login", page: () => LoginScreen()),
     GetPage(name: "/auth/register", page: () => RegisterAccount()),
-    GetPage(name: "/auth/forgetPassword", page: () => ForgetPasswordEmailScreen()),
+    GetPage(
+      name: "/auth/forgetPassword",
+      page: () => ForgetPasswordEmailScreen(),
+    ),
   ];
-  static final baseScreen = [GetPage(name: "/", page: () => BaseScreen())];
+  // static final baseScreen = [GetPage(name: "/", page: () => BaseScreen())];
 }

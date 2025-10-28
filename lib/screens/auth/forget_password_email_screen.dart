@@ -50,9 +50,11 @@ class ForgetPasswordEmailScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.toNamed("/auth/forgetPassword/verification");
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
                         foregroundColor: Color(0xff7134FC),
@@ -93,7 +95,7 @@ class ForgetPasswordEmailScreen extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Get.toNamed("/");
+                        Get.toNamed("/auth/login");
                       },
                       child: Text(
                         "Log In",

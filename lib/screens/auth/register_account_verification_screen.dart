@@ -4,12 +4,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pin_input_text_field/pin_input_text_field.dart';
 import 'package:sim_klinik_mobile/screens/reusables/header_reuse.dart';
 
-class ForgetPasswordVerificationScreen extends StatelessWidget {
-  const ForgetPasswordVerificationScreen({super.key});
+class RegisterAccountVerificationScreen extends StatelessWidget {
+  const RegisterAccountVerificationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
           HeaderReuse(),
@@ -22,7 +24,7 @@ class ForgetPasswordVerificationScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  "Lupa Password!",
+                  "Registrasi Akun!",
                   style: GoogleFonts.rubik(
                     fontSize: 24,
                     fontWeight: FontWeight.w500,
@@ -97,7 +99,7 @@ class ForgetPasswordVerificationScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 4),
                     child: ElevatedButton(
                       onPressed: () {
-                        Get.toNamed("/auth/forgetPassword/change");
+                        Get.toNamed("/auth/login");
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,

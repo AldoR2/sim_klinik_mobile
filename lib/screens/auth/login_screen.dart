@@ -56,23 +56,51 @@ class LoginScreen extends StatelessWidget {
                         SizedBox(
                           child: Row(
                             children: [
-                              FilledButton(
-                                style: FilledButton.styleFrom(
-                                  padding: EdgeInsets.zero,
-                                  fixedSize: Size(20, 20),
-                                  backgroundColor: Color(0xff2088FF),
-                                  shape: CircleBorder(),
-                                ),
-                                onPressed: () {},
-                                child: Container(
-                                  height: 20,
-                                  width: 20,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.white,
+                              Material(
+                                color: Colors.transparent,
+                                child: InkWell(
+                                  onTap: () {
+                                    print("Circle clicked!");
+                                  },
+                                  splashColor: Colors.black.withValues(alpha: 0.2),
+                                  customBorder: CircleBorder(),
+                                  child: Ink(
+                                    height: 28,
+                                    width: 28,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xff2088FF),
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Center(
+                                      child: Container(
+                                        height: 17,
+                                        width: 17,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          shape: BoxShape.circle,
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
+                              // FilledButton(
+                              //   style: FilledButton.styleFrom(
+                              //     padding: EdgeInsets.zero,
+                              //     fixedSize: Size(5, 5),
+                              //     backgroundColor: Color(0xff2088FF),
+                              //     shape: CircleBorder(),
+                              //   ),
+                              //   onPressed: () {},
+                              //   child: Container(
+                              //     height: 5,
+                              //     width: 5,
+                              //     decoration: BoxDecoration(
+                              //       shape: BoxShape.circle,
+                              //       color: Colors.white,
+                              //     ),
+                              //   ),
+                              // ),
                               SizedBox(width: 3),
                               Text(
                                 "Remember Me",
@@ -112,7 +140,9 @@ class LoginScreen extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 4),
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.toNamed("/base");
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
                           foregroundColor: Color(0xff7134FC),

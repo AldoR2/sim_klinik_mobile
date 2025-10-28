@@ -59,7 +59,9 @@ class ForgetPasswordChangeScreen extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4),
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.toNamed("/auth/login");
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
                         foregroundColor: Color(0xff7134FC),
@@ -100,7 +102,7 @@ class ForgetPasswordChangeScreen extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Get.toNamed("/");
+                        Get.toNamed("/auth/login");
                       },
                       child: Text(
                         "Log In",

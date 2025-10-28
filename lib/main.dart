@@ -20,9 +20,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      initialRoute: "/",
-      getPages: AppScreens.baseScreen,
       debugShowCheckedModeBanner: false,
+      title: "MediGo",
+      initialRoute: AppScreens.base,
+      getPages: AppScreens.routes,
     );
   }
 }

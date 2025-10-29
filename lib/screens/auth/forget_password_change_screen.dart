@@ -11,6 +11,7 @@ class ForgetPasswordChangeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
           HeaderReuse(),

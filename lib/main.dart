@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:sim_klinik_mobile/bindings/auth/token_binding.dart';
 import 'package:sim_klinik_mobile/routes/app_screens.dart';
 
 void main() {
+  TokenBinding().dependencies();
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,

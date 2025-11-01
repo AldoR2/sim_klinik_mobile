@@ -5,18 +5,21 @@ class ReusableTxtFieldStl extends StatelessWidget {
   final String hint;
   final TextEditingController? controllerr;
   final Widget? suffix;
+  final bool? obscureText;
 
   ReusableTxtFieldStl({
     super.key,
     required this.hint,
     this.controllerr,
     this.suffix,
+    this.obscureText,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controllerr,
+      obscureText: obscureText ?? false,
       decoration: InputDecoration(
         fillColor: Colors.black.withValues(alpha: 0.06),
         filled: true,

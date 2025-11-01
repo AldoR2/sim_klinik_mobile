@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sim_klinik_mobile/controllers/auth/login_controller.dart';
 import 'package:sim_klinik_mobile/screens/reusables/header_reuse.dart';
 import 'package:sim_klinik_mobile/screens/reusables/textfield_reuse.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+  LoginScreen({super.key});
+
+  final _controller = Get.find<LoginController>();
 
   @override
   Widget build(BuildContext context) {
@@ -39,15 +42,30 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 35),
-                  ReusableTxtFieldStl(hint: "Username"),
-                  SizedBox(height: 20),
                   ReusableTxtFieldStl(
-                    hint: "Password",
-                    suffix: IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.remove_red_eye),
-                    ),
+                    hint: "Username",
+                    controllerr: _controller.usernameController,
                   ),
+                  SizedBox(height: 20),
+                  Obx(() {
+                    return ReusableTxtFieldStl(
+                      hint: (!_controller.isPasswordVisible.value)
+                          ? "********"
+                          : "Password",
+                      controllerr: _controller.passwordController,
+                      obscureText: !_controller.isPasswordVisible.value,
+                      suffix: IconButton(
+                        onPressed: () {
+                          _controller.checkVisible();
+                        },
+                        icon: Icon(
+                          _controller.isPasswordVisible.value
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                        ),
+                      ),
+                    );
+                  }),
                   SizedBox(height: 20),
                   SizedBox(
                     child: Row(
@@ -62,7 +80,9 @@ class LoginScreen extends StatelessWidget {
                                   onTap: () {
                                     print("Circle clicked!");
                                   },
-                                  splashColor: Colors.black.withValues(alpha: 0.2),
+                                  splashColor: Colors.black.withValues(
+                                    alpha: 0.2,
+                                  ),
                                   customBorder: CircleBorder(),
                                   child: Ink(
                                     height: 28,
@@ -84,23 +104,6 @@ class LoginScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              // FilledButton(
-                              //   style: FilledButton.styleFrom(
-                              //     padding: EdgeInsets.zero,
-                              //     fixedSize: Size(5, 5),
-                              //     backgroundColor: Color(0xff2088FF),
-                              //     shape: CircleBorder(),
-                              //   ),
-                              //   onPressed: () {},
-                              //   child: Container(
-                              //     height: 5,
-                              //     width: 5,
-                              //     decoration: BoxDecoration(
-                              //       shape: BoxShape.circle,
-                              //       color: Colors.white,
-                              //     ),
-                              //   ),
-                              // ),
                               SizedBox(width: 3),
                               Text(
                                 "Remember Me",
@@ -141,7 +144,9 @@ class LoginScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 4),
                       child: ElevatedButton(
                         onPressed: () {
-                          Get.toNamed("/base");
+                          (!_controller.isSnackbarOpen.value)
+                              ? _controller.login()
+                              : null;
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,

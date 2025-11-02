@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sim_klinik_mobile/screens/features/models/doctor_schedule_model.dart';
+import 'package:sim_klinik_mobile/screens/features/models/home/doctor_schedule_model.dart';
 
 class DoctorScheduleCard extends StatelessWidget {
   final DoctorScheduleModel schedule;

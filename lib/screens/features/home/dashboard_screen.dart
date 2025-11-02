@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../models/doctor_schedule_model.dart';
-import '../widgets/doctor_schedule_card.dart';
+import '../models/home/doctor_schedule_model.dart';
+import '../widgets/home/doctor_schedule_card.dart';
+import 'package:get/get.dart';
+import 'package:sim_klinik_mobile/routes/app_screens.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -83,20 +84,28 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final w = size.width;
+    final h = size.height;
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      backgroundColor: const Color(0xFFF6F7FB),
+      backgroundColor: Color(0xFFE7F0FB),
       body: Column(
         children: [
-          // 🔹 HEADER
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.fromLTRB(20, 40, 20, 20),
-            decoration: const BoxDecoration(
+            padding: EdgeInsets.fromLTRB(
+              w * 0.05,
+              h * 0.05,
+              w * 0.05,
+              h * 0.025,
+            ),
+            decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [Color(0xFF1C8EF9), Color(0xFF7755E1)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(24),
@@ -106,60 +115,65 @@ class _DashboardScreenState extends State<DashboardScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // 🔸 Logo dan ikon
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Image.asset('assets/medigo_logo_4.png', height: 60),
+                    Image.asset('assets/medigo_logo_5.png', height: h * 0.05),
                     Row(
                       children: [
                         IconButton(
                           onPressed: () {},
-                          icon: Image.asset(
-                            'assets/icons/ic_notification.png',
-                            height: 24,
+                          icon: Icon(
+                            Icons.notifications,
+                            color: Colors.white,
+                            size: h * 0.035,
                           ),
                         ),
                         IconButton(
                           onPressed: () {},
-                          icon: Image.asset(
-                            'assets/icons/ic_settings.png',
-                            height: 24,
+                          icon: Icon(
+                            Icons.settings,
+                            color: Colors.white,
+                            size: h * 0.035,
                           ),
                         ),
                       ],
                     ),
                   ],
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: h * 0.025),
                 Text(
                   'Halo, Izzul!',
                   style: GoogleFonts.rubik(
-                    fontSize: 22,
+                    fontSize: w * 0.065,
                     fontWeight: FontWeight.w600,
                     color: Colors.white,
                   ),
                 ),
+                SizedBox(height: h * 0.005),
                 Text(
                   'Semoga harimu menyenangkan!',
                   style: GoogleFonts.rubik(
-                    fontSize: 16,
+                    fontSize: w * 0.045,
                     fontWeight: FontWeight.w300,
                     color: Colors.white,
                   ),
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: h * 0.020),
                 Container(
                   width: double.infinity,
-                  padding: const EdgeInsets.all(14),
+                  padding: EdgeInsets.all(w * 0.04),
                   decoration: BoxDecoration(
                     color: Colors.white.withOpacity(0.15),
                     borderRadius: BorderRadius.circular(14),
                   ),
                   child: Row(
                     children: [
-                      Image.asset('assets/icons/ic_smile.png', height: 28),
-                      const SizedBox(width: 10),
+                      Image.asset(
+                        'assets/icons/ic_smile.png',
+                        height: h * 0.035,
+                      ),
+                      SizedBox(width: w * 0.03),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -167,7 +181,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             Text(
                               'Tanya MediGo',
                               style: GoogleFonts.rubik(
-                                fontSize: 16,
+                                fontSize: w * 0.045,
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white,
                               ),
@@ -175,7 +189,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             Text(
                               'Tanyakan seputar klinik kami',
                               style: GoogleFonts.rubik(
-                                fontSize: 13,
+                                fontSize: w * 0.037,
                                 fontWeight: FontWeight.w300,
                                 color: Colors.white,
                               ),
@@ -184,9 +198,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         ),
                       ),
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 14,
-                          vertical: 8,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: w * 0.035,
+                          vertical: h * 0.010,
                         ),
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -195,7 +209,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         child: Row(
                           children: [
                             ShaderMask(
-                              shaderCallback: (bounds) => const LinearGradient(
+                              shaderCallback: (bounds) => LinearGradient(
                                 colors: [Color(0xFF1C8EF9), Color(0xFF7755E1)],
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
@@ -203,15 +217,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               child: Text(
                                 'Chat',
                                 style: GoogleFonts.rubik(
+                                  fontSize: w * 0.04,
                                   fontWeight: FontWeight.normal,
                                   color: Colors.white,
                                 ),
                               ),
                             ),
-                            const SizedBox(width: 8),
+                            SizedBox(width: w * 0.02),
                             Image.asset(
                               'assets/icons/ic_chat_2.png',
-                              height: 16,
+                              height: h * 0.02,
                             ),
                           ],
                         ),
@@ -226,19 +241,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
           // 🔹 BAGIAN SCROLLABLE
           Expanded(
             child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
+              physics: BouncingScrollPhysics(),
               child: Padding(
-                padding: const EdgeInsets.only(bottom: 80),
+                padding: EdgeInsets.only(bottom: h * 0.1),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 20),
+                    SizedBox(height: h * 0.025),
 
                     // 🔸 Fitur-fitur
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      padding: EdgeInsets.symmetric(horizontal: w * 0.05),
                       child: SizedBox(
-                        height: 100, // Diperbesar agar tidak overflow
+                        height: h * 0.13, // Diperbesar agar tidak overflow
                         child: ListView(
                           scrollDirection: Axis.horizontal,
                           children: [
@@ -247,28 +262,36 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               'Riwayat\nBerobat',
                               const Color(0xFFB388FF),
                               const Color(0xFF7E57C2),
+                              onTap: () => Get.toNamed(AppScreens.medical),
                             ),
+
                             _buildFeatureItem(
                               'assets/icons/ic_jadwal.png',
                               'Lihat Jadwal\nPraktek',
                               const Color(0xFFA5D6A7),
                               const Color(0xFF43A047),
+                              onTap: () =>
+                                  Get.toNamed(AppScreens.poli_schedule),
                             ),
                             _buildFeatureItem(
                               'assets/icons/ic_deteksi_penyakit.png',
                               'Deteksi\nPenyakit',
                               const Color(0xFFEF9A9A),
                               const Color(0xFFD32F2F),
+                              onTap: () =>
+                                  Get.toNamed(AppScreens.disease_detection),
                             ),
                             _buildFeatureItem(
                               'assets/icons/ic_tanya_medigo.png',
                               'Tanya\nMediGo',
                               const Color(0xFF90CAF9),
                               const Color(0xFF1976D2),
+                              onTap: () =>
+                                  Get.toNamed(AppScreens.display_medigo),
                             ),
                             _buildFeatureItem(
                               'assets/icons/ic_KIB.png',
-                              'Kartu Indek\nBerobat',
+                              'Kartu Indeks\nBerobat',
                               const Color(0xFFFFF59D),
                               const Color(0xFFFBC02D),
                             ),
@@ -277,29 +300,27 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       ),
                     ),
 
-                    const SizedBox(height: 20),
+                    SizedBox(height: h * 0.02),
 
-                    // 🔹 KALENDER (custom)
                     _buildCalendarSection(),
 
-                    const SizedBox(height: 20),
+                    SizedBox(height: h * 0.035),
 
-                    // 🔸 Jadwal Praktik Dokter
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      padding: EdgeInsets.symmetric(horizontal: w * 0.04),
                       child: Row(
                         children: [
                           Text.rich(
                             TextSpan(
-                              text: 'Jadwal Praktik ',
-                              style: GoogleFonts.rubik(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 18,
+                              text: 'Jadwal Praktek ',
+                              style: GoogleFonts.inter(
+                                fontWeight: FontWeight.w700,
+                                fontSize: w * 0.05,
                               ),
                               children: [
                                 TextSpan(
                                   text: 'Hari Ini',
-                                  style: GoogleFonts.rubik(color: Colors.grey),
+                                  style: GoogleFonts.inter(color: Colors.grey),
                                 ),
                               ],
                             ),
@@ -308,7 +329,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           Text(
                             'Lihat Semua Jadwal',
                             style: GoogleFonts.rubik(
-                              fontSize: 14,
+                              fontSize: w * 0.04,
                               fontWeight: FontWeight.w500,
                               color: Color(0XFF7134FC),
                             ),
@@ -317,9 +338,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       ),
                     ),
 
-                    const SizedBox(height: 14),
+                    SizedBox(height: h * 0.025),
 
-                    // 🔸 List Jadwal Dokter
                     ...doctorSchedules
                         .map((item) => DoctorScheduleCard(schedule: item))
                         .toList(),
@@ -340,44 +360,63 @@ class _DashboardScreenState extends State<DashboardScreen> {
     Color borderColor, {
     VoidCallback? onTap,
   }) {
-    return Container(
-      width: 80,
-      margin: const EdgeInsets.only(right: 5),
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    final itemWidth = screenWidth * 0.23;
+    final iconSize = screenWidth * 0.17;
+    final paddingSize = screenWidth * 0.015;
+    final textSize = screenWidth * 0.032;
+    final spaceBetween = screenHeight * 0.008;
+
+    return SizedBox(
+      width: itemWidth,
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // 🔸 Ripple animation
           Material(
             color: Colors.transparent,
             shape: const CircleBorder(),
+            clipBehavior: Clip.antiAlias,
             child: InkWell(
-              borderRadius: BorderRadius.circular(100),
-              splashColor: borderColor.withOpacity(0.3),
-              highlightColor: borderColor.withOpacity(0.1),
-              onTap: onTap ?? () {},
-              child: Container(
-                height: 56,
-                width: 56,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: bgColor.withOpacity(0.15),
-                  border: Border.all(color: borderColor, width: 2),
-                  boxShadow: const [
-                    BoxShadow(color: Colors.white, blurRadius: 4),
-                  ],
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: Image.asset(iconPath, color: borderColor),
+              onTap: onTap,
+              customBorder: const CircleBorder(),
+              splashColor: borderColor.withOpacity(0.15),
+              highlightColor: borderColor.withOpacity(0.12),
+              child: Padding(
+                padding: EdgeInsets.all(paddingSize), // area ripple
+                child: Container(
+                  height: iconSize,
+                  width: iconSize,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white70,
+                    border: Border.all(color: borderColor, width: 2),
+                    boxShadow: [BoxShadow(color: bgColor, blurRadius: 5)],
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(iconSize * 0.25),
+                    child: Image.asset(iconPath, color: borderColor),
+                  ),
                 ),
               ),
             ),
           ),
-          const SizedBox(height: 6),
-          Text(
-            label,
-            textAlign: TextAlign.center,
-            style: GoogleFonts.rubik(fontSize: 12, fontWeight: FontWeight.w500),
+          SizedBox(height: spaceBetween),
+          Flexible(
+            child: Text(
+              label,
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: GoogleFonts.rubik(
+                fontSize: textSize,
+                fontWeight: FontWeight.w500,
+                color: Colors.black87,
+              ),
+            ),
           ),
         ],
       ),
@@ -421,12 +460,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
       }
     });
 
+    final w = MediaQuery.of(context).size.width;
+    final h = MediaQuery.of(context).size.height;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // 🔹 Header Bulan & Navigasi
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+          padding: EdgeInsets.symmetric(horizontal: w * 0.025),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -436,16 +478,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     currentWeekOffset--;
                   });
                 },
-                icon: const Icon(Icons.chevron_left, color: Color(0xFF7134FC)),
+                icon: Icon(Icons.chevron_left, color: Color(0xFF7134FC)),
                 style: IconButton.styleFrom(
                   backgroundColor: const Color(0xFFEEE6FF),
-                  padding: const EdgeInsets.all(6),
+                  padding: EdgeInsets.all(w * 0.015),
                 ),
               ),
               Text(
                 monthLabel,
                 style: GoogleFonts.rubik(
-                  fontSize: 18,
+                  fontSize: w * 0.055,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -458,22 +500,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 icon: const Icon(Icons.chevron_right, color: Color(0xFF7134FC)),
                 style: IconButton.styleFrom(
                   backgroundColor: const Color(0xFFEEE6FF),
-                  padding: const EdgeInsets.all(6),
+                  padding: EdgeInsets.all(w * 0.015),
                 ),
               ),
             ],
           ),
         ),
 
-        const SizedBox(height: 8),
+        SizedBox(height: h * 0.008),
 
         // 🔹 Deretan tanggal
         SizedBox(
-          height: 100,
+          height: h * 0.12,
           child: ListView.builder(
             controller: scrollController,
             scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(horizontal: 12),
+            padding: EdgeInsets.symmetric(horizontal: w * 0.025),
             itemCount: weekDays.length,
             itemBuilder: (context, index) {
               final day = weekDays[index];
@@ -483,8 +525,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   day.year == today.year;
 
               return Container(
-                width: 70,
-                margin: const EdgeInsets.symmetric(horizontal: 5),
+                width: w * 0.2,
+                margin: EdgeInsets.symmetric(horizontal: w * 0.010),
                 decoration: BoxDecoration(
                   color: isToday ? const Color(0xFF7134FC) : Colors.white,
                   borderRadius: BorderRadius.circular(18),
@@ -493,13 +535,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       BoxShadow(
                         color: const Color(0xFF7134FC).withOpacity(0.4),
                         blurRadius: 6,
-                        offset: const Offset(0, 3),
                       )
                     else
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.1),
                         blurRadius: 4,
-                        offset: const Offset(0, 2),
                       ),
                   ],
                 ),
@@ -510,26 +550,26 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       _getDayName(day),
                       style: GoogleFonts.rubik(
                         color: isToday ? Colors.white : Colors.grey.shade600,
-                        fontSize: 13,
+                        fontSize: w * 0.04,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    const SizedBox(height: 6),
+                    SizedBox(height: h * 0.008),
                     Text(
                       '${day.day}',
                       style: GoogleFonts.rubik(
                         color: isToday ? Colors.white : Colors.black,
-                        fontSize: 20,
+                        fontSize: w * 0.06,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                     if (isToday)
-                      const Padding(
-                        padding: EdgeInsets.only(top: 4),
+                      Padding(
+                        padding: EdgeInsets.only(top: h * 0.006),
                         child: Icon(Icons.circle, size: 6, color: Colors.white),
                       )
                     else
-                      const SizedBox(height: 10),
+                      SizedBox(height: h * 0.012),
                   ],
                 ),
               );

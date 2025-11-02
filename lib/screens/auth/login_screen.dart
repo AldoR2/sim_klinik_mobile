@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sim_klinik_mobile/controllers/auth/login_controller.dart';
+import 'package:sim_klinik_mobile/screens/reusables/button_reuse.dart';
 import 'package:sim_klinik_mobile/screens/reusables/header_reuse.dart';
 import 'package:sim_klinik_mobile/screens/reusables/textfield_reuse.dart';
 
@@ -69,53 +70,8 @@ class LoginScreen extends StatelessWidget {
                   SizedBox(height: 20),
                   SizedBox(
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        SizedBox(
-                          child: Row(
-                            children: [
-                              Material(
-                                color: Colors.transparent,
-                                child: InkWell(
-                                  onTap: () {
-                                    print("Circle clicked!");
-                                  },
-                                  splashColor: Colors.black.withValues(
-                                    alpha: 0.2,
-                                  ),
-                                  customBorder: CircleBorder(),
-                                  child: Ink(
-                                    height: 28,
-                                    width: 28,
-                                    decoration: BoxDecoration(
-                                      color: Color(0xff2088FF),
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Center(
-                                      child: Container(
-                                        height: 17,
-                                        width: 17,
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          shape: BoxShape.circle,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: 3),
-                              Text(
-                                "Remember Me",
-                                style: GoogleFonts.rubik(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 15,
-                                  color: Colors.black.withValues(alpha: 0.4),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
                         GestureDetector(
                           onTap: () {
                             Get.toNamed("/auth/forgetPassword");
@@ -133,55 +89,13 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 30),
-                  DecoratedBox(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [Color(0xff2088FF), Color(0xff7134FC)],
-                      ),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          (!_controller.isSnackbarOpen.value)
-                              ? _controller.login()
-                              : null;
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          foregroundColor: Color(0xff7134FC),
-                          shadowColor: Colors.transparent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          fixedSize: Size(
-                            MediaQuery.of(context).size.width,
-                            40,
-                          ),
-                          alignment: Alignment.center,
-                        ),
-                        child: Text(
-                          "Login",
-                          style: GoogleFonts.rubik(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 18,
-                            foreground: Paint()
-                              ..shader =
-                                  const LinearGradient(
-                                    colors: [
-                                      Color(0xff7134FC),
-                                      Color(0xff2088FF),
-                                    ],
-                                    begin: Alignment.bottomLeft,
-                                    end: Alignment.topRight,
-                                  ).createShader(
-                                    const Rect.fromLTWH(0, 0, 200, 50),
-                                  ),
-                          ),
-                        ),
-                      ),
-                    ),
+                  ButtonReuse(
+                    function: () {
+                      (!_controller.isSnackbarOpen.value)
+                          ? _controller.login()
+                          : null;
+                    },
+                    text: "Login",
                   ),
                   SizedBox(height: 20),
                   Row(

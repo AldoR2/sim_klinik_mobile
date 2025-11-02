@@ -4,6 +4,6 @@ import 'package:sim_klinik_mobile/controllers/auth/register_account_verification
 class RegisterAccountVerificationBinding extends Bindings {
   @override
   void dependencies() {
-    Get.put(RegisterAccountVerificationController);
+    Get.put(RegisterAccountVerificationController());
   }
 }

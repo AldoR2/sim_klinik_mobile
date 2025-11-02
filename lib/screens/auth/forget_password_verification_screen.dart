@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pin_input_text_field/pin_input_text_field.dart';
+import 'package:sim_klinik_mobile/screens/reusables/button_reuse.dart';
 import 'package:sim_klinik_mobile/screens/reusables/header_reuse.dart';
 
 class ForgetPasswordVerificationScreen extends StatelessWidget {
@@ -88,44 +89,11 @@ class ForgetPasswordVerificationScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 40),
-                DecoratedBox(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Color(0xff2088FF), Color(0xff7134FC)],
-                    ),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Get.toNamed("/auth/forgetPassword/change");
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        foregroundColor: Color(0xff7134FC),
-                        shadowColor: Colors.transparent,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        fixedSize: Size(MediaQuery.of(context).size.width, 40),
-                        alignment: Alignment.center,
-                      ),
-                      child: Text(
-                        "Selanjutnya",
-                        style: GoogleFonts.rubik(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
-                          foreground: Paint()
-                            ..shader = const LinearGradient(
-                              colors: [Color(0xff7134FC), Color(0xff2088FF)],
-                              begin: Alignment.bottomLeft,
-                              end: Alignment.topRight,
-                            ).createShader(const Rect.fromLTWH(0, 0, 200, 50)),
-                        ),
-                      ),
-                    ),
-                  ),
+                ButtonReuse(
+                  function: () {
+                    Get.toNamed("/auth/forgetPassword/change");
+                  },
+                  text: "Selanjutnya",
                 ),
                 SizedBox(height: 20),
                 Row(

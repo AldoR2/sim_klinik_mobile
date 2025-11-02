@@ -32,11 +32,11 @@ class LoginController extends GetxController {
   }
 
   void checkStatusLogin() {
-    final statusUser = _box.read("logged");
+    // final statusUser = _box.read("logged");
 
-    if (statusUser == true) {
-      Get.offAllNamed("/base");
-    }
+    // if (statusUser == true) {
+    //   Get.offAllNamed("/base");
+    // }
   }
 
   void login() async {
@@ -77,7 +77,6 @@ class LoginController extends GetxController {
     final result = await loginService.loginPasien(username, password);
 
     if (result.status == "success") {
-      log.d("tessssss");
       Get.back();
       pasien.value = result;
       _box.write("logged", true);

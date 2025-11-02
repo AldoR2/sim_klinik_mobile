@@ -55,7 +55,7 @@ class CustomHeader extends StatelessWidget {
               title,
               textAlign: TextAlign.center,
               style: GoogleFonts.rubik(
-                fontSize: width * 0.052, // responsif
+                fontSize: width * 0.06, // responsif
                 fontWeight: FontWeight.w600,
                 color: Colors.white,
               ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sim_klinik_mobile/screens/features/models/schedule/detail_schedule_model.dart';
+import 'package:sim_klinik_mobile/screens/features/models/home/schedule/detail_schedule_model.dart';
 
 class DetailScheduleCard extends StatelessWidget {
   final DetailScheduleModel doctor;

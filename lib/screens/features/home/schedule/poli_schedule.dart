@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sim_klinik_mobile/screens/features/models/schedule/poli_model.dart';
-import 'package:sim_klinik_mobile/screens/features/widgets/poli_name_card.dart';
+import 'package:sim_klinik_mobile/screens/features/models/home/schedule/poli_model.dart';
+import 'package:sim_klinik_mobile/screens/features/widgets/home/poli_name_card.dart';
 import 'package:sim_klinik_mobile/screens/reusables/custom_header.dart';
 
 class PilihPoliScreen extends StatefulWidget {

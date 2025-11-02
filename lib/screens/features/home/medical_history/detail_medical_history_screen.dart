@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sim_klinik_mobile/screens/features/models/medical_history/detail_medical_history_model.dart';
+import 'package:sim_klinik_mobile/screens/features/models/home/medical_history/detail_medical_history_model.dart';
 
 class DetailRiwayatScreen extends StatelessWidget {
   final RiwayatDetailModel data;
@@ -9,11 +9,17 @@ class DetailRiwayatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: const Color(0xFFE8F0FF),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          padding: EdgeInsets.symmetric(
+            horizontal: width * 0.035,
+            vertical: height * 0.015,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -22,37 +28,37 @@ class DetailRiwayatScreen extends StatelessWidget {
                   InkWell(
                     onTap: () => Navigator.pop(context),
                     child: Container(
-                      padding: const EdgeInsets.all(8),
+                      padding: EdgeInsets.all(width * 0.025),
                       decoration: BoxDecoration(
                         color: Color(0xFF7134FC).withOpacity(0.15),
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.arrow_back_ios_new,
-                        size: 16,
+                        size: width * 0.045,
                         color: Color(0xFF7134FC),
                       ),
                     ),
                   ),
-                  const SizedBox(width: 10),
+                  SizedBox(width: width * 0.035),
                   Text(
                     "Detail Riwayat",
                     style: GoogleFonts.rubik(
-                      fontSize: 20,
+                      fontSize: width * 0.055,
                       fontWeight: FontWeight.w600,
-                      color: const Color(0xFF7134FC),
+                      color: Color(0xFF7134FC),
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: height * 0.025),
 
               // Status Pemesanan
               Container(
                 width: double.infinity,
-                padding: const EdgeInsets.symmetric(
-                  vertical: 18,
-                  horizontal: 18,
+                padding: EdgeInsets.symmetric(
+                  vertical: height * 0.02,
+                  horizontal: width * 0.035,
                 ),
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -61,7 +67,7 @@ class DetailRiwayatScreen extends StatelessWidget {
                     BoxShadow(
                       color: Colors.black.withOpacity(0.05),
                       blurRadius: 8,
-                      offset: const Offset(0, 3),
+                      offset: Offset(0, 3),
                     ),
                   ],
                 ),
@@ -70,16 +76,16 @@ class DetailRiwayatScreen extends StatelessWidget {
                     Text(
                       "PEMESANAN BERHASIL",
                       style: GoogleFonts.rubik(
-                        fontSize: 20,
+                        fontSize: width * 0.05,
                         color: Color(0xFF7134FC),
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    Divider(height: 12),
+                    Divider(height: height * 0.012),
                     Text(
                       "PEMESANAN ID : #${data.idPemesanan}",
                       style: GoogleFonts.rubik(
-                        fontSize: 15,
+                        fontSize: width * 0.04,
                         color: Colors.black87,
                       ),
                     ),
@@ -87,20 +93,20 @@ class DetailRiwayatScreen extends StatelessWidget {
                 ),
               ),
 
-              const SizedBox(height: 25),
+              SizedBox(height: height * 0.035),
               Text(
                 "KETERANGAN",
                 style: GoogleFonts.rubik(
-                  fontSize: 17,
+                  fontSize: width * 0.045,
                   fontWeight: FontWeight.w600,
-                  color: const Color(0xFF5126B4),
+                  color: Color(0xFF5126B4),
                 ),
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: height * 0.015),
 
               Container(
                 width: double.infinity,
-                padding: const EdgeInsets.all(18),
+                padding: EdgeInsets.all(width * 0.04),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(14),
@@ -108,17 +114,17 @@ class DetailRiwayatScreen extends StatelessWidget {
                     BoxShadow(
                       color: Colors.black.withOpacity(0.05),
                       blurRadius: 8,
-                      offset: const Offset(0, 4),
+                      offset: Offset(0, 4),
                     ),
                   ],
                 ),
                 child: Column(
                   children: [
-                    _buildRow("Nama Pasien", data.namapasien),
-                    _buildRow("Poli", data.namapoli),
-                    _buildRow("Dokter", data.namadokter),
-                    _buildRow("Tanggal", data.tanggal),
-                    _buildRow("Jam", data.jam),
+                    _buildRow(context, "Nama Pasien", data.namapasien),
+                    _buildRow(context, "Poli", data.namapoli),
+                    _buildRow(context, "Dokter", data.namadokter),
+                    _buildRow(context, "Tanggal", data.tanggal),
+                    _buildRow(context, "Jam", data.jam),
 
                     // Button Lihat Diagnosa
                     Row(
@@ -126,13 +132,13 @@ class DetailRiwayatScreen extends StatelessWidget {
                       children: [
                         Text(
                           "Hasil Diagnosa",
-                          style: GoogleFonts.rubik(fontSize: 15),
+                          style: GoogleFonts.rubik(fontSize: width * 0.04),
                         ),
                         ElevatedButton(
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF7134FC),
-                            minimumSize: const Size(130, 32),
+                            backgroundColor: Color(0xFF7134FC),
+                            minimumSize: Size(width * 0.012, width * 0.08),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
@@ -140,14 +146,14 @@ class DetailRiwayatScreen extends StatelessWidget {
                           child: Text(
                             "Lihat Hasil Diagnosa",
                             style: GoogleFonts.rubik(
-                              fontSize: 13,
+                              fontSize: width * 0.035,
                               color: Colors.white,
                             ),
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 15),
+                    SizedBox(height: height * 0.02),
 
                     Row(
                       children: [
@@ -156,13 +162,13 @@ class DetailRiwayatScreen extends StatelessWidget {
                             onPressed: () {},
                             icon: Icon(
                               Icons.download,
-                              size: 18,
+                              size: width * 0.05,
                               color: Colors.white,
                             ),
                             label: Text(
                               "Download PDF",
                               style: GoogleFonts.rubik(
-                                fontSize: 15,
+                                fontSize: width * 0.04,
                                 color: Colors.white,
                               ),
                             ),
@@ -171,32 +177,36 @@ class DetailRiwayatScreen extends StatelessWidget {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(14),
                               ),
-                              padding: const EdgeInsets.symmetric(vertical: 12),
+                              padding: EdgeInsets.symmetric(
+                                vertical: height * 0.015,
+                              ),
                             ),
                           ),
                         ),
-                        const SizedBox(width: 12),
+                        SizedBox(width: width * 0.03),
                         Expanded(
                           child: OutlinedButton.icon(
                             onPressed: () {},
-                            icon: const Icon(
+                            icon: Icon(
                               Icons.share,
-                              size: 18,
+                              size: width * 0.05,
                               color: Color(0xFF7134FC),
                             ),
                             label: Text(
                               "Bagikan",
                               style: GoogleFonts.rubik(
-                                fontSize: 15,
-                                color: const Color(0xFF3D4EFF),
+                                fontSize: width * 0.045,
+                                color: Color(0xFF3D4EFF),
                               ),
                             ),
                             style: OutlinedButton.styleFrom(
-                              side: const BorderSide(color: Color(0xFF3D4EFF)),
+                              side: BorderSide(color: Color(0xFF3D4EFF)),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(14),
                               ),
-                              padding: const EdgeInsets.symmetric(vertical: 12),
+                              padding: EdgeInsets.symmetric(
+                                vertical: height * 0.015,
+                              ),
                             ),
                           ),
                         ),
@@ -205,7 +215,7 @@ class DetailRiwayatScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: height * 0.02),
             ],
           ),
         ),
@@ -213,19 +223,37 @@ class DetailRiwayatScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildRow(String label, String value) {
+  Widget _buildRow(BuildContext context, String label, String value) {
+    final width = MediaQuery.of(context).size.width;
+    final isTablet = width > 600;
+
     return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
+      padding: EdgeInsets.only(bottom: isTablet ? 16 : 12),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label, style: GoogleFonts.rubik(fontSize: 15)),
-          Flexible(
+          // Label
+          Expanded(
+            flex: 4,
+            child: Text(
+              label,
+              style: GoogleFonts.rubik(
+                fontSize: isTablet ? 17 : 14.5,
+                color: Colors.black87,
+              ),
+            ),
+          ),
+
+          // Value
+          Expanded(
+            flex: 6,
             child: Text(
               value,
               textAlign: TextAlign.right,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
               style: GoogleFonts.rubik(
-                fontSize: 15,
+                fontSize: isTablet ? 17 : 15,
                 color: const Color(0xFF7134FC),
                 fontWeight: FontWeight.w500,
               ),

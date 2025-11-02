@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sim_klinik_mobile/screens/features/account/profile_screen.dart';
 import 'dashboard_screen.dart';
 
 class BaseScreen extends StatefulWidget {
@@ -10,18 +12,17 @@ class BaseScreen extends StatefulWidget {
 }
 
 class _BaseScreenState extends State<BaseScreen> {
-  int _selectedIndex = 0;
+  // Gunakan RxInt agar bisa di-observe dengan Obx
+  final RxInt _selectedIndex = 0.obs;
 
-  final List<Widget> _pages = const [
+  final List<Widget> _pages = [
     DashboardScreen(),
     Center(child: Text('Tambah Data (akan datang)')),
-    Center(child: Text('Profil Pengguna (akan datang)')),
+    ProfileScreen(), // <- Masukkan langsung di sini
   ];
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    _selectedIndex.value = index;
   }
 
   @override
@@ -32,16 +33,12 @@ class _BaseScreenState extends State<BaseScreen> {
     return Scaffold(
       extendBody: true,
       resizeToAvoidBottomInset: true,
-      body: Column(
-        children: [
-          // 🔹 Bagian utama layar
-          Expanded(child: _pages[_selectedIndex]),
-        ],
-      ),
+
+      body: Obx(() => _pages[_selectedIndex.value]),
 
       // 🔹 Floating Action Button
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _onItemTapped(1),
+        onPressed: () => _selectedIndex.value = 1,
         backgroundColor: const Color(0xFF7134FC),
         shape: const CircleBorder(),
         child: Image.asset(
@@ -62,26 +59,31 @@ class _BaseScreenState extends State<BaseScreen> {
         color: Colors.white,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.08),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              _buildBottomItem(
-                iconPath: 'assets/icons/ic_home.png',
-                iconPathClicked: 'assets/icons/ic_home_clicked.png',
-                label: 'Beranda',
-                index: 0,
-                screenWidth: screenWidth,
-              ),
-              _buildBottomItem(
-                iconPath: 'assets/icons/ic_account.png',
-                iconPathClicked: 'assets/icons/ic_account_clicked.png',
-                label: 'Akun',
-                index: 2,
-                screenWidth: screenWidth,
-              ),
-            ],
-          ),
+          child: Obx(() {
+            final currentIndex = _selectedIndex.value;
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                _buildBottomItem(
+                  iconPath: 'assets/icons/ic_home.png',
+                  iconPathClicked: 'assets/icons/ic_home_clicked.png',
+                  label: 'Beranda',
+                  index: 0,
+                  currentIndex: currentIndex,
+                  screenWidth: screenWidth,
+                ),
+                _buildBottomItem(
+                  iconPath: 'assets/icons/ic_account.png',
+                  iconPathClicked: 'assets/icons/ic_account_clicked.png',
+                  label: 'Akun',
+                  index: 2,
+                  currentIndex: currentIndex,
+                  screenWidth: screenWidth,
+                ),
+              ],
+            );
+          }),
         ),
       ),
     );
@@ -92,9 +94,10 @@ class _BaseScreenState extends State<BaseScreen> {
     required String iconPathClicked,
     required String label,
     required int index,
+    required int currentIndex,
     required double screenWidth,
   }) {
-    final isActive = _selectedIndex == index;
+    final isActive = currentIndex == index;
 
     return InkWell(
       borderRadius: BorderRadius.circular(12),

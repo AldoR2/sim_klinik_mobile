@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../models/medical_history/medical_history_model.dart';
+import '../../models/home/medical_history/medical_history_model.dart';
 
 class MedicalHistoryCard extends StatelessWidget {
   final MedicalHistoryModel data;

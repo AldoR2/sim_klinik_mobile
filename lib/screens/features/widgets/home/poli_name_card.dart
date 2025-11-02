@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sim_klinik_mobile/routes/app_screens.dart';
-import 'package:sim_klinik_mobile/screens/features/models/schedule/poli_model.dart';
+import 'package:sim_klinik_mobile/screens/features/models/home/schedule/poli_model.dart';
 
 class PoliCard extends StatelessWidget {
   final PoliModel poli;

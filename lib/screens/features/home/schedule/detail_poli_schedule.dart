@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sim_klinik_mobile/screens/features/models/schedule/detail_schedule_model.dart';
-import 'package:sim_klinik_mobile/screens/features/widgets/detail_schedule_card.dart';
+import 'package:sim_klinik_mobile/screens/features/models/home/schedule/detail_schedule_model.dart';
+import 'package:sim_klinik_mobile/screens/features/widgets/home/detail_schedule_card.dart';
 import 'package:sim_klinik_mobile/screens/reusables/custom_header.dart';
 
 class JadwalPoliScreen extends StatefulWidget {
@@ -149,7 +149,7 @@ class _JadwalPoliScreenState extends State<JadwalPoliScreen> {
                       onChanged: filterSearch,
                       style: GoogleFonts.rubik(fontSize: width * 0.04),
                       decoration: InputDecoration(
-                        hintText: "Cari dokter",
+                        hintText: "Cari berdasarkan nama dokter...",
                         hintStyle: GoogleFonts.rubik(
                           fontSize: width * 0.04,
                           color: Colors.grey.shade600,

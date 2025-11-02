@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../models/doctor_schedule_model.dart';
-import '../widgets/doctor_schedule_card.dart';
+import '../models/home/doctor_schedule_model.dart';
+import '../widgets/home/doctor_schedule_card.dart';
 import 'package:get/get.dart';
 import 'package:sim_klinik_mobile/routes/app_screens.dart';
 
@@ -94,7 +93,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
       backgroundColor: Color(0xFFE7F0FB),
       body: Column(
         children: [
-          // 🔹 HEADER
           Container(
             width: double.infinity,
             padding: EdgeInsets.fromLTRB(
@@ -117,25 +115,26 @@ class _DashboardScreenState extends State<DashboardScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // 🔸 Logo dan ikon
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Image.asset('assets/medigo_logo_4.png', height: h * 0.08),
+                    Image.asset('assets/medigo_logo_5.png', height: h * 0.05),
                     Row(
                       children: [
                         IconButton(
                           onPressed: () {},
-                          icon: Image.asset(
-                            'assets/icons/ic_notification.png',
-                            height: h * 0.03,
+                          icon: Icon(
+                            Icons.notifications,
+                            color: Colors.white,
+                            size: h * 0.035,
                           ),
                         ),
                         IconButton(
                           onPressed: () {},
-                          icon: Image.asset(
-                            'assets/icons/ic_settings.png',
-                            height: h * 0.03,
+                          icon: Icon(
+                            Icons.settings,
+                            color: Colors.white,
+                            size: h * 0.035,
                           ),
                         ),
                       ],
@@ -210,7 +209,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         child: Row(
                           children: [
                             ShaderMask(
-                              shaderCallback: (bounds) => const LinearGradient(
+                              shaderCallback: (bounds) => LinearGradient(
                                 colors: [Color(0xFF1C8EF9), Color(0xFF7755E1)],
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
@@ -341,7 +340,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
                     SizedBox(height: h * 0.025),
 
-                    // 🔸 List Jadwal Dokter
                     ...doctorSchedules
                         .map((item) => DoctorScheduleCard(schedule: item))
                         .toList(),

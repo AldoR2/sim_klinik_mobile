@@ -66,7 +66,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               fontSubtitle: fontSubtitle,
               basePadding: basePadding,
               onTap: () {
-                Get.toNamed(AppScreens.account_settings);
+                Get.toNamed("account_settings");
               },
             ),
             _buildSettingItem(
@@ -138,7 +138,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               fontSubtitle: fontSubtitle,
               basePadding: basePadding,
               onTap: () {
-                Get.toNamed(AppScreens.assistance);
+                Get.toNamed("assistance");
               },
             ),
 

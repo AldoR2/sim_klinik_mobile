@@ -36,11 +36,17 @@ class _LoadingPopupState extends State<LoadingPopup>
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
         ),
-        child: SizedBox(
-          width: 70,
-          height: 70,
+        child: ShaderMask(
+          shaderCallback: (Rect bounds) {
+            return LinearGradient(
+              colors: [Color(0xFF7134FC), Color(0xFF3E8DF4)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ).createShader(bounds);
+          },
+          blendMode: BlendMode.srcIn, // menjaga bentuk animasi
           child: SpinKitCubeGrid(
-            color: Color(0xFF7134FC),
+            color: Colors.white, // tetap gunakan warna solid
             size: 50.0,
             controller: _controller,
           ),

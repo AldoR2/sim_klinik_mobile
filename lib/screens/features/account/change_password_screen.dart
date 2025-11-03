@@ -87,9 +87,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   // 🔹 Judul
                   Text(
                     'Perbarui Password',
-                    style: GoogleFonts.rubik(
+                    style: GoogleFonts.nunito(
                       fontSize: w * 0.06,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w800,
                       color: Colors.black,
                     ),
                   ),
@@ -97,8 +97,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   Text(
                     'Masukkan kata sandi saat ini dan kata sandi baru Anda.',
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.rubik(
-                      fontSize: w * 0.04,
+                    style: GoogleFonts.nunito(
+                      fontSize: w * 0.045,
                       color: Colors.black.withOpacity(0.4),
                     ),
                   ),
@@ -150,7 +150,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                         padding: EdgeInsets.symmetric(vertical: h * 0),
                         child: Text(
                           "Simpan",
-                          style: GoogleFonts.rubik(
+                          style: GoogleFonts.nunito(
                             color: Colors.white,
                             fontSize: w * 0.055,
                             fontWeight: FontWeight.w500,
@@ -181,10 +181,10 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         child: RichText(
           textAlign: TextAlign.left,
           text: TextSpan(
-            style: GoogleFonts.rubik(
+            style: GoogleFonts.nunito(
               color: Colors.black,
               fontSize: w * 0.04,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w700,
             ),
             children: [
               TextSpan(text: mainText),

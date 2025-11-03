@@ -57,9 +57,10 @@ class MedicalHistoryCard extends StatelessWidget {
                     Flexible(
                       child: Text(
                         data.pemesanan,
-                        style: GoogleFonts.rubik(
+                        style: GoogleFonts.nunito(
                           fontSize: 11 / scale,
                           color: Colors.grey[700],
+                          fontWeight: FontWeight.w600,
                         ),
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -94,9 +95,9 @@ class MedicalHistoryCard extends StatelessWidget {
                 onPressed: onDetailPressed,
                 child: Text(
                   "Lihat Detail",
-                  style: GoogleFonts.rubik(
+                  style: GoogleFonts.nunito(
                     fontSize: 15 / scale,
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.w800,
                     color: Colors.white,
                   ),
                 ),

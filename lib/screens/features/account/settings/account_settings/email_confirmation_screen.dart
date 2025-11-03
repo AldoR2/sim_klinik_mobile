@@ -23,8 +23,7 @@ class _EmailConfirmationScreenState extends State<EmailConfirmationScreen> {
       _isUnderlined = true;
     });
 
-    // Navigasi langsung ke halaman OTP
-    Get.toNamed(AppScreens.otp_verification);
+    Get.toNamed("otp_verification");
   }
 
   @override
@@ -80,10 +79,9 @@ class _EmailConfirmationScreenState extends State<EmailConfirmationScreen> {
                             ],
                           ),
                           child: Center(
-                            child: Icon(
-                              Icons.email_outlined,
-                              size: w * 0.18,
-                              color: const Color(0xFF7134FC),
+                            child: Image.asset(
+                              "assets/icons/ic_email.png",
+                              height: h * 0.07,
                             ),
                           ),
                         ),
@@ -95,9 +93,9 @@ class _EmailConfirmationScreenState extends State<EmailConfirmationScreen> {
                   // 🔹 Judul
                   Text(
                     'Konfirmasi Email',
-                    style: GoogleFonts.rubik(
+                    style: GoogleFonts.nunito(
                       fontSize: w * 0.06,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w800,
                       color: Colors.black,
                     ),
                   ),
@@ -105,7 +103,7 @@ class _EmailConfirmationScreenState extends State<EmailConfirmationScreen> {
                   Text(
                     'Email membantu anda untuk mengelola akun, email tidak dapat dilihat oleh pengguna lain.',
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.rubik(
+                    style: GoogleFonts.nunito(
                       fontSize: w * 0.04,
                       color: Colors.black.withOpacity(0.5),
                     ),
@@ -122,9 +120,10 @@ class _EmailConfirmationScreenState extends State<EmailConfirmationScreen> {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       "Alamat Email",
-                      style: GoogleFonts.rubik(
+                      style: GoogleFonts.nunito(
                         fontSize: w * 0.045,
-                        color: const Color(0xFF7134FC),
+                        color: Color(0xFF7134FC),
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
                   ),
@@ -152,14 +151,14 @@ class _EmailConfirmationScreenState extends State<EmailConfirmationScreen> {
                         Expanded(
                           child: TextField(
                             controller: emailController,
-                            style: GoogleFonts.rubik(
+                            style: GoogleFonts.nunito(
                               fontSize: w * 0.04,
                               color: Colors.grey[700],
                             ),
                             decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: "Email anda",
-                              hintStyle: GoogleFonts.rubik(
+                              hintStyle: GoogleFonts.nunito(
                                 color: Colors.grey[400],
                               ),
                             ),
@@ -185,7 +184,7 @@ class _EmailConfirmationScreenState extends State<EmailConfirmationScreen> {
                         child: RichText(
                           text: TextSpan(
                             text: "Apakah ini masih email anda? ",
-                            style: GoogleFonts.rubik(
+                            style: GoogleFonts.nunito(
                               fontSize: w * 0.035,
                               color: Colors.black.withOpacity(0.6),
                             ),
@@ -196,10 +195,10 @@ class _EmailConfirmationScreenState extends State<EmailConfirmationScreen> {
                                   onTap: _onConfirmTap,
                                   child: Text(
                                     "konfirmasi",
-                                    style: GoogleFonts.rubik(
-                                      fontSize: w * 0.035,
+                                    style: GoogleFonts.nunito(
+                                      fontSize: w * 0.04,
                                       color: const Color(0xFF7134FC),
-                                      fontWeight: FontWeight.w500,
+                                      fontWeight: FontWeight.w700,
                                       decoration: _isUnderlined
                                           ? TextDecoration.underline
                                           : TextDecoration.none,

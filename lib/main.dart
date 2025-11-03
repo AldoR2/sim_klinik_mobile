@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: "MediGo",
-      initialRoute: AppScreens.base,
+      initialRoute: "/",
       getPages: AppScreens.routes,
     );
   }

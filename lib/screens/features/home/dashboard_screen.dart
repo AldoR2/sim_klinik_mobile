@@ -144,18 +144,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 SizedBox(height: h * 0.025),
                 Text(
                   'Halo, Izzul!',
-                  style: GoogleFonts.rubik(
+                  style: GoogleFonts.nunito(
                     fontSize: w * 0.065,
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.w800,
                     color: Colors.white,
                   ),
                 ),
                 SizedBox(height: h * 0.005),
                 Text(
                   'Semoga harimu menyenangkan!',
-                  style: GoogleFonts.rubik(
+                  style: GoogleFonts.nunito(
                     fontSize: w * 0.045,
-                    fontWeight: FontWeight.w300,
+                    fontWeight: FontWeight.w400,
                     color: Colors.white,
                   ),
                 ),
@@ -180,17 +180,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           children: [
                             Text(
                               'Tanya MediGo',
-                              style: GoogleFonts.rubik(
+                              style: GoogleFonts.nunito(
                                 fontSize: w * 0.045,
-                                fontWeight: FontWeight.w600,
+                                fontWeight: FontWeight.w700,
                                 color: Colors.white,
                               ),
                             ),
                             Text(
                               'Tanyakan seputar klinik kami',
-                              style: GoogleFonts.rubik(
+                              style: GoogleFonts.nunito(
                                 fontSize: w * 0.037,
-                                fontWeight: FontWeight.w300,
+                                fontWeight: FontWeight.w400,
                                 color: Colors.white,
                               ),
                             ),
@@ -216,7 +216,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               ).createShader(bounds),
                               child: Text(
                                 'Chat',
-                                style: GoogleFonts.rubik(
+                                style: GoogleFonts.nunito(
                                   fontSize: w * 0.04,
                                   fontWeight: FontWeight.normal,
                                   color: Colors.white,
@@ -262,7 +262,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               'Riwayat\nBerobat',
                               const Color(0xFFB388FF),
                               const Color(0xFF7E57C2),
-                              onTap: () => Get.toNamed(AppScreens.medical),
+                              onTap: () => Get.toNamed("/home/medical_history/medical_history"),
                             ),
 
                             _buildFeatureItem(
@@ -271,7 +271,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               const Color(0xFFA5D6A7),
                               const Color(0xFF43A047),
                               onTap: () =>
-                                  Get.toNamed(AppScreens.poli_schedule),
+                                  Get.toNamed("/home/schedule/poli_schedule"),
                             ),
                             _buildFeatureItem(
                               'assets/icons/ic_deteksi_penyakit.png',
@@ -279,7 +279,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               const Color(0xFFEF9A9A),
                               const Color(0xFFD32F2F),
                               onTap: () =>
-                                  Get.toNamed(AppScreens.disease_detection),
+                                  Get.toNamed("disease_detection"),
                             ),
                             _buildFeatureItem(
                               'assets/icons/ic_tanya_medigo.png',
@@ -287,7 +287,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               const Color(0xFF90CAF9),
                               const Color(0xFF1976D2),
                               onTap: () =>
-                                  Get.toNamed(AppScreens.display_medigo),
+                                  Get.toNamed("display_medigo"),
                             ),
                             _buildFeatureItem(
                               'assets/icons/ic_KIB.png',
@@ -328,9 +328,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           Spacer(),
                           Text(
                             'Lihat Semua Jadwal',
-                            style: GoogleFonts.rubik(
+                            style: GoogleFonts.nunito(
                               fontSize: w * 0.04,
-                              fontWeight: FontWeight.w500,
+                              fontWeight: FontWeight.w600,
                               color: Color(0XFF7134FC),
                             ),
                           ),
@@ -411,9 +411,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
               textAlign: TextAlign.center,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: GoogleFonts.rubik(
+              style: GoogleFonts.nunito(
                 fontSize: textSize,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w700,
                 color: Colors.black87,
               ),
             ),
@@ -486,9 +486,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
               Text(
                 monthLabel,
-                style: GoogleFonts.rubik(
+                style: GoogleFonts.nunito(
                   fontSize: w * 0.055,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.w800,
                 ),
               ),
               IconButton(
@@ -548,7 +548,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   children: [
                     Text(
                       _getDayName(day),
-                      style: GoogleFonts.rubik(
+                      style: GoogleFonts.nunito(
                         color: isToday ? Colors.white : Colors.grey.shade600,
                         fontSize: w * 0.04,
                         fontWeight: FontWeight.w500,
@@ -557,7 +557,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     SizedBox(height: h * 0.008),
                     Text(
                       '${day.day}',
-                      style: GoogleFonts.rubik(
+                      style: GoogleFonts.nunito(
                         color: isToday ? Colors.white : Colors.black,
                         fontSize: w * 0.06,
                         fontWeight: FontWeight.w700,

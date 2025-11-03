@@ -56,7 +56,6 @@ class _PilihPoliScreenState extends State<PilihPoliScreen> {
                   poli: poli,
                   color: poli.color,
                   onTap: () {
-                    // TODO: arahkan ke halaman jadwal detail poli
                     debugPrint("Klik: ${poli.namaPoli}");
                   },
                   height: screenHeight * 0.11, // proporsional dengan layar

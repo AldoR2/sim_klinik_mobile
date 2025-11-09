@@ -40,7 +40,7 @@ class PoliCard extends StatelessWidget {
           shadowColor: Colors.black.withOpacity(0.08),
           child: InkWell(
             borderRadius: BorderRadius.circular(16),
-            onTap: () => Get.toNamed(AppScreens.detail_poli_schedule),
+            // onTap: () => Get.toNamed(AppScreens.detail_poli_schedule),
             splashColor: color.withOpacity(0.15),
             highlightColor: color.withOpacity(0.08),
             child: Container(

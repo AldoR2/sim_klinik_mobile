@@ -53,7 +53,7 @@ class PengaturanAkunScreen extends StatelessWidget {
             fontTitle: fontTitle,
             basePadding: basePadding,
             onTap: () {
-              Get.toNamed(AppScreens.email_confirmation);
+              // Get.toNamed(AppScreens.email_confirmation);
             },
           ),
 
@@ -66,7 +66,7 @@ class PengaturanAkunScreen extends StatelessWidget {
             fontTitle: fontTitle,
             basePadding: basePadding,
             onTap: () {
-              Get.toNamed(AppScreens.account_settings);
+              // Get.toNamed(AppScreens.account_settings);
             },
           ),
         ],

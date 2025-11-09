@@ -156,10 +156,10 @@ class _RiwayatBerobatScreenState extends State<RiwayatBerobatScreen> {
                             jam: "09:00",
                           );
 
-                          Get.toNamed(
-                            AppScreens.detail_history,
-                            arguments: detailData,
-                          );
+                          // Get.toNamed(
+                          //   // AppScreens.detail_history,
+                          //   arguments: detailData,
+                          // );
                         },
                       );
                     },

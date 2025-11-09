@@ -24,7 +24,7 @@ class _EmailConfirmationScreenState extends State<EmailConfirmationScreen> {
     });
 
     // Navigasi langsung ke halaman OTP
-    Get.toNamed(AppScreens.otp_verification);
+    // Get.toNamed(AppScreens.otp_verification);
   }
 
   @override

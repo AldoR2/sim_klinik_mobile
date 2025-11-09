@@ -25,11 +25,6 @@ class RegisterAccountController extends GetxController {
   void checkVisible() => isPasswordVisible.toggle();
   void checkVisibleConfirm() => isPasswordConfirmVisible.toggle();
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
   void register() async {
     isLoading.value = true;
 
@@ -104,7 +99,7 @@ class RegisterAccountController extends GetxController {
       isSnackbarOpen.value = true;
       Get.snackbar(
         "Gagal",
-        result.message ?? "Registrasi Gagal",
+        result.message,
         duration: Duration(seconds: 2),
       );
       Future.delayed(Duration(seconds: 3), () {

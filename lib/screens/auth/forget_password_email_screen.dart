@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sim_klinik_mobile/controllers/auth/forgetPassword_email_controller.dart';
 import 'package:sim_klinik_mobile/screens/reusables/button_reuse.dart';
 import 'package:sim_klinik_mobile/screens/reusables/header_reuse.dart';
 import 'package:sim_klinik_mobile/screens/reusables/textfield_reuse.dart';
 
 class ForgetPasswordEmailScreen extends StatelessWidget {
-  const ForgetPasswordEmailScreen({super.key});
+  ForgetPasswordEmailScreen({super.key});
+
+  final _controller = Get.find<ForgetpasswordEmailController>();
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +28,7 @@ class ForgetPasswordEmailScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  "Verifikasi Email",
+                  "Lupa Password",
                   style: GoogleFonts.rubik(
                     fontSize: 24,
                     fontWeight: FontWeight.w500,
@@ -40,13 +43,16 @@ class ForgetPasswordEmailScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 20),
-                ReusableTxtFieldStl(hint: "Email"),
-                SizedBox(height: 15),
-                ReusableTxtFieldStl(hint: "Password"),
+                ReusableTxtFieldStl(
+                  hint: "Email",
+                  controllerr: _controller.emailController,
+                ),
                 SizedBox(height: 30),
                 ButtonReuse(
                   function: () {
-                    Get.toNamed("/auth/forgetPassword/verification");
+                    (!_controller.isSnackbarOpen.value)
+                        ? _controller.sendEmail()
+                        : null;
                   },
                   text: "Submit",
                 ),

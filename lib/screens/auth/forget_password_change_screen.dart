@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sim_klinik_mobile/controllers/auth/forgetPassword_change_controller.dart';
 import 'package:sim_klinik_mobile/screens/reusables/button_reuse.dart';
 import 'package:sim_klinik_mobile/screens/reusables/header_reuse.dart';
 import 'package:sim_klinik_mobile/screens/reusables/textfield_reuse.dart';
 
 class ForgetPasswordChangeScreen extends StatelessWidget {
-  const ForgetPasswordChangeScreen({super.key});
+  ForgetPasswordChangeScreen({super.key});
+
+  final _controller = Get.find<ForgetpasswordChangeController>();
 
   @override
   Widget build(BuildContext context) {

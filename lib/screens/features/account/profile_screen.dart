@@ -220,15 +220,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
   ).showSnackBar(const SnackBar(content: Text("Edit foto diklik")));
 
   void _editProfile() {
-    Get.toNamed(AppScreens.edit_profile);
+    // Get.toNamed(AppScreens.edit_profile);
   }
 
   void _openSettings() {
-    Get.toNamed(AppScreens.settings);
+    // Get.toNamed(AppScreens.settings);
   }
 
   void _changePassword() {
-    Get.toNamed(AppScreens.change_password);
+    // Get.toNamed(AppScreens.change_password);
   }
 
   void _logout() => ScaffoldMessenger.of(

@@ -172,7 +172,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         await Future.delayed(const Duration(seconds: 5));
 
                         if (Get.isDialogOpen ?? false) Get.back();
-                        Get.toNamed(AppScreens.base);
+                        // Get.toNamed(AppScreens.base);
                       },
                       child: Padding(
                         padding: EdgeInsets.symmetric(vertical: h * 0),

@@ -262,7 +262,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               'Riwayat\nBerobat',
                               const Color(0xFFB388FF),
                               const Color(0xFF7E57C2),
-                              onTap: () => Get.toNamed(AppScreens.medical),
+                              // onTap: () => Get.toNamed(AppScreens.medical),
                             ),
 
                             _buildFeatureItem(
@@ -270,24 +270,24 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               'Lihat Jadwal\nPraktek',
                               const Color(0xFFA5D6A7),
                               const Color(0xFF43A047),
-                              onTap: () =>
-                                  Get.toNamed(AppScreens.poli_schedule),
+                              // onTap: () =>
+                              //     Get.toNamed(AppScreens.poli_schedule),
                             ),
                             _buildFeatureItem(
                               'assets/icons/ic_deteksi_penyakit.png',
                               'Deteksi\nPenyakit',
                               const Color(0xFFEF9A9A),
                               const Color(0xFFD32F2F),
-                              onTap: () =>
-                                  Get.toNamed(AppScreens.disease_detection),
+                              // onTap: () =>
+                              //     Get.toNamed(AppScreens.disease_detection),
                             ),
                             _buildFeatureItem(
                               'assets/icons/ic_tanya_medigo.png',
                               'Tanya\nMediGo',
                               const Color(0xFF90CAF9),
                               const Color(0xFF1976D2),
-                              onTap: () =>
-                                  Get.toNamed(AppScreens.display_medigo),
+                              // onTap: () =>
+                              //     Get.toNamed(AppScreens.display_medigo),
                             ),
                             _buildFeatureItem(
                               'assets/icons/ic_KIB.png',

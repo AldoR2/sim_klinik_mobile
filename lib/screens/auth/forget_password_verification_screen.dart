@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pin_input_text_field/pin_input_text_field.dart';
+import 'package:sim_klinik_mobile/controllers/auth/forgetPassword_verification_controller.dart';
 import 'package:sim_klinik_mobile/screens/reusables/button_reuse.dart';
 import 'package:sim_klinik_mobile/screens/reusables/header_reuse.dart';
 
 class ForgetPasswordVerificationScreen extends StatelessWidget {
-  const ForgetPasswordVerificationScreen({super.key});
+  ForgetPasswordVerificationScreen({super.key});
+
+  final _controller = Get.find<ForgetpasswordVerificationController>();
 
   @override
   Widget build(BuildContext context) {
@@ -32,30 +35,33 @@ class ForgetPasswordVerificationScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 10),
-                RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
-                    style: GoogleFonts.rubik(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 15,
-                    ),
-                    children: [
-                      TextSpan(
-                        text:
-                            "Silahkan isi kode dibawah ini yang kami kirim ke alamat email  ",
-                        style: TextStyle(
-                          color: Colors.black.withValues(alpha: 0.4),
+                Obx(() {
+                  return RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      style: GoogleFonts.rubik(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 15,
+                      ),
+                      children: [
+                        TextSpan(
+                          text:
+                              "Silahkan isi kode dibawah ini yang kami kirim ke alamat email  ",
+                          style: TextStyle(
+                            color: Colors.black.withValues(alpha: 0.4),
+                          ),
                         ),
-                      ),
-                      TextSpan(
-                        text: "xxxx@gmail.com",
-                        style: TextStyle(color: Color(0xff0068C9)),
-                      ),
-                    ],
-                  ),
-                ),
+                        TextSpan(
+                          text: _controller.storedEmail.value,
+                          style: TextStyle(color: Color(0xff0068C9)),
+                        ),
+                      ],
+                    ),
+                  );
+                }),
                 SizedBox(height: 20),
                 PinInputTextField(
+                  controller: _controller.otpController,
                   pinLength: 4,
                   decoration: BoxLooseDecoration(
                     bgColorBuilder: FixedColorBuilder(
@@ -67,31 +73,42 @@ class ForgetPasswordVerificationScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 40),
-                RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
-                    style: GoogleFonts.rubik(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 15,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Belum mendapatkan kode? ",
+                      style: GoogleFonts.rubik(
+                        color: Colors.black.withValues(alpha: 0.4),
+                        fontWeight: FontWeight.w400,
+                        fontSize: 15,
+                      ),
                     ),
-                    children: [
-                      TextSpan(
-                        text: "Belum mendapatkan kode? ",
-                        style: TextStyle(
-                          color: Colors.black.withValues(alpha: 0.4),
+                    Obx(() {
+                      return GestureDetector(
+                        onTap: () {
+                          _controller.isButtonEnabled.value
+                              ? _controller.send()
+                              : null;
+                        },
+                        child: Text(
+                          _controller.textKirim.value,
+                          style: GoogleFonts.rubik(
+                            color: Color(0xff0068C9),
+                            fontWeight: FontWeight.w400,
+                            fontSize: 15,
+                          ),
                         ),
-                      ),
-                      TextSpan(
-                        text: "kirim ulang kode",
-                        style: TextStyle(color: Color(0xff0068C9)),
-                      ),
-                    ],
-                  ),
+                      );
+                    }),
+                  ],
                 ),
                 SizedBox(height: 40),
                 ButtonReuse(
                   function: () {
-                    Get.toNamed("/auth/forgetPassword/change");
+                    (!_controller.isSnackbarOpen.value)
+                        ? _controller.checkOTP()
+                        : null;
                   },
                   text: "Selanjutnya",
                 ),

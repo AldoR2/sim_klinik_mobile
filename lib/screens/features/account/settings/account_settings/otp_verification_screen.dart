@@ -43,7 +43,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
       backgroundColor: const Color(0xFFE7F0FB),
       body: Column(
         children: [
-          const CustomHeader(title: 'Verifikasi Email'),
+          CustomHeader(title: 'Verifikasi Email'),
 
           Expanded(
             child: SingleChildScrollView(
@@ -88,10 +88,9 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                               ],
                             ),
                             child: Center(
-                              child: Icon(
-                                Icons.email_outlined,
-                                size: w * 0.18,
-                                color: const Color(0xFF7134FC),
+                              child: Image.asset(
+                                "assets/icons/ic_email.png",
+                                height: h * 0.07,
                               ),
                             ),
                           ),
@@ -104,9 +103,9 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                     // 🔹 Judul
                     Text(
                       'Konfirmasi Kode OTP',
-                      style: GoogleFonts.rubik(
+                      style: GoogleFonts.nunito(
                         fontSize: w * 0.06,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.w800,
                         color: Colors.black,
                       ),
                     ),
@@ -119,7 +118,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                         Text(
                           'Masukkan 4 digit kode OTP yang dikirimkan ke email',
                           textAlign: TextAlign.center,
-                          style: GoogleFonts.rubik(
+                          style: GoogleFonts.nunito(
                             fontSize: w * 0.04,
                             color: Colors.black.withOpacity(0.6),
                           ),
@@ -127,10 +126,10 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                         SizedBox(height: h * 0.005),
                         Text(
                           emailModel.email,
-                          style: GoogleFonts.rubik(
+                          style: GoogleFonts.nunito(
                             fontSize: w * 0.04,
                             color: const Color(0xFF3E8DF4),
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                       ],
@@ -178,7 +177,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                                     ),
                                   ),
                                 ),
-                                style: GoogleFonts.rubik(
+                                style: GoogleFonts.nunito(
                                   fontSize: w * 0.06,
                                   fontWeight: FontWeight.w500,
                                   color: Colors.black,
@@ -217,7 +216,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                       child: RichText(
                         textAlign: TextAlign.center,
                         text: TextSpan(
-                          style: GoogleFonts.rubik(
+                          style: GoogleFonts.nunito(
                             fontSize: w * 0.035,
                             color: Colors.black.withOpacity(0.6),
                           ),
@@ -225,10 +224,10 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                             TextSpan(text: "Belum menerima kode? "),
                             TextSpan(
                               text: "kirim ulang kode",
-                              style: GoogleFonts.rubik(
+                              style: GoogleFonts.nunito(
                                 fontSize: w * 0.035,
                                 color: const Color(0xFF7134FC),
-                                fontWeight: FontWeight.w500,
+                                fontWeight: FontWeight.w700,
                               ),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
@@ -249,7 +248,6 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
 
                     SizedBox(height: h * 0.04),
 
-                    // 🔹 Tombol Simpan
                     Container(
                       width: double.infinity,
                       height: h * 0.065,
@@ -277,9 +275,9 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                         ),
                         child: Text(
                           "Simpan",
-                          style: GoogleFonts.rubik(
+                          style: GoogleFonts.nunito(
                             fontSize: w * 0.055,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w700,
                             color: Colors.white,
                           ),
                         ),
@@ -288,17 +286,16 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
 
                     SizedBox(height: h * 0.025),
 
-                    // 🔹 Ganti Email
                     GestureDetector(
                       onTap: () {
                         Navigator.pop(context);
                       },
                       child: Text(
                         "Ganti Email",
-                        style: GoogleFonts.rubik(
+                        style: GoogleFonts.nunito(
                           fontSize: w * 0.04,
                           color: const Color(0xFF7134FC),
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w700,
                           decoration: TextDecoration.underline,
                         ),
                       ),

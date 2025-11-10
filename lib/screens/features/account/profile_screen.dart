@@ -133,9 +133,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     Text(
                       user.nama,
-                      style: GoogleFonts.rubik(
+                      style: GoogleFonts.nunito(
                         fontSize: w * 0.07,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w800,
                         color: Colors.black,
                       ),
                     ),
@@ -158,7 +158,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       child: Text(
                         user.email,
-                        style: GoogleFonts.rubik(
+                        style: GoogleFonts.nunito(
                           fontSize: w * 0.035,
                           color: const Color(0xFF7134FC),
                         ),
@@ -220,15 +220,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
   ).showSnackBar(const SnackBar(content: Text("Edit foto diklik")));
 
   void _editProfile() {
-    // Get.toNamed(AppScreens.edit_profile);
+    Get.toNamed("/account/edit_profile");
   }
 
   void _openSettings() {
-    // Get.toNamed(AppScreens.settings);
+    Get.toNamed("/account/settings");
   }
 
   void _changePassword() {
-    // Get.toNamed(AppScreens.change_password);
+    Get.toNamed("/account/change_password");
   }
 
   void _logout() => ScaffoldMessenger.of(
@@ -267,10 +267,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Expanded(
               child: Text(
                 title,
-                style: GoogleFonts.rubik(
+                style: GoogleFonts.nunito(
                   fontSize: w * 0.05,
                   color: color3,
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
@@ -309,10 +309,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Expanded(
               child: Text(
                 title,
-                style: GoogleFonts.rubik(
+                style: GoogleFonts.nunito(
                   fontSize: w * 0.05,
                   color: color,
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
             ),

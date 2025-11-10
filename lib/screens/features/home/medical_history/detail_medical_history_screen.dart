@@ -43,9 +43,9 @@ class DetailRiwayatScreen extends StatelessWidget {
                   SizedBox(width: width * 0.035),
                   Text(
                     "Detail Riwayat",
-                    style: GoogleFonts.rubik(
+                    style: GoogleFonts.nunito(
                       fontSize: width * 0.055,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w800,
                       color: Color(0xFF7134FC),
                     ),
                   ),
@@ -75,18 +75,19 @@ class DetailRiwayatScreen extends StatelessWidget {
                   children: [
                     Text(
                       "PEMESANAN BERHASIL",
-                      style: GoogleFonts.rubik(
+                      style: GoogleFonts.nunito(
                         fontSize: width * 0.05,
                         color: Color(0xFF7134FC),
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.w800,
                       ),
                     ),
                     Divider(height: height * 0.012),
                     Text(
                       "PEMESANAN ID : #${data.idPemesanan}",
-                      style: GoogleFonts.rubik(
+                      style: GoogleFonts.nunito(
                         fontSize: width * 0.04,
                         color: Colors.black87,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ],
@@ -96,9 +97,9 @@ class DetailRiwayatScreen extends StatelessWidget {
               SizedBox(height: height * 0.035),
               Text(
                 "KETERANGAN",
-                style: GoogleFonts.rubik(
+                style: GoogleFonts.nunito(
                   fontSize: width * 0.045,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w800,
                   color: Color(0xFF5126B4),
                 ),
               ),
@@ -132,7 +133,10 @@ class DetailRiwayatScreen extends StatelessWidget {
                       children: [
                         Text(
                           "Hasil Diagnosa",
-                          style: GoogleFonts.rubik(fontSize: width * 0.04),
+                          style: GoogleFonts.nunito(
+                            fontSize: width * 0.04,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                         ElevatedButton(
                           onPressed: () {},
@@ -145,9 +149,10 @@ class DetailRiwayatScreen extends StatelessWidget {
                           ),
                           child: Text(
                             "Lihat Hasil Diagnosa",
-                            style: GoogleFonts.rubik(
+                            style: GoogleFonts.nunito(
                               fontSize: width * 0.035,
                               color: Colors.white,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),
@@ -167,9 +172,10 @@ class DetailRiwayatScreen extends StatelessWidget {
                             ),
                             label: Text(
                               "Download PDF",
-                              style: GoogleFonts.rubik(
+                              style: GoogleFonts.nunito(
                                 fontSize: width * 0.04,
                                 color: Colors.white,
+                                fontWeight: FontWeight.w700,
                               ),
                             ),
                             style: ElevatedButton.styleFrom(
@@ -194,9 +200,10 @@ class DetailRiwayatScreen extends StatelessWidget {
                             ),
                             label: Text(
                               "Bagikan",
-                              style: GoogleFonts.rubik(
+                              style: GoogleFonts.nunito(
                                 fontSize: width * 0.045,
                                 color: Color(0xFF3D4EFF),
+                                fontWeight: FontWeight.w700,
                               ),
                             ),
                             style: OutlinedButton.styleFrom(
@@ -237,9 +244,10 @@ class DetailRiwayatScreen extends StatelessWidget {
             flex: 4,
             child: Text(
               label,
-              style: GoogleFonts.rubik(
+              style: GoogleFonts.nunito(
                 fontSize: isTablet ? 17 : 14.5,
                 color: Colors.black87,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ),
@@ -252,10 +260,10 @@ class DetailRiwayatScreen extends StatelessWidget {
               textAlign: TextAlign.right,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: GoogleFonts.rubik(
+              style: GoogleFonts.nunito(
                 fontSize: isTablet ? 17 : 15,
                 color: const Color(0xFF7134FC),
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w700,
               ),
             ),
           ),

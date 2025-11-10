@@ -11,6 +11,7 @@ import 'package:sim_klinik_mobile/screens/features/account/change_password_scree
 import 'package:sim_klinik_mobile/screens/features/account/edit_profile_screen.dart';
 import 'package:sim_klinik_mobile/screens/features/account/settings/account_settings/account_settings_screen.dart';
 import 'package:sim_klinik_mobile/screens/features/account/settings/account_settings/email_confirmation_screen.dart';
+import 'package:sim_klinik_mobile/screens/features/account/settings/account_settings/fingerprint_settings_screen.dart';
 import 'package:sim_klinik_mobile/screens/features/account/settings/account_settings/otp_verification_screen.dart';
 import 'package:sim_klinik_mobile/screens/features/account/settings/settings_screen.dart';
 import 'package:sim_klinik_mobile/screens/features/home/chatbot_medigo/chatbot_display_screen.dart';
@@ -30,7 +31,9 @@ import 'package:sim_klinik_mobile/screens/auth/register_account_screen.dart';
 
 class AppScreens {
   static final screens = [
-    GetPage(name: "/", page: () => LandingPageScreen()),
+
+    // AUTH SECTION
+    GetPage(name: "/", page: () => BaseScreen()),
     GetPage(
       name: "/auth/login",
       page: () => LoginScreen(),
@@ -56,11 +59,32 @@ class AppScreens {
       page: () => ForgetPasswordVerificationScreen(),
       binding: ForgetPasswordVerificationBinding(),
     ),
+
+    // HOME SECTION
     GetPage(
-      name: "/auth/forgetPassword/change",
-      page: () => ForgetPasswordChangeScreen(),
-      binding: ForgetpasswordChangeBinding(),
+      name: "/home/medical_history/detail_medical_history",
+      page: () {
+        final RiwayatDetailModel data = Get.arguments;
+        return DetailRiwayatScreen(data: data);
+      },
     ),
-    GetPage(name: "/base", page: () => BaseScreen()),
+    GetPage(name: "/home/medical_history", page: () => RiwayatBerobatScreen()),
+    GetPage(name: "/home/disease_detection", page: () => DeteksiPenyakitScreen()),
+    GetPage(name: "/home/chatbot_medigo/chatbot_display", page: () => DisplayChatMedigoScreen()),
+    GetPage(name: "/home/schedule/poli_schedule", page: () => PilihPoliScreen()),
+    GetPage(name: "/home/schedule/detail_poli_schedule", page: () => JadwalPoliScreen()),
+
+    // ACCOUNT SECTION
+    GetPage(name: "/account/edit_profile", page: () => EditProfileScreen()),
+    GetPage(name: "/account/change_password", page: () => ChangePasswordScreen()),
+    GetPage(name: "/account/settings", page: () => SettingsScreen()),
+    GetPage(name: "/account/account_settings", page: () => PengaturanAkunScreen()),
+    GetPage(name: "/account/account_settings/email_confirmation", page: () => EmailConfirmationScreen()),
+    GetPage(name: "/account/account_settings/otp_verification", page: () => OtpVerificationScreen()),
+    GetPage(
+      name: "/account/account_settings/fingerprint_settings",
+      page: () => FingerprintSettingsScreen(),
+    ),
+    GetPage(name: "/account/assistance", page: () => BantuanScreen()),
   ];
 }

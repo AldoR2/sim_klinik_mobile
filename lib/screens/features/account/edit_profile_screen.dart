@@ -42,7 +42,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             Stack(
               clipBehavior: Clip.none,
               children: [
-                // Header gradient
                 Container(
                   width: double.infinity,
                   height: h * 0.19,
@@ -79,10 +78,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         ),
                         Text(
                           "Edit Profile",
-                          style: GoogleFonts.rubik(
+                          style: GoogleFonts.nunito(
                             color: Colors.white,
                             fontSize: w * 0.06,
-                            fontWeight: FontWeight.w600,
+                            fontWeight: FontWeight.w800,
                           ),
                         ),
                         const SizedBox(width: 35),
@@ -172,16 +171,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         await Future.delayed(const Duration(seconds: 5));
 
                         if (Get.isDialogOpen ?? false) Get.back();
-                        // Get.toNamed(AppScreens.base);
+                        Get.toNamed("base");
                       },
                       child: Padding(
                         padding: EdgeInsets.symmetric(vertical: h * 0),
                         child: Text(
                           "Simpan",
-                          style: GoogleFonts.rubik(
+                          style: GoogleFonts.nunito(
                             color: Colors.white,
                             fontSize: w * 0.06,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                       ),
@@ -205,9 +204,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       padding: EdgeInsets.only(bottom: w * 0.02, top: w * 0.04),
       child: Text(
         label,
-        style: GoogleFonts.rubik(
+        style: GoogleFonts.nunito(
           fontSize: w * 0.045,
-          fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.w800,
           color: Colors.black87,
         ),
       ),
@@ -226,9 +225,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       child: TextField(
         decoration: InputDecoration(
           hintText: value,
-          hintStyle: GoogleFonts.rubik(
+          hintStyle: GoogleFonts.nunito(
             color: Colors.black54,
-            fontSize: w * 0.04,
+            fontSize: w * 0.045,
+            fontWeight: FontWeight.w600,
           ),
           suffixIcon: Icon(icon, color: Colors.grey),
           border: InputBorder.none,
@@ -258,7 +258,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             .map((value) => DropdownMenuItem(value: value, child: Text(value)))
             .toList(),
         onChanged: (value) {},
-        style: GoogleFonts.rubik(color: Colors.black, fontSize: w * 0.04),
+        style: GoogleFonts.nunito(
+          color: Colors.black54,
+          fontSize: w * 0.045,
+          fontWeight: FontWeight.w600,
+        ),
         icon: const Icon(Icons.keyboard_arrow_down_rounded, color: Colors.grey),
       ),
     );
@@ -280,9 +284,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             child: TextField(
               decoration: InputDecoration(
                 hintText: email,
-                hintStyle: GoogleFonts.rubik(
+                hintStyle: GoogleFonts.nunito(
                   color: Colors.black54,
-                  fontSize: w * 0.04,
+                  fontSize: w * 0.045,
+                  fontWeight: FontWeight.w600,
                 ),
                 border: InputBorder.none,
               ),
@@ -296,7 +301,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             },
             child: Text(
               "Verifikasi",
-              style: GoogleFonts.rubik(
+              style: GoogleFonts.nunito(
                 color: const Color(0xFF7134FC),
                 fontSize: w * 0.04,
                 fontWeight: FontWeight.w600,

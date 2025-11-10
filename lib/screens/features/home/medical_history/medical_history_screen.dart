@@ -108,7 +108,7 @@ class _RiwayatBerobatScreenState extends State<RiwayatBerobatScreen> {
                       style: GoogleFonts.rubik(fontSize: width * 0.04),
                       decoration: InputDecoration(
                         hintText: "Cari berdasarkan nama poli atau hari...",
-                        hintStyle: GoogleFonts.rubik(
+                        hintStyle: GoogleFonts.nunito(
                           fontSize: width * 0.04,
                           color: Colors.grey.shade600,
                         ),
@@ -129,7 +129,7 @@ class _RiwayatBerobatScreenState extends State<RiwayatBerobatScreen> {
                 ? Center(
                     child: Text(
                       "Tidak ada hasil ditemukan",
-                      style: GoogleFonts.rubik(
+                      style: GoogleFonts.nunito(
                         color: Colors.grey,
                         fontSize: width * 0.04,
                       ),
@@ -156,10 +156,10 @@ class _RiwayatBerobatScreenState extends State<RiwayatBerobatScreen> {
                             jam: "09:00",
                           );
 
-                          // Get.toNamed(
-                          //   // AppScreens.detail_history,
-                          //   arguments: detailData,
-                          // );
+                          Get.toNamed(
+                            "/home/medical_history/detail_medical_history",
+                            arguments: detailData,
+                          );
                         },
                       );
                     },

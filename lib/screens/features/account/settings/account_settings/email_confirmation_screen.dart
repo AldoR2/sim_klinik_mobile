@@ -23,7 +23,7 @@ class _EmailConfirmationScreenState extends State<EmailConfirmationScreen> {
       _isUnderlined = true;
     });
 
-    Get.toNamed("otp_verification");
+    Get.toNamed("/account/account_settings/otp_verification");
   }
 
   @override

@@ -157,7 +157,7 @@ class _RiwayatBerobatScreenState extends State<RiwayatBerobatScreen> {
                           );
 
                           Get.toNamed(
-                            "detail_history",
+                            "/home/medical_history/detail_medical_history",
                             arguments: detailData,
                           );
                         },

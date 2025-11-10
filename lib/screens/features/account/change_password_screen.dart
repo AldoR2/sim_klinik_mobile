@@ -153,7 +153,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                           style: GoogleFonts.nunito(
                             color: Colors.white,
                             fontSize: w * 0.055,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                       ),

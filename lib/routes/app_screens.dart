@@ -31,7 +31,9 @@ import 'package:sim_klinik_mobile/screens/auth/register_account_screen.dart';
 
 class AppScreens {
   static final screens = [
-    GetPage(name: "/", page: () => LandingPageScreen()),
+
+    // AUTH SECTION
+    GetPage(name: "/", page: () => BaseScreen()),
     GetPage(
       name: "/auth/login",
       page: () => LoginScreen(),
@@ -57,6 +59,8 @@ class AppScreens {
       page: () => ForgetPasswordVerificationScreen(),
       binding: ForgetPasswordVerificationBinding(),
     ),
+
+    // HOME SECTION
     GetPage(
       name: "/home/medical_history/detail_medical_history",
       page: () {
@@ -64,8 +68,11 @@ class AppScreens {
         return DetailRiwayatScreen(data: data);
       },
     ),
+    GetPage(name: "/home/medical_history", page: () => RiwayatBerobatScreen()),
     GetPage(name: "/home/disease_detection", page: () => DeteksiPenyakitScreen()),
     GetPage(name: "/home/chatbot_medigo/chatbot_display", page: () => DisplayChatMedigoScreen()),
+    GetPage(name: "/home/schedule/poli_schedule", page: () => PilihPoliScreen()),
+    GetPage(name: "/home/schedule/detail_poli_schedule", page: () => JadwalPoliScreen()),
 
     // ACCOUNT SECTION
     GetPage(name: "/account/edit_profile", page: () => EditProfileScreen()),

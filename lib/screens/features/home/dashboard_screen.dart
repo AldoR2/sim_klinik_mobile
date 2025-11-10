@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart';
 import '../models/home/doctor_schedule_model.dart';
 import '../widgets/home/doctor_schedule_card.dart';
 import 'package:get/get.dart';
@@ -130,7 +131,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           ),
                         ),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.toNamed("/account/settings");
+                          },
                           icon: Icon(
                             Icons.settings,
                             color: Colors.white,
@@ -262,7 +265,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               'Riwayat\nBerobat',
                               const Color(0xFFB388FF),
                               const Color(0xFF7E57C2),
-                              onTap: () => Get.toNamed("/home/medical_history/medical_history"),
+                              onTap: () => Get.toNamed("/home/medical_history"),
                             ),
 
                             _buildFeatureItem(
@@ -279,15 +282,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               const Color(0xFFEF9A9A),
                               const Color(0xFFD32F2F),
                               onTap: () =>
-                                  Get.toNamed("disease_detection"),
+                                  Get.toNamed("/home/disease_detection"),
                             ),
                             _buildFeatureItem(
                               'assets/icons/ic_tanya_medigo.png',
                               'Tanya\nMediGo',
                               const Color(0xFF90CAF9),
                               const Color(0xFF1976D2),
-                              onTap: () =>
-                                  Get.toNamed("display_medigo"),
+                              onTap: () => Get.toNamed(
+                                "/home/chatbot_medigo/chatbot_display",
+                              ),
                             ),
                             _buildFeatureItem(
                               'assets/icons/ic_KIB.png',

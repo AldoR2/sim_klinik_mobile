@@ -19,6 +19,7 @@ import 'package:sim_klinik_mobile/screens/features/account/settings/settings_scr
 import 'package:sim_klinik_mobile/screens/features/home/base_screen.dart';
 import 'package:sim_klinik_mobile/screens/features/home/chatbot_medigo/chatbot_display_screen.dart';
 import 'package:sim_klinik_mobile/screens/features/home/disease_detection.dart';
+import 'package:sim_klinik_mobile/screens/features/home/image_adjust_screen.dart';
 import 'package:sim_klinik_mobile/screens/features/home/medical_history/detail_medical_history_screen.dart';
 import 'package:sim_klinik_mobile/screens/features/home/medical_history/medical_history_screen.dart';
 import 'package:sim_klinik_mobile/screens/features/home/schedule/detail_poli_schedule.dart';
@@ -96,6 +97,7 @@ class AppScreens {
       name: "/home/schedule/detail_poli_schedule",
       page: () => JadwalPoliScreen(),
     ),
+    GetPage(name: '/home/image_adjust', page: () => ImageAdjustScreen()),
 
     // ACCOUNT SECTION
     GetPage(name: "/account/edit_profile", page: () => EditProfileScreen()),

@@ -3,7 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:logger/web.dart';
-import 'package:sim_klinik_mobile/screens/reusables/loading_popup.dart';
+import 'package:sim_klinik_mobile/screens/reusables/loading_screen.dart';
+import 'package:sim_klinik_mobile/screens/reusables/verification_dialog.dart';
 import 'package:sim_klinik_mobile/services/auth/registration_account_service.dart';
 
 class RegisterAccountController extends GetxController {
@@ -86,9 +87,23 @@ class RegisterAccountController extends GetxController {
       noTelp,
       password,
     );
-    
+
     if (result.message == "Email telah digunakan dan belum verifikasi") {
-      
+      Get.back();
+      Get.dialog(
+        VerificationDialog(
+          title: "Email telah digunakan dan belum verifikasi",
+          subtitle: "Data akun telah teredia",
+          gifAssetPath: "assets/gif/failed_animation.gif",
+          onDetailPressed: () =>
+              Get.toNamed("/auth/register/verification", arguments: email),
+        ),
+      );
+      Future.delayed(
+        Duration(seconds: 3),
+        // () => isEnabled.value = true,
+      );
+      return;
     }
 
     if (result.status == "success") {
@@ -97,11 +112,7 @@ class RegisterAccountController extends GetxController {
     } else {
       Get.back();
       isSnackbarOpen.value = true;
-      Get.snackbar(
-        "Gagal",
-        result.message,
-        duration: Duration(seconds: 2),
-      );
+      Get.snackbar("Gagal", result.message, duration: Duration(seconds: 2));
       Future.delayed(Duration(seconds: 3), () {
         isSnackbarOpen.value = false;
       });

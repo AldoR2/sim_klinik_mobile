@@ -3,14 +3,14 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:logger/web.dart';
 import 'package:sim_klinik_mobile/models/pasien_model.dart';
-import 'package:sim_klinik_mobile/screens/reusables/loading_popup.dart';
+import 'package:sim_klinik_mobile/screens/reusables/loading_screen.dart';
 import 'package:sim_klinik_mobile/services/auth/login_service.dart';
 import 'package:sim_klinik_mobile/services/token_service.dart';
 
 class LoginController extends GetxController {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
-  final isPasswordVisible = true.obs;
+  final isPasswordVisible = false.obs;
   final isSnackbarOpen = false.obs;
   final isLoading = false.obs;
 

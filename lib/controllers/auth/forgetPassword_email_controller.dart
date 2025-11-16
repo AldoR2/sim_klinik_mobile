@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:logger/web.dart';
-import 'package:sim_klinik_mobile/screens/reusables/loading_popup.dart';
+import 'package:sim_klinik_mobile/screens/reusables/loading_screen.dart';
 import 'package:sim_klinik_mobile/services/auth/forget_password_service.dart';
 
 class ForgetpasswordEmailController extends GetxController {
@@ -14,6 +14,7 @@ class ForgetpasswordEmailController extends GetxController {
 
   final isSnackbarOpen = false.obs;
   final isLoading = false.obs;
+  final delayedSnackbar = 1;
 
   void sendEmail() async {
     isLoading.value = true;
@@ -34,22 +35,39 @@ class ForgetpasswordEmailController extends GetxController {
       return;
     }
 
-    showLoading();
-    final result = await forgetPasswordService.fetchEmail(email);
+    try {
+      showLoading();
+      final result = await forgetPasswordService.fetchEmail(email);
 
-    if (result.status == "success") {
-      Get.back();
-      Get.toNamed("/auth/forgetPassword/verification", arguments: email);
-    } else {
+      if (result.status == "success") {
+        Get.back();
+        Get.toNamed("/auth/forgetPassword/verification", arguments: email);
+        Get.snackbar(
+          "Sukses",
+          "Masukkan kode otp yang telah dikirim pada email pengguna",
+        );
+      } else {
+        Get.back();
+        isSnackbarOpen.value = true;
+        Get.snackbar("Gagal", result.message, duration: Duration(seconds: 2));
+        Future.delayed(Duration(seconds: 3), () {
+          isSnackbarOpen.value = false;
+        });
+      }
+
+      isLoading.value = false;
+    } catch (e) {
       Get.back();
       isSnackbarOpen.value = true;
-      Get.snackbar("Gagal", result.message, duration: Duration(seconds: 2));
-      Future.delayed(Duration(seconds: 3), () {
+      Get.snackbar(
+        "Error",
+        e.toString(),
+        duration: Duration(seconds: delayedSnackbar),
+      );
+      Future.delayed(Duration(seconds: 2), () {
         isSnackbarOpen.value = false;
       });
     }
-
-    isLoading.value = false;
   }
 
   void showLoading() {

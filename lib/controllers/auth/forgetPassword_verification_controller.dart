@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:logger/logger.dart';
-import 'package:sim_klinik_mobile/screens/reusables/loading_popup.dart';
+import 'package:sim_klinik_mobile/screens/reusables/loading_screen.dart';
 import 'package:sim_klinik_mobile/services/auth/forget_password_service.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 
@@ -129,7 +129,8 @@ class ForgetpasswordVerificationController extends GetxController {
 
       if (result.status == "success") {
         Get.back();
-        Get.offNamed("/auth/forgetPassword/change");
+        Get.offNamed("/auth/forgetPassword/change", arguments: emaill);
+        log.d("Testt");
       } else {
         Get.back();
         isSnackbarOpen.value = true;

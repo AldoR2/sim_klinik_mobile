@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:logger/web.dart';
-import 'package:sim_klinik_mobile/screens/reusables/loading_popup.dart';
+import 'package:sim_klinik_mobile/screens/reusables/loading_screen.dart';
 import 'package:sim_klinik_mobile/services/auth/registration_account_service.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 
@@ -131,6 +131,7 @@ class RegisterAccountVerificationController extends GetxController {
       if (result.status == "success") {
         Get.back();
         Get.offNamed("/auth/login");
+        Get.snackbar("Sukses", "Data berhasil ditambahkan");
       } else {
         Get.back();
         isSnackbarOpen.value = true;

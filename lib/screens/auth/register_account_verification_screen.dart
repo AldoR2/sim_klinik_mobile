@@ -107,7 +107,7 @@ class RegisterAccountVerificationScreen extends StatelessWidget {
                 SizedBox(height: 40),
                 ButtonReuse(
                   function: () {
-                    !(_controller.isSnackbarOpen.value)
+                    (!_controller.isSnackbarOpen.value)
                         ? _controller.checkOTP()
                         : null;
                   },

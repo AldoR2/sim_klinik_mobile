@@ -46,17 +46,28 @@ class ForgetPasswordChangeScreen extends StatelessWidget {
                 SizedBox(height: 30),
                 ReusableTxtFieldStl(
                   hint: "New Password",
-                  suffix: Icon(Icons.remove_red_eye),
+                  controllerr: _controller.passController,
+                  suffix: IconButton(
+                    onPressed: _controller.checkVisible,
+                    icon: Icon(Icons.remove_red_eye),
+                  ),
                 ),
                 SizedBox(height: 15),
                 ReusableTxtFieldStl(
-                  suffix: Icon(Icons.remove_red_eye),
                   hint: "Confirm Password",
+                  controllerr: _controller.passConfirmController,
+                  suffix: IconButton(
+                    onPressed: _controller.checkConfirmVisible,
+                    icon: Icon(Icons.remove_red_eye),
+                  ),
                 ),
+
                 SizedBox(height: 30),
                 ButtonReuse(
                   function: () {
-                    Get.toNamed("/auth/login");
+                    _controller.isSnackbarOpen.value == true
+                        ? null
+                        : _controller.changePass();
                   },
                   text: "Submit",
                 ),

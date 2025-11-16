@@ -146,7 +146,7 @@ class _DeteksiPenyakitScreenState extends State<DeteksiPenyakitScreen> {
             if (_selectedImage != null)
               ElevatedButton(
                 onPressed: () {
-                  // TODO: Integrasi model AI deteksi penyakit kulit
+                  
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF7134FC),

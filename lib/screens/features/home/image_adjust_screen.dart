@@ -42,8 +42,7 @@ class _ImageAdjustScreenState extends State<ImageAdjustScreen> {
           ),
         ),
         content: const Text(
-          "Harap sesuaikan atau crop gambar hanya pada area kulit yang terdampak penyakit jamur. "
-          "Pastikan area tersebut terlihat jelas agar sistem dapat mendeteksi dengan akurat.",
+          "Harap sesuaikan bingkai hanya pada area kulit yang terdampak penyakit jamur.",
           style: TextStyle(color: Colors.black87),
         ),
         actions: [

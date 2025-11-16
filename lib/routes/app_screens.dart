@@ -5,6 +5,8 @@ import 'package:sim_klinik_mobile/bindings/auth/forget_password_verification_bin
 import 'package:sim_klinik_mobile/bindings/auth/login_binding.dart';
 import 'package:sim_klinik_mobile/bindings/auth/register-_account_binding.dart';
 import 'package:sim_klinik_mobile/bindings/auth/register_account_verification_binding.dart';
+import 'package:sim_klinik_mobile/bindings/features/dashboard_binding.dart';
+import 'package:sim_klinik_mobile/bindings/features/profile_binding.dart';
 import 'package:sim_klinik_mobile/screens/auth/register_account_verification_screen.dart';
 import 'package:sim_klinik_mobile/screens/features/account/Settings/assistance/assistance_screen.dart';
 import 'package:sim_klinik_mobile/screens/features/account/change_password_screen.dart';
@@ -64,8 +66,11 @@ class AppScreens {
       binding: ForgetpasswordChangeBinding(),
     ),
 
-    GetPage(name: "/base", page: () => BaseScreen()),
-
+    GetPage(
+      name: "/base",
+      page: () => BaseScreen(),
+      bindings: [DashboardBinding(), ProfileBinding()],
+    ),
     // HOME SECTION
     GetPage(
       name: "/home/medical_history/detail_medical_history",

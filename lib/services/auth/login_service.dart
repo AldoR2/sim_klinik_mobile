@@ -66,15 +66,19 @@ class LoginService extends GetxService {
             username: '',
             pasienId: 0,
             nama: '',
+            message: body['message'],
           );
         }
       } else {
+        final body = jsonDecode(response.body);
+
         return Pasien(
           userId: 0,
           email: '',
           username: '',
           pasienId: 0,
           nama: '',
+          message: body['message'],
         );
       }
     } catch (e) {

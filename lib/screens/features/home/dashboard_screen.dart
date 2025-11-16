@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart';
 import '../models/home/doctor_schedule_model.dart';
 import '../widgets/home/doctor_schedule_card.dart';
 import 'package:get/get.dart';
-import 'package:sim_klinik_mobile/routes/app_screens.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});

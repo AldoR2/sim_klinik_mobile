@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sim_klinik_mobile/screens/features/account/profile_screen.dart';
-import 'dashboard_screen.dart';
+import 'package:sim_klinik_mobile/screens/features/home/dashboard/dashboard_screen.dart';
+import 'package:sim_klinik_mobile/screens/features/home/booking_form_screen.dart';
 
 class BaseScreen extends StatefulWidget {
   const BaseScreen({super.key});
@@ -12,14 +13,10 @@ class BaseScreen extends StatefulWidget {
 }
 
 class _BaseScreenState extends State<BaseScreen> {
-  // Gunakan RxInt agar bisa di-observe dengan Obx
   final RxInt _selectedIndex = 0.obs;
 
-  final List<Widget> _pages = [
-    DashboardScreen(),
-    Center(child: Text('Tambah Data (akan datang)')),
-    ProfileScreen(), // <- Masukkan langsung di sini
-  ];
+  // hanya Dashboard & Profile sekarang (Booking dibuka terpisah)
+  final List<Widget> _pages = [const DashboardScreen(), const ProfileScreen()];
 
   void _onItemTapped(int index) {
     _selectedIndex.value = index;
@@ -33,12 +30,12 @@ class _BaseScreenState extends State<BaseScreen> {
     return Scaffold(
       extendBody: true,
       resizeToAvoidBottomInset: true,
-
       body: Obx(() => _pages[_selectedIndex.value]),
-
-      // 🔹 Floating Action Button
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _selectedIndex.value = 1,
+        onPressed: () {
+          // PENTING: Pastikan route name sama persis dengan yang didaftarkan di getPages
+          Get.toNamed('/booking_form');
+        },
         backgroundColor: const Color(0xFF7134FC),
         shape: const CircleBorder(),
         child: Image.asset(
@@ -49,8 +46,6 @@ class _BaseScreenState extends State<BaseScreen> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-
-      // 🔹 Bottom Navigation Bar
       bottomNavigationBar: BottomAppBar(
         height: screenHeight * 0.08,
         shape: const CircularNotchedRectangle(),
@@ -77,7 +72,7 @@ class _BaseScreenState extends State<BaseScreen> {
                   iconPath: 'assets/icons/ic_account.png',
                   iconPathClicked: 'assets/icons/ic_account_clicked.png',
                   label: 'Akun',
-                  index: 2,
+                  index: 1, // sekarang index 1 (Profile)
                   currentIndex: currentIndex,
                   screenWidth: screenWidth,
                 ),

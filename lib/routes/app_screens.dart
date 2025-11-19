@@ -14,6 +14,7 @@ import 'package:sim_klinik_mobile/screens/features/account/settings/account_sett
 import 'package:sim_klinik_mobile/screens/features/account/settings/account_settings/fingerprint_settings_screen.dart';
 import 'package:sim_klinik_mobile/screens/features/account/settings/account_settings/otp_verification_screen.dart';
 import 'package:sim_klinik_mobile/screens/features/account/settings/settings_screen.dart';
+import 'package:sim_klinik_mobile/screens/features/home/booking_form_screen.dart';
 import 'package:sim_klinik_mobile/screens/features/home/chatbot_medigo/chatbot_display_screen.dart';
 import 'package:sim_klinik_mobile/screens/features/home/disease_detection.dart';
 import 'package:sim_klinik_mobile/screens/features/home/image_adjust_screen.dart';
@@ -111,5 +112,6 @@ class AppScreens {
       page: () => FingerprintSettingsScreen(),
     ),
     GetPage(name: "/account/assistance", page: () => BantuanScreen()),
+    GetPage(name: "/booking_form", page: () => BookingFormScreen()),
   ];
 }

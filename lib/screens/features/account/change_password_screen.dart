@@ -143,7 +143,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     child: TextButton(
                       onPressed: () {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("Data disimpan")),
+                          SnackBar(content: Text("Data disimpan")),
                         );
                       },
                       child: Padding(

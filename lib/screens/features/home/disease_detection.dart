@@ -2,11 +2,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:sim_klinik_mobile/controllers/home/disease_detection_controller.dart';
 import 'package:sim_klinik_mobile/screens/reusables/custom_header.dart';
 
 class DeteksiPenyakitScreen extends StatefulWidget {
-  const DeteksiPenyakitScreen({super.key});
+  DeteksiPenyakitScreen({super.key});
 
+  final _controller = Get.find<DiseaseDetectionController>();
   @override
   State<DeteksiPenyakitScreen> createState() => _DeteksiPenyakitScreenState();
 }
@@ -145,9 +147,7 @@ class _DeteksiPenyakitScreenState extends State<DeteksiPenyakitScreen> {
             // === Tombol Deteksi (muncul jika ada gambar) ===
             if (_selectedImage != null)
               ElevatedButton(
-                onPressed: () {
-                  
-                },
+                onPressed: () {},
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF7134FC),
                   padding: const EdgeInsets.symmetric(

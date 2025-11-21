@@ -98,7 +98,7 @@ class _ImageAdjustScreenState extends State<ImageAdjustScreen> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: const Text("Sesuaikan Gambar"),
+        title: Text("Sesuaikan Gambar", style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.black,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
@@ -111,7 +111,7 @@ class _ImageAdjustScreenState extends State<ImageAdjustScreen> {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [_buildAction(Icons.crop, "Crop", _showCropAlert)],
@@ -119,11 +119,8 @@ class _ImageAdjustScreenState extends State<ImageAdjustScreen> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: const Color(0xFF7134FC),
-        icon: const Icon(Icons.check, color: Colors.white),
-        label: const Text(
-          "Gunakan Gambar",
-          style: TextStyle(color: Colors.white),
-        ),
+        icon: Icon(Icons.check, color: Colors.white),
+        label: Text("Gunakan Gambar", style: TextStyle(color: Colors.white)),
         onPressed: () {
           Get.back(result: imageFile);
         },

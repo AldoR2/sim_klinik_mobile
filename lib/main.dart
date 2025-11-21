@@ -4,8 +4,16 @@ import 'package:get/get.dart';
 import 'package:sim_klinik_mobile/bindings/auth/token_binding.dart';
 import 'package:sim_klinik_mobile/routes/app_screens.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+
   TokenBinding().dependencies();
+
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sim_klinik_mobile/controllers/home/disease_detection_controller.dart';
+import 'package:sim_klinik_mobile/models/disease_prediction_model.dart';
 import 'package:sim_klinik_mobile/screens/features/models/home/disease_detection_model.dart';
 import 'package:sim_klinik_mobile/screens/reusables/custom_header.dart';
 import 'package:sim_klinik_mobile/screens/reusables/loading_screen.dart';
@@ -11,66 +12,18 @@ import 'package:sim_klinik_mobile/screens/reusables/loading_screen.dart';
 class DeteksiPenyakitScreen extends StatefulWidget {
   DeteksiPenyakitScreen({super.key});
 
-  final _controller = Get.find<DiseaseDetectionController>();
   @override
   State<DeteksiPenyakitScreen> createState() => _DeteksiPenyakitScreenState();
 }
 
 class _DeteksiPenyakitScreenState extends State<DeteksiPenyakitScreen> {
-  final ImagePicker _picker = ImagePicker();
-  File? _selectedImage;
-
+  final _controller = Get.find<DiseaseDetectionController>();
   // === Dummy model prediksi (sementara) ===
-  Future<DeteksiResultModel> dummyModelPrediction(File image) async {
-    await Future.delayed(const Duration(seconds: 2));
-
-    return DeteksiResultModel(
-      diseaseName: "Tinea Versicolor",
-      accuracy: 0.92,
-      recommendations: [
-        "Jaga kebersihan area yang terinfeksi.",
-        "Hindari menggaruk agar tidak memperparah luka.",
-        "Gunakan salep antijamur OTC bila tersedia.",
-      ],
-    );
-  }
-
-  Future<void> _pickImageFromCamera() async {
-    final XFile? image = await _picker.pickImage(
-      source: ImageSource.camera,
-      imageQuality: 85,
-    );
-    if (image != null) {
-      await _goToAdjustScreen(File(image.path));
-    }
-  }
-
-  Future<void> _pickImageFromGallery() async {
-    final XFile? image = await _picker.pickImage(
-      source: ImageSource.gallery,
-      imageQuality: 85,
-    );
-    if (image != null) {
-      await _goToAdjustScreen(File(image.path));
-    }
-  }
-
-  Future<void> _goToAdjustScreen(File imageFile) async {
-    final result = await Get.toNamed(
-      '/home/image_adjust',
-      arguments: imageFile,
-    );
-    if (result != null && result is File) {
-      setState(() {
-        _selectedImage = result;
-      });
-    }
-  }
 
   // ============================
   // POPUP ANALISA HASIL
   // ============================
-  void _showDetectionResult(DeteksiResultModel result) {
+  void showDetectionResult(DiseasePredictionModel result) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -114,7 +67,7 @@ class _DeteksiPenyakitScreenState extends State<DeteksiPenyakitScreen> {
               _buildRow("Nama Penyakit (Prediksi)", result.diseaseName),
               _buildRow(
                 "Tingkat Kebenaran",
-                "${(result.accuracy * 100).toStringAsFixed(0)}%",
+                "${(result.confidence * 100).toStringAsFixed(0)}%",
               ),
               const SizedBox(height: 16),
 
@@ -123,13 +76,18 @@ class _DeteksiPenyakitScreenState extends State<DeteksiPenyakitScreen> {
 
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: List.generate(
-                  result.recommendations.length,
-                  (i) => Text(
-                    "${i + 1}. ${result.recommendations[i]}",
-                    style: const TextStyle(fontSize: 15, color: Colors.black87),
-                  ),
-                ),
+                children: (result.recommendations != 1)
+                    ? List.generate(
+                        result.recommendations.length,
+                        (i) => Text(
+                          "${i + 1}. ${result.recommendations[i]}",
+                          style: const TextStyle(
+                            fontSize: 15,
+                            color: Colors.black87,
+                          ),
+                        ),
+                      )
+                    : [],
               ),
 
               const SizedBox(height: 16),
@@ -151,7 +109,10 @@ class _DeteksiPenyakitScreenState extends State<DeteksiPenyakitScreen> {
                 children: [
                   Expanded(
                     child: OutlinedButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        print("Press");
+                        await _controller.generateDiseaseReportPDF(result);
+                      },
                       style: OutlinedButton.styleFrom(
                         side: const BorderSide(
                           color: Color(0xFF7134FC), // warna ungu
@@ -217,6 +178,7 @@ class _DeteksiPenyakitScreenState extends State<DeteksiPenyakitScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final _controller = Get.find<DiseaseDetectionController>();
 
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -257,25 +219,27 @@ class _DeteksiPenyakitScreenState extends State<DeteksiPenyakitScreen> {
                         ),
                       ],
                     ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: _selectedImage == null
-                          ? const Center(
-                              child: Text(
-                                "Belum ada gambar",
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 16,
+                    child: Obx(() {
+                      return ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: _controller.selectedImage.value == null
+                            ? const Center(
+                                child: Text(
+                                  "Belum ada gambar",
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 16,
+                                  ),
                                 ),
+                              )
+                            : Image.file(
+                                _controller.selectedImage.value!,
+                                width: double.infinity,
+                                height: double.infinity,
+                                fit: BoxFit.cover,
                               ),
-                            )
-                          : Image.file(
-                              _selectedImage!,
-                              width: double.infinity,
-                              height: double.infinity,
-                              fit: BoxFit.cover,
-                            ),
-                    ),
+                      );
+                    }),
                   ),
                 ),
 
@@ -292,7 +256,7 @@ class _DeteksiPenyakitScreenState extends State<DeteksiPenyakitScreen> {
                     children: [
                       Expanded(
                         child: ElevatedButton.icon(
-                          onPressed: _pickImageFromGallery,
+                          onPressed: _controller.pickImageFromGallery,
                           icon: const Icon(
                             Icons.upload_file,
                             color: Color(0xFF7134FC),
@@ -318,7 +282,7 @@ class _DeteksiPenyakitScreenState extends State<DeteksiPenyakitScreen> {
                       const SizedBox(width: 12),
                       Expanded(
                         child: ElevatedButton.icon(
-                          onPressed: _pickImageFromCamera,
+                          onPressed: _controller.pickImageFromCamera,
                           icon: const Icon(
                             Icons.camera_alt,
                             color: Colors.white,
@@ -345,9 +309,12 @@ class _DeteksiPenyakitScreenState extends State<DeteksiPenyakitScreen> {
                 ),
 
                 SizedBox(height: 24),
+                Obx(() {
+                  if (_controller.selectedImage.value == null) {
+                    return SizedBox.shrink();
+                  }
 
-                if (_selectedImage != null)
-                  Padding(
+                  return Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: isSmallScreen ? 12 : 20,
                     ),
@@ -355,15 +322,8 @@ class _DeteksiPenyakitScreenState extends State<DeteksiPenyakitScreen> {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () async {
-                          Get.dialog(LoadingPopup(), barrierDismissible: false);
-                          await Future.delayed(const Duration(seconds: 2));
-
-                          DeteksiResultModel result =
-                              await dummyModelPrediction(_selectedImage!);
-
-                          Get.back(); // tutup loading
-
-                          _showDetectionResult(result);
+                          final result = await _controller.checkDisease();
+                          showDetectionResult(result);
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xFF7134FC),
@@ -382,8 +342,8 @@ class _DeteksiPenyakitScreenState extends State<DeteksiPenyakitScreen> {
                         ),
                       ),
                     ),
-                  ),
-
+                  );
+                }),
                 SizedBox(height: 32),
               ],
             ),

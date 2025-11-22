@@ -38,6 +38,12 @@ class AppScreens {
   static final screens = [
     // AUTH SECTION
     GetPage(name: "/", page: () => LandingPageScreen()),
+    // GetPage(
+    //   name: "/",
+    //   page: () => DeteksiPenyakitScreen(),
+    //   binding: DiseaseDetectionBinding(),
+    // ),
+
     GetPage(
       name: "/auth/login",
       page: () => LoginScreen(),
@@ -86,7 +92,7 @@ class AppScreens {
     GetPage(
       name: "/home/disease_detection",
       page: () => DeteksiPenyakitScreen(),
-      binding: DiseaseDetectionBinding()
+      binding: DiseaseDetectionBinding(),
     ),
     GetPage(
       name: "/home/chatbot_medigo/chatbot_display",

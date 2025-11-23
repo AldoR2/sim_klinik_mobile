@@ -5,7 +5,9 @@ import '../../models/home/doctor_schedule_model.dart';
 import '../../widgets/home/doctor_schedule_card.dart';
 
 class DashboardContent extends StatefulWidget {
-  const DashboardContent({super.key});
+  final Map data;
+
+  const DashboardContent({super.key, required this.data});
 
   @override
   State<DashboardContent> createState() => _DashboardContentState();
@@ -260,14 +262,16 @@ class _DashboardContentState extends State<DashboardContent> {
 
           SizedBox(height: h * 0.025),
 
-          Text(
-            'Halo, Izzul!',
-            style: GoogleFonts.nunito(
-              fontSize: w * 0.065,
-              fontWeight: FontWeight.w800,
-              color: Colors.white,
-            ),
-          ),
+          Obx(() {
+            return Text(
+              'Halo, ${widget.data["username"]}',
+              style: GoogleFonts.nunito(
+                fontSize: w * 0.065,
+                fontWeight: FontWeight.w800,
+                color: Colors.white,
+              ),
+            );
+          }),
 
           SizedBox(height: h * 0.005),
 

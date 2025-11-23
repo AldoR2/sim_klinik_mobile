@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sim_klinik_mobile/controllers/account/change_password_controller.dart';
 import 'package:sim_klinik_mobile/screens/reusables/custom_header.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
@@ -10,11 +12,7 @@ class ChangePasswordScreen extends StatefulWidget {
 }
 
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
-  final TextEditingController currentPasswordController =
-      TextEditingController();
-  final TextEditingController newPasswordController = TextEditingController();
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
+  final _controller = Get.find<ChangePasswordController>();
 
   @override
   Widget build(BuildContext context) {
@@ -112,21 +110,21 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
                   _buildLabel('Password Saat Ini *', w),
                   SizedBox(height: h * 0.01),
-                  _buildPasswordField(currentPasswordController, w),
+                  _buildPasswordField(_controller.currentPasswordController, w),
 
                   SizedBox(height: h * 0.02),
 
                   // 🔹 Field Password Baru
                   _buildLabel('Password Baru *', w),
                   SizedBox(height: h * 0.01),
-                  _buildPasswordField(newPasswordController, w),
+                  _buildPasswordField(_controller.newPasswordController, w),
 
                   SizedBox(height: h * 0.02),
 
                   // 🔹 Field Konfirmasi Password
                   _buildLabel('Konfirmasi Password Baru *', w),
                   SizedBox(height: h * 0.01),
-                  _buildPasswordField(confirmPasswordController, w),
+                  _buildPasswordField(_controller.confirmPasswordController, w),
 
                   SizedBox(height: h * 0.05),
 
@@ -142,9 +140,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     ),
                     child: TextButton(
                       onPressed: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("Data disimpan")),
-                        );
+                        _controller.validation();
                       },
                       child: Padding(
                         padding: EdgeInsets.symmetric(vertical: h * 0),
@@ -219,13 +215,5 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    currentPasswordController.dispose();
-    newPasswordController.dispose();
-    confirmPasswordController.dispose();
-    super.dispose();
   }
 }

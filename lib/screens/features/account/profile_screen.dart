@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sim_klinik_mobile/routes/app_screens.dart';
-import 'package:sim_klinik_mobile/screens/features/models/account/profile_model.dart';
+import 'package:sim_klinik_mobile/controllers/base/profile_controller.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -13,17 +11,18 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  late UserProfileModel user;
+  // late UserProfileModel user;
+  final _controller = Get.find<ProfileController>();
 
-  @override
-  void initState() {
-    super.initState();
-    user = UserProfileModel(
-      nama: "Izzul Ramadhan",
-      email: "izzulramadhan24@gmail.com",
-      fotoProfil: "assets/images/foto_user.jpg",
-    );
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   user = UserProfileModel(
+  //     nama: _controller.data["username"],
+  //     email: _controller.data["email"],
+  //     fotoProfil: "assets/images/foto_user.jpg",
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +97,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         backgroundColor: Colors.white,
                         child: CircleAvatar(
                           radius: w * 0.16,
-                          backgroundImage: AssetImage(user.fotoProfil),
+                          backgroundImage: AssetImage(
+                            "assets/images/foto_user.jpg",
+                          ),
                         ),
                       ),
                       GestureDetector(
@@ -131,14 +132,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 padding: EdgeInsets.only(top: h * 0.1),
                 child: Column(
                   children: [
-                    Text(
-                      user.nama,
-                      style: GoogleFonts.nunito(
-                        fontSize: w * 0.07,
-                        fontWeight: FontWeight.w800,
-                        color: Colors.black,
-                      ),
-                    ),
+                    Obx(() {
+                      return Text(
+                        _controller.data["username"],
+                        style: GoogleFonts.nunito(
+                          fontSize: w * 0.07,
+                          fontWeight: FontWeight.w800,
+                          color: Colors.black,
+                        ),
+                      );
+                    }),
                     SizedBox(height: h * 0.008),
                     Container(
                       padding: EdgeInsets.symmetric(
@@ -156,13 +159,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ],
                       ),
-                      child: Text(
-                        user.email,
-                        style: GoogleFonts.nunito(
-                          fontSize: w * 0.035,
-                          color: const Color(0xFF7134FC),
-                        ),
-                      ),
+                      child: Obx(() {
+                        return Text(
+                          _controller.data["email"],
+                          style: GoogleFonts.nunito(
+                            fontSize: w * 0.035,
+                            color: const Color(0xFF7134FC),
+                          ),
+                        );
+                      }),
                     ),
 
                     SizedBox(height: h * 0.04),

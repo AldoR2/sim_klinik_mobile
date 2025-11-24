@@ -11,18 +11,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  // late UserProfileModel user;
   final _controller = Get.find<ProfileController>();
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   user = UserProfileModel(
-  //     nama: _controller.data["username"],
-  //     email: _controller.data["email"],
-  //     fotoProfil: "assets/images/foto_user.jpg",
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -202,7 +191,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             _buildMenuItem2(
                               icon: 'assets/icons/ic_logout.png',
                               title: 'Log Out',
-                              onTap: _logout,
+                              onTap: _controller.logout,
                             ),
                           ],
                         ),
@@ -235,10 +224,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void _changePassword() {
     Get.toNamed("/account/change_password");
   }
-
-  void _logout() => ScaffoldMessenger.of(
-    context,
-  ).showSnackBar(const SnackBar(content: Text("Logout diklik")));
 
   Widget _divider() => Divider(height: 1, color: Colors.grey.shade300);
 

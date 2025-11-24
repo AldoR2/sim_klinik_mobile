@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sim_klinik_mobile/screens/features/account/profile_screen.dart';
 import 'package:sim_klinik_mobile/screens/features/home/dashboard/dashboard_screen.dart';
-import 'package:sim_klinik_mobile/screens/features/home/booking_form_screen.dart';
 
 class BaseScreen extends StatefulWidget {
   const BaseScreen({super.key});
@@ -30,7 +29,9 @@ class _BaseScreenState extends State<BaseScreen> {
     return Scaffold(
       extendBody: true,
       resizeToAvoidBottomInset: true,
-      body: Obx(() => _pages[_selectedIndex.value]),
+      body: Obx(
+        () => IndexedStack(index: _selectedIndex.value, children: _pages),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // PENTING: Pastikan route name sama persis dengan yang didaftarkan di getPages

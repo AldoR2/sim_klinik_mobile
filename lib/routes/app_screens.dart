@@ -5,9 +5,11 @@ import 'package:sim_klinik_mobile/bindings/auth/forget_password_verification_bin
 import 'package:sim_klinik_mobile/bindings/auth/login_binding.dart';
 import 'package:sim_klinik_mobile/bindings/auth/register-_account_binding.dart';
 import 'package:sim_klinik_mobile/bindings/auth/register_account_verification_binding.dart';
+import 'package:sim_klinik_mobile/bindings/features/booking_form_binding.dart';
 import 'package:sim_klinik_mobile/bindings/features/change_password_binding.dart';
 import 'package:sim_klinik_mobile/bindings/features/dashboard_binding.dart';
 import 'package:sim_klinik_mobile/bindings/features/disease_detection_binding.dart';
+import 'package:sim_klinik_mobile/bindings/features/edit_profile_binding.dart';
 import 'package:sim_klinik_mobile/bindings/features/profile_binding.dart';
 import 'package:sim_klinik_mobile/screens/auth/register_account_verification_screen.dart';
 import 'package:sim_klinik_mobile/screens/features/account/Settings/assistance/assistance_screen.dart';
@@ -110,7 +112,11 @@ class AppScreens {
     GetPage(name: '/home/image_adjust', page: () => ImageAdjustScreen()),
 
     // ACCOUNT SECTION
-    GetPage(name: "/account/edit_profile", page: () => EditProfileScreen()),
+    GetPage(
+      name: "/account/edit_profile",
+      page: () => EditProfileScreen(),
+      binding: EditProfileBinding(),
+    ),
     GetPage(
       name: "/account/change_password",
       page: () => ChangePasswordScreen(),
@@ -134,6 +140,10 @@ class AppScreens {
       page: () => FingerprintSettingsScreen(),
     ),
     GetPage(name: "/account/assistance", page: () => BantuanScreen()),
-    GetPage(name: "/booking_form", page: () => BookingFormScreen()),
+    GetPage(
+      name: "/booking_form",
+      page: () => BookingFormScreen(),
+      binding: BookingFormBinding(),
+    ),
   ];
 }

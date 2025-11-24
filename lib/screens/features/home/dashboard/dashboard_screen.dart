@@ -12,28 +12,17 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  bool isLoading = true;
   final _controller = Get.find<DashboardController>();
-
-  @override
-  void initState() {
-    super.initState();
-
-    // Simulasi loading
-    Future.delayed(const Duration(seconds: 2), () {
-      setState(() {
-        isLoading = false;
-      });
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFE7F0FB),
-      body: isLoading
-          ? const DashboardShimmer()
-          : DashboardContent(data: _controller.data),
+      body: Obx(() {
+        return _controller.isLoading.value
+            ? const DashboardShimmer()
+            : DashboardContent(data: _controller.data);
+      }),
     );
   }
 }

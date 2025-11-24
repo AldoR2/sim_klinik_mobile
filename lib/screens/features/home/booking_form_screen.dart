@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sim_klinik_mobile/controllers/base/booking_form_controller.dart';
 import 'package:sim_klinik_mobile/screens/reusables/custom_header.dart';
 import 'package:sim_klinik_mobile/screens/reusables/loading_screen.dart';
 
@@ -13,11 +13,8 @@ class BookingFormScreen extends StatefulWidget {
 }
 
 class _BookingFormScreenState extends State<BookingFormScreen> {
+  final _controller = Get.find<BookingFormController>();
   // Controllers
-  final TextEditingController namaController = TextEditingController();
-  final TextEditingController hpController = TextEditingController();
-  final TextEditingController keteranganDokterController =
-      TextEditingController(text: "Menunggu pilihan poli & sesi...");
 
   // Dropdown variables
   String? selectedPoli;
@@ -78,7 +75,7 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
                   _buildLabel('Nama Lengkap *', width),
                   SizedBox(height: 6),
                   TextField(
-                    controller: namaController,
+                    controller: _controller.namaController,
                     decoration: inputDecoration("Masukkan nama lengkap"),
                   ),
                   SizedBox(height: 16),
@@ -87,7 +84,7 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
                   _buildLabel('Nomor Handphone *', width),
                   SizedBox(height: 6),
                   TextField(
-                    controller: hpController,
+                    controller: _controller.hpController,
                     keyboardType: TextInputType.phone,
                     decoration: inputDecoration("Masukkan nomor handphone"),
                   ),
@@ -180,7 +177,7 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
                   _buildLabel('Keterangan Dokter', width),
                   SizedBox(height: 6),
                   TextField(
-                    controller: keteranganDokterController,
+                    controller: _controller.keteranganDokterController,
                     enabled: false,
                     maxLines: 2,
                     decoration: inputDecoration("Dokter akan tampil otomatis"),

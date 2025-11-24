@@ -1,8 +1,9 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sim_klinik_mobile/routes/app_screens.dart';
+import 'package:sim_klinik_mobile/controllers/account/edit_profile_controller.dart';
 import 'package:sim_klinik_mobile/screens/features/models/account/edit_profile_model.dart';
 import 'package:sim_klinik_mobile/screens/reusables/loading_screen.dart';
 
@@ -15,6 +16,7 @@ class EditProfileScreen extends StatefulWidget {
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
   late EditProfileModel user;
+  final _controller = Get.find<EditProfileController>();
 
   @override
   void initState() {
@@ -90,51 +92,152 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                 ),
 
-                Positioned(
-                  bottom: -h * 0.08,
-                  left: 0,
-                  right: 0,
-                  child: Center(
-                    child: Stack(
-                      alignment: Alignment.bottomRight,
-                      children: [
-                        CircleAvatar(
-                          radius: w * 0.17,
-                          backgroundColor: Colors.white,
-                          child: CircleAvatar(
-                            radius: w * 0.16,
-                            backgroundImage: AssetImage(user.fotoProfil),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () =>
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text("Edit foto diklik"),
-                                ),
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 110),
+                    padding: const EdgeInsets.all(2),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                    ),
+                    child: ClipOval(
+                      child: GestureDetector(
+                        onTap: () {
+                          showDialog(
+                            context: Get.context!,
+                            barrierDismissible: true,
+                            builder: (context) => Dialog(
+                              backgroundColor: Colors.transparent,
+                              insetPadding: EdgeInsets.zero,
+                              child: Stack(
+                                children: [
+                                  // Background blur
+                                  BackdropFilter(
+                                    filter: ImageFilter.blur(
+                                      sigmaX: 10,
+                                      sigmaY: 10,
+                                    ),
+                                    child: Container(
+                                      color: Colors.black.withOpacity(0.5),
+                                    ),
+                                  ),
+
+                                  // FOTO ZOOM BESAR
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 40,
+                                    ),
+                                    child: Center(
+                                      child: ClipOval(
+                                        child: Obx(() {
+                                          final imageUrl =
+                                              _controller.storedProfile.value;
+                                          return (imageUrl.isNotEmpty)
+                                              ? FadeInImage.assetNetwork(
+                                                  placeholder:
+                                                      "assets/images/foto_user.jpg",
+                                                  image: imageUrl,
+                                                  height: 300,
+                                                  width: 300,
+                                                  fit: BoxFit.cover,
+                                                  imageErrorBuilder:
+                                                      (
+                                                        context,
+                                                        url,
+                                                        error,
+                                                      ) => Image.asset(
+                                                        "assets/images/foto_user.jpg",
+                                                        height: 300,
+                                                        width: 300,
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                )
+                                              : Image.asset(
+                                                  "assets/images/foto_user.jpg",
+                                                  height: 300,
+                                                  width: 300,
+                                                  fit: BoxFit.cover,
+                                                );
+                                        }),
+                                      ),
+                                    ),
+                                  ),
+
+                                  // TOMBOL CLOSE
+                                  Positioned(
+                                    top: 40,
+                                    right: 20,
+                                    child: IconButton(
+                                      icon: const Icon(
+                                        Icons.close,
+                                        color: Colors.white,
+                                        size: 30,
+                                      ),
+                                      onPressed: () => Get.back(),
+                                    ),
+                                  ),
+                                ],
                               ),
-                          child: Container(
-                            padding: const EdgeInsets.all(6),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFF7134FC),
-                              shape: BoxShape.circle,
-                              border: Border.all(color: Colors.white, width: 2),
                             ),
-                            child: const Icon(
-                              Icons.edit,
-                              size: 18,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ],
+                          );
+                        },
+
+                        // FOTO PROFIL (KECIL)
+                        child: Obx(() {
+                          final imageUrl = _controller.storedProfile.value;
+                          return (imageUrl.isNotEmpty)
+                              ? FadeInImage.assetNetwork(
+                                  placeholder: "assets/images/foto_user.jpg",
+                                  image: imageUrl,
+                                  height: 140,
+                                  width: 140,
+                                  fit: BoxFit.cover,
+                                  imageErrorBuilder: (context, url, error) =>
+                                      Image.asset(
+                                        "assets/images/foto_user.jpg",
+                                        height: 140,
+                                        width: 140,
+                                        fit: BoxFit.cover,
+                                      ),
+                                )
+                              : Image.asset(
+                                  "assets/images/foto_user.jpg",
+                                  height: 140,
+                                  width: 140,
+                                  fit: BoxFit.cover,
+                                );
+                        }),
+                      ),
+                    ),
+                  ),
+                ),
+
+                Positioned(
+                  bottom: 0,
+                  left: 80,
+                  right: 0,
+                  child: GestureDetector(
+                    onTap: () => _controller.showFileOptions(),
+                    child: Container(
+                      padding: const EdgeInsets.all(6),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF7134FC),
+                        shape: BoxShape.circle,
+                        border: Border.all(color: Colors.white, width: 2),
+                      ),
+                      child: const Icon(
+                        Icons.edit,
+                        size: 18,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
               ],
             ),
 
-            SizedBox(height: h * 0.12),
+            SizedBox(height: h * 0.04),
 
             /// 🔹 FORM DATA DIRI
             Padding(

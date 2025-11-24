@@ -14,4 +14,10 @@ class ProfileController extends GetxController {
     final email = _box.read("email");
     data.addAll({"username": username, "email": email});
   }
+
+  void logout() {
+    _box.erase();
+    Get.offAllNamed("/auth/login");
+    Get.snackbar("Berhasil", "Logout telah berhasil");
+  }
 }

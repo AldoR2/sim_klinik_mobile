@@ -139,8 +139,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       ),
                     ),
                     child: TextButton(
-                      onPressed: () {
-                        _controller.validation();
+                      onPressed: () async {
+                        await _controller.submit();
                       },
                       child: Padding(
                         padding: EdgeInsets.symmetric(vertical: h * 0),

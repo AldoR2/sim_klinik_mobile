@@ -49,6 +49,15 @@ class DiseaseDetectionServices extends GetxService {
       final respStr = await http.Response.fromStream(response);
       log.d(respStr.body);
 
+      if (response.statusCode == 401) {
+        Get.snackbar("Gagal", "Lakukan login kembali, waktu token telah habis");
+        Get.offAllNamed("/auth/login");
+        return BaseResponse(
+          status: "error",
+          message: "Gagal terhubung ke server",
+        );
+      }
+
       final body = jsonDecode(respStr.body);
       log.d(body);
 

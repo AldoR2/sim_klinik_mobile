@@ -187,7 +187,7 @@ class _DashboardContentState extends State<DashboardContent> {
                         Text(
                           'Lihat Semua Jadwal',
                           style: GoogleFonts.nunito(
-                            fontSize: w * 0.04,
+                            fontSize: w * 0.05,
                             fontWeight: FontWeight.w600,
                             color: Color(0XFF7134FC),
                           ),
@@ -367,17 +367,14 @@ class _DashboardContentState extends State<DashboardContent> {
     Color borderColor, {
     VoidCallback? onTap,
   }) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+    final w = MediaQuery.of(context).size.width;
+    final h = MediaQuery.of(context).size.height;
 
-    final itemWidth = screenWidth * 0.23;
-    final iconSize = screenWidth * 0.17;
-    final paddingSize = screenWidth * 0.015;
-    final textSize = screenWidth * 0.032;
-    final spaceBetween = screenHeight * 0.008;
+    final iconSize = w * 0.17;
+    final textSize = w * 0.032;
 
     return SizedBox(
-      width: itemWidth,
+      width: w * 0.23, // hanya atur lebar, tinggi otomatis
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -386,43 +383,40 @@ class _DashboardContentState extends State<DashboardContent> {
           Material(
             color: Colors.transparent,
             shape: const CircleBorder(),
-            clipBehavior: Clip.antiAlias,
+            clipBehavior: Clip.antiAlias, // wajib untuk ripple melingkar
             child: InkWell(
               onTap: onTap,
-              customBorder: const CircleBorder(),
               splashColor: borderColor.withOpacity(0.15),
               highlightColor: borderColor.withOpacity(0.12),
-              child: Padding(
-                padding: EdgeInsets.all(paddingSize),
-                child: Container(
-                  height: iconSize,
-                  width: iconSize,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white70,
-                    border: Border.all(color: borderColor, width: 2),
-                    boxShadow: [BoxShadow(color: bgColor, blurRadius: 5)],
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.all(iconSize * 0.25),
-                    child: Image.asset(iconPath, color: borderColor),
-                  ),
+              customBorder: CircleBorder(),
+              child: Container(
+                height: iconSize,
+                width: iconSize,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white70,
+                  border: Border.all(color: borderColor, width: 2),
+                  boxShadow: [
+                    BoxShadow(color: bgColor.withOpacity(0.6), blurRadius: 6),
+                  ],
                 ),
+                padding: EdgeInsets.all(iconSize * 0.25),
+                child: Image.asset(iconPath, color: borderColor),
               ),
             ),
           ),
-          SizedBox(height: spaceBetween),
-          Flexible(
-            child: Text(
-              label,
-              textAlign: TextAlign.center,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: GoogleFonts.nunito(
-                fontSize: textSize,
-                fontWeight: FontWeight.w700,
-                color: Colors.black87,
-              ),
+
+          SizedBox(height: h * 0.008),
+
+          Text(
+            label,
+            textAlign: TextAlign.center,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: GoogleFonts.nunito(
+              fontSize: textSize,
+              fontWeight: FontWeight.w700,
+              color: Colors.black87,
             ),
           ),
         ],

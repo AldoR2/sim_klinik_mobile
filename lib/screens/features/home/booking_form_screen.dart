@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sim_klinik_mobile/controllers/base/booking_form_controller.dart';
+import 'package:sim_klinik_mobile/models/poli_model.dart';
+import 'package:sim_klinik_mobile/models/sesi_model.dart';
 import 'package:sim_klinik_mobile/screens/reusables/custom_header.dart';
 import 'package:sim_klinik_mobile/screens/reusables/loading_screen.dart';
 
@@ -17,41 +19,12 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
   // Controllers
 
   // Dropdown variables
-  String? selectedPoli;
-  String? selectedBulan;
-  String? selectedTanggal;
-  String? selectedSesi;
+  // String? selectedPoli;
+  // String? selectedBulan;
+  // String? selectedTanggal;
+  // String? selectedSesi;
 
   int currentYear = DateTime.now().year;
-
-  List<String> listPoli = [
-    "Poli Umum",
-    "Poli Gigi",
-    "Poli Ibu dan Anak",
-    "Poli Gizi",
-  ];
-
-  List<String> listSesi = ["07.00 - 09.00", "09.00 - 11.00", "13.00 - 15.00"];
-
-  Map<String, int> jumlahHariPerBulan = {
-    "Januari": 31,
-    "Februari": 29, // Asumsikan tahun kabisat biar aman
-    "Maret": 31,
-    "April": 30,
-    "Mei": 31,
-    "Juni": 30,
-    "Juli": 31,
-    "Agustus": 31,
-    "September": 30,
-    "Oktober": 31,
-    "November": 30,
-    "Desember": 31,
-  };
-
-  List<String> getTanggalList(String bulan) {
-    int total = jumlahHariPerBulan[bulan]!;
-    return List.generate(total, (i) => (i + 1).toString());
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,35 +45,22 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // =================== Nama =====================
-                  _buildLabel('Nama Lengkap *', width),
-                  SizedBox(height: 6),
-                  TextField(
-                    controller: _controller.namaController,
-                    decoration: inputDecoration("Masukkan nama lengkap"),
-                  ),
-                  SizedBox(height: 16),
-
-                  // =================== Nomor HP =====================
-                  _buildLabel('Nomor Handphone *', width),
-                  SizedBox(height: 6),
-                  TextField(
-                    controller: _controller.hpController,
-                    keyboardType: TextInputType.phone,
-                    decoration: inputDecoration("Masukkan nomor handphone"),
-                  ),
-                  SizedBox(height: 16),
 
                   // =================== Poli =====================
                   _buildLabel('Pilih Poli *', width),
                   SizedBox(height: 6),
-                  dropdownBox(
-                    hint: "Pilih poli",
-                    value: selectedPoli,
-                    items: listPoli,
-                    onChanged: (val) {
-                      setState(() => selectedPoli = val);
-                    },
-                  ),
+                  Obx(() {
+                    return dropdownBox<PoliModel>(
+                      hint: "Pilih poli",
+                      value: _controller.selectedPoli.value,
+                      items: _controller.listPoli.toList(),
+                      labelBuilder: (item) => item.nama!, // tampilkan nama
+                      onChanged: (val) {
+                        _controller.selectedPoli.value = val;
+                        _controller.fetchSesi();
+                      },
+                    );
+                  }),
                   SizedBox(height: 16),
 
                   // =================== Tanggal Berobat =====================
@@ -111,38 +71,57 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
                     children: [
                       Expanded(
                         flex: 4,
-                        child: dropdownBox(
-                          // BULAN
-                          hint: "Bulan",
-                          value: selectedBulan,
-                          items: jumlahHariPerBulan.keys.toList(),
-                          onChanged: (val) {
-                            setState(() {
-                              selectedBulan = val;
-                              selectedTanggal = null;
-                            });
-                          },
-                        ),
+                        child: Obx(() {
+                          final bulanValue = _controller.selectedBulan.value;
+                          final bulanItems = _controller.jumlahHariPerBulan.keys
+                              .toList();
+
+                          return dropdownBox(
+                            // BULAN
+                            labelBuilder: (item) => item,
+                            hint: "Bulan",
+                            value:
+                                bulanValue != null &&
+                                    bulanItems.contains(bulanValue)
+                                ? bulanValue
+                                : null,
+                            items: bulanItems,
+                            onChanged: (val) {
+                              _controller.selectedBulan.value = val;
+                              _controller.selectedTanggal.value = null;
+                            },
+                          );
+                        }),
                       ),
                       const SizedBox(width: 10),
 
                       Expanded(
                         flex: 3,
-                        child: dropdownBox(
-                          // TANGGAL
-                          hint: "Tanggal",
-                          value: selectedTanggal,
-                          items: selectedBulan == null
+                        child: Obx(() {
+                          final tanggalItems =
+                              _controller.selectedBulan.value == null
                               ? []
-                              : getTanggalList(selectedBulan!),
-                          onChanged: selectedBulan == null
-                              ? null
-                              : (val) {
-                                  setState(() {
-                                    selectedTanggal = val;
-                                  });
-                                },
-                        ),
+                              : _controller.getTanggalList(
+                                  _controller.selectedBulan.value!,
+                                );
+                          return dropdownBox(
+                            // TANGGAL
+                            labelBuilder: (item) => item,
+                            hint: "Tanggal",
+                            value:
+                                tanggalItems.contains(
+                                  _controller.selectedTanggal.value,
+                                )
+                                ? _controller.selectedTanggal.value
+                                : null,
+                            items: tanggalItems,
+                            onChanged: (val) {
+                              _controller.selectedTanggal.value = val;
+                              _controller.getHari();
+                              _controller.fetchSesi();
+                            },
+                          );
+                        }),
                       ),
                       const SizedBox(width: 10),
 
@@ -150,6 +129,8 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
                         flex: 2,
                         child: dropdownBox(
                           // TAHUN
+                          labelBuilder: (item) => item,
+
                           value: currentYear.toString(),
                           items: [currentYear.toString()],
                           enabled: false,
@@ -163,19 +144,29 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
                   // =================== Sesi =====================
                   _buildLabel('Pilih Sesi *', width),
                   SizedBox(height: 6),
-                  dropdownBox(
-                    hint: "Pilih sesi",
-                    value: selectedSesi,
-                    items: listSesi,
-                    onChanged: (val) {
-                      setState(() => selectedSesi = val);
-                    },
-                  ),
+                  Obx(() {
+                    final sesiItems = _controller.listSesi;
+                    return dropdownBox<SesiModel>(
+                      hint: "Pilih sesi",
+                      labelBuilder: (item) =>
+                          item.jamMulai + " - " + item.jamSelesai,
+                      value: sesiItems.contains(_controller.selectedSesi.value)
+                          ? _controller.selectedSesi.value
+                          : null,
+                      items: sesiItems,
+                      onChanged: (val) {
+                        _controller.selectedSesi.value = val;
+                        _controller.selectedDoctor.value = val!.idDokter;
+                        _controller.fetchKeterangan();
+                      },
+                    );
+                  }),
                   SizedBox(height: 16),
 
                   // =================== Keterangan Dokter (DISABLED) =====================
                   _buildLabel('Keterangan Dokter', width),
                   SizedBox(height: 6),
+
                   TextField(
                     controller: _controller.keteranganDokterController,
                     enabled: false,
@@ -284,18 +275,9 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
                                 Expanded(
                                   child: GestureDetector(
                                     onTap: () async {
-                                      Navigator.pop(context);
-                                      Get.dialog(
-                                        LoadingPopup(),
-                                        barrierDismissible: false,
-                                      );
-
-                                      await Future.delayed(
-                                        Duration(seconds: 2),
-                                      );
-
-                                      Get.back();
-                                      Get.toNamed('/');
+                                      if (_controller.isSnackbarOpen.value ==
+                                          false)
+                                        await _controller.submit();
                                     },
                                     child: Container(
                                       padding: EdgeInsets.symmetric(
@@ -359,12 +341,14 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
     );
   }
 
-  Widget dropdownBox({
+  Widget dropdownBox<T>({
     String? hint,
-    String? value,
-    required List<String> items,
+    T? value,
+    required List<T> items,
+    required String Function(T) labelBuilder, // convert item -> text
+
     bool enabled = true,
-    void Function(String?)? onChanged,
+    void Function(T?)? onChanged,
   }) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -373,11 +357,16 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: Colors.black26),
       ),
-      child: DropdownButton<String>(
+      child: DropdownButton<T>(
         hint: Text(hint ?? ""),
         value: value,
         items: items
-            .map((e) => DropdownMenuItem(value: e, child: Text(e)))
+            .map(
+              (item) => DropdownMenuItem<T>(
+                value: item,
+                child: Text(labelBuilder(item)), // tampilkan label
+              ),
+            )
             .toList(),
         isExpanded: true,
         underline: const SizedBox(),

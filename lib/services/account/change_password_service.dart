@@ -53,11 +53,11 @@ class ChangePasswordService {
       }
     } catch (e) {
       log.e("Error during checking password: $e");
+      return BaseResponse(
+        status: "error",
+        message: "Terjadi kesalahan saat mengecek password",
+      );
     }
-    return BaseResponse(
-      status: "error",
-      message: "Terjadi kesalahan saat mengecek password",
-    );
   }
 
   Future<BaseResponse> changePassword(String email, String password) async {

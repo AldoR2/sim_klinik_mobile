@@ -76,7 +76,6 @@ class DiseaseDetectionController extends GetxController {
 
   Future<DiseasePredictionModel> checkDisease() async {
     try {
-      log.d("Tes");
       final fotoFinal = selectedImage.value;
 
       showLoading();

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sim_klinik_mobile/routes/app_screens.dart';
 import 'package:sim_klinik_mobile/screens/features/models/account/edit_profile_model.dart';
@@ -22,9 +21,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     user = EditProfileModel(
       nama: "Izzul Islam Ramadhan",
       email: "izzul123@gmail.com",
-      jenisKelamin: "Laki-laki",
-      noHandphone: "+62 123 4444 5678",
-      fotoProfil: "assets/images/foto_user.jpg",
+      fotoProfil: "assets/images/default profile.png",
+      isEmailVerified: false, // contoh: email sudah terdaftar
     );
   }
 
@@ -36,12 +34,46 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
     return Scaffold(
       backgroundColor: const Color(0xFFE7F0FB),
+
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.fromLTRB(24, 0, 24, 24),
+        child: Container(
+          height: 50,
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [Color(0xFF7755E1), Color(0xFF1C8EF9)],
+            ),
+            borderRadius: BorderRadius.circular(14),
+          ),
+          child: TextButton(
+            onPressed: () async {
+              Get.dialog(LoadingPopup(), barrierDismissible: false);
+              await Future.delayed(const Duration(seconds: 5));
+              if (Get.isDialogOpen ?? false) Get.back();
+              Get.toNamed("base");
+            },
+            child: Text(
+              "Simpan",
+              style: GoogleFonts.nunito(
+                color: Colors.white,
+                fontSize: w * 0.06,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+        ),
+      ),
+
+      // ======================
+      // 🔺 BODY PAGE
+      // ======================
       body: SingleChildScrollView(
         child: Column(
           children: [
             Stack(
               clipBehavior: Clip.none,
               children: [
+                // Header
                 Container(
                   width: double.infinity,
                   height: h * 0.19,
@@ -90,6 +122,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                 ),
 
+                // Foto Profil Overlap
                 Positioned(
                   bottom: -h * 0.08,
                   left: 0,
@@ -109,10 +142,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         GestureDetector(
                           onTap: () =>
                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text("Edit foto diklik"),
+                                SnackBar(
+                                  content: const Text(
+                                    "Silahkan lakukan pembuatan KIB di klinik",
+                                  ),
+                                  behavior: SnackBarBehavior.floating,
+                                  margin: const EdgeInsets.only(
+                                    bottom: 20,
+                                    left: 16,
+                                    right: 16,
+                                  ),
                                 ),
                               ),
+
                           child: Container(
                             padding: const EdgeInsets.all(6),
                             decoration: BoxDecoration(
@@ -136,7 +178,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
             SizedBox(height: h * 0.12),
 
-            /// 🔹 FORM DATA DIRI
+            // ======================
+            // FORM FIELD
+            // ======================
             Padding(
               padding: EdgeInsets.symmetric(horizontal: w * 0.08),
               child: Column(
@@ -145,47 +189,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   _buildFieldLabel("Username"),
                   _buildTextField(user.nama, Icons.edit),
 
-                  _buildFieldLabel("Jenis Kelamin"),
-                  _buildDropdownField(user.jenisKelamin),
-
-                  _buildFieldLabel("Nomor Handphone"),
-                  _buildTextField(user.noHandphone, Icons.edit),
-
                   _buildFieldLabel("Email"),
                   _buildEmailField(user.email),
-                  SizedBox(height: h * 0.05),
 
-                  Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(14),
-                      gradient: const LinearGradient(
-                        colors: [Color(0xFF7755E1), Color(0xFF1C8EF9)],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                      ),
-                    ),
-                    child: TextButton(
-                      onPressed: () async {
-                        Get.dialog(LoadingPopup(), barrierDismissible: false);
-                        await Future.delayed(const Duration(seconds: 5));
-
-                        if (Get.isDialogOpen ?? false) Get.back();
-                        Get.toNamed("base");
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: h * 0),
-                        child: Text(
-                          "Simpan",
-                          style: GoogleFonts.nunito(
-                            color: Colors.white,
-                            fontSize: w * 0.06,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
                   SizedBox(height: h * 0.05),
                 ],
               ),
@@ -241,75 +247,105 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
   }
 
-  // 🔸 Dropdown Jenis Kelamin
-  Widget _buildDropdownField(String currentValue) {
-    final size = MediaQuery.of(context).size;
-    final w = size.width;
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: w * 0.04),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: DropdownButtonFormField<String>(
-        value: currentValue,
-        decoration: const InputDecoration(border: InputBorder.none),
-        items: ['Laki-laki', 'Perempuan']
-            .map((value) => DropdownMenuItem(value: value, child: Text(value)))
-            .toList(),
-        onChanged: (value) {},
-        style: GoogleFonts.nunito(
-          color: Colors.black54,
-          fontSize: w * 0.045,
-          fontWeight: FontWeight.w600,
-        ),
-        icon: const Icon(Icons.keyboard_arrow_down_rounded, color: Colors.grey),
-      ),
-    );
-  }
-
-  // 🔸 Field Email + Tombol Verifikasi
+  // 🔸 Field Email + Verifikasi
+  // 🔸 Field Email + Status di bawah field
   Widget _buildEmailField(String email) {
     final size = MediaQuery.of(context).size;
     final w = size.width;
-    return Container(
-      padding: EdgeInsets.only(left: w * 0.04, right: w * 0.02),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: email,
-                hintStyle: GoogleFonts.nunito(
-                  color: Colors.black54,
-                  fontSize: w * 0.045,
-                  fontWeight: FontWeight.w600,
-                ),
-                border: InputBorder.none,
-              ),
-            ),
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // ==========================
+        // 🔹 FIELD EMAIL
+        // ==========================
+        Container(
+          padding: EdgeInsets.only(left: w * 0.04, right: w * 0.04),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
           ),
-          TextButton(
-            onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text("Verifikasi email diklik")),
-              );
-            },
-            child: Text(
-              "Verifikasi",
-              style: GoogleFonts.nunito(
-                color: const Color(0xFF7134FC),
-                fontSize: w * 0.04,
+          child: TextField(
+            enabled: false,
+            decoration: InputDecoration(
+              hintText: email,
+              hintStyle: GoogleFonts.nunito(
+                color: Colors.black54,
+                fontSize: w * 0.045,
                 fontWeight: FontWeight.w600,
               ),
+              border: InputBorder.none,
             ),
           ),
-        ],
-      ),
+        ),
+
+        SizedBox(height: w * 0.025),
+
+        // ==========================
+        // 🔹 STATUS (di luar field)
+        // ==========================
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            GestureDetector(
+              onTap: () {
+                if (!user.isEmailVerified) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: const Text(
+                        "Silahkan lakukan pembuatan KIB di klinik",
+                      ),
+                      behavior: SnackBarBehavior.floating,
+                      margin: const EdgeInsets.only(
+                        bottom: 20,
+                        left: 16,
+                        right: 16,
+                      ),
+                    ),
+                  );
+                }
+              },
+
+              child: Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: w * 0.035,
+                  vertical: w * 0.02,
+                ),
+                decoration: BoxDecoration(
+                  color: user.isEmailVerified
+                      ? Colors.green.withOpacity(0.12)
+                      : Colors.red.withOpacity(0.12),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+
+                // Row berisi ikon + teks
+                child: Row(
+                  children: [
+                    Icon(
+                      user.isEmailVerified
+                          ? Icons.check_circle
+                          : Icons.warning_amber_rounded,
+                      color: user.isEmailVerified ? Colors.green : Colors.red,
+                      size: w * 0.045,
+                    ),
+                    SizedBox(width: w * 0.02),
+                    Text(
+                      user.isEmailVerified
+                          ? "Email sudah terdaftar KIB"
+                          : "Email belum terdaftar KIB",
+                      style: GoogleFonts.nunito(
+                        fontSize: w * 0.037,
+                        fontWeight: FontWeight.w700,
+                        color: user.isEmailVerified ? Colors.green : Colors.red,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

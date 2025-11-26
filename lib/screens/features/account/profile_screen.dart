@@ -21,7 +21,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     user = UserProfileModel(
       nama: "Izzul Ramadhan",
       email: "izzulramadhan24@gmail.com",
-      fotoProfil: "assets/images/foto_user.jpg",
+      fotoProfil: "assets/images/default profile.png",
     );
   }
 

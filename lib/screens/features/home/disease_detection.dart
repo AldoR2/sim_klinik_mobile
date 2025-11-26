@@ -152,12 +152,10 @@ class _DeteksiPenyakitScreenState extends State<DeteksiPenyakitScreen> {
                       onPressed: () {},
                       style: OutlinedButton.styleFrom(
                         side: const BorderSide(
-                          color: Color(0xFF7134FC), // warna ungu
+                          color: Color(0xFF7134FC),
                           width: 1,
                         ),
-                        foregroundColor: Color(
-                          0xFF7134FC,
-                        ), // warna teks dan icon
+                        foregroundColor: Color(0xFF7134FC),
                       ),
                       child: const Text("Simpan PDF"),
                     ),
@@ -182,6 +180,45 @@ class _DeteksiPenyakitScreenState extends State<DeteksiPenyakitScreen> {
           ),
         );
       },
+    );
+  }
+
+  // ============================
+  // GETTER BOTTOM NAVIGATION BAR
+  // ============================
+  Widget get _buildBottomNavBar {
+    if (_selectedImage == null) return const SizedBox();
+
+    return Container(
+      padding: EdgeInsets.fromLTRB(20, 0, 20, 36),
+      height: 90,
+      child: ElevatedButton(
+        onPressed: () async {
+          Get.dialog(LoadingPopup(), barrierDismissible: false);
+          await Future.delayed(const Duration(seconds: 2));
+
+          DeteksiResultModel result = await dummyModelPrediction(
+            _selectedImage!,
+          );
+
+          Get.back(); // tutup loading
+          _showDetectionResult(result);
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xFF7134FC),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+        child: Text(
+          "Deteksi Sekarang",
+          style: GoogleFonts.nunito(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ),
     );
   }
 
@@ -221,15 +258,14 @@ class _DeteksiPenyakitScreenState extends State<DeteksiPenyakitScreen> {
         double screenWidth = constraints.maxWidth;
         double screenHeight = constraints.maxHeight;
 
-        // Tinggi gambar responsif
         double imageHeight = screenHeight * 0.5;
-        if (imageHeight > 420)
-          imageHeight = 420; // batas maksimal agar tidak terlalu tinggi
+        if (imageHeight > 420) imageHeight = 420;
 
         bool isSmallScreen = screenWidth < 360;
 
         return Scaffold(
           backgroundColor: const Color(0xFFE7F0FB),
+          bottomNavigationBar: _buildBottomNavBar, // ⬅️ PENTING!
           body: SingleChildScrollView(
             padding: const EdgeInsets.only(bottom: 24),
             child: Column(
@@ -237,9 +273,6 @@ class _DeteksiPenyakitScreenState extends State<DeteksiPenyakitScreen> {
                 CustomHeader(title: "Deteksi Penyakit"),
                 SizedBox(height: 24),
 
-                // ==============================
-                // AREA GAMBAR RESPONSIF
-                // ==============================
                 Center(
                   child: Container(
                     width: screenWidth * 0.9,
@@ -279,9 +312,6 @@ class _DeteksiPenyakitScreenState extends State<DeteksiPenyakitScreen> {
 
                 const SizedBox(height: 32),
 
-                // ==================================
-                // TOMBOL UPLOAD & CAMERA RESPONSIF
-                // ==================================
                 Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: isSmallScreen ? 8 : 16,
@@ -341,46 +371,6 @@ class _DeteksiPenyakitScreenState extends State<DeteksiPenyakitScreen> {
                     ],
                   ),
                 ),
-
-                SizedBox(height: 24),
-
-                if (_selectedImage != null)
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: isSmallScreen ? 12 : 20,
-                    ),
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          Get.dialog(LoadingPopup(), barrierDismissible: false);
-                          await Future.delayed(const Duration(seconds: 2));
-
-                          DeteksiResultModel result =
-                              await dummyModelPrediction(_selectedImage!);
-
-                          Get.back(); // tutup loading
-
-                          _showDetectionResult(result);
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFF7134FC),
-                          padding: EdgeInsets.symmetric(vertical: 16),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        ),
-                        child: Text(
-                          "Deteksi Sekarang",
-                          style: GoogleFonts.nunito(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
 
                 SizedBox(height: 32),
               ],

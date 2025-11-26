@@ -16,6 +16,7 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
   // Controllers
   final TextEditingController namaController = TextEditingController();
   final TextEditingController hpController = TextEditingController();
+  final TextEditingController keluhanController = TextEditingController();
   final TextEditingController keteranganDokterController =
       TextEditingController(text: "Menunggu pilihan poli & sesi...");
 
@@ -184,6 +185,15 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
                     enabled: false,
                     maxLines: 2,
                     decoration: inputDecoration("Dokter akan tampil otomatis"),
+                  ),
+
+                  SizedBox(height: 16),
+                  _buildLabel('Keluhan Awal *', width),
+                  SizedBox(height: 6),
+                  TextField(
+                    controller: keluhanController,
+                    decoration: inputDecoration("Masukkan keluhan"),
+                    maxLines: 3,
                   ),
 
                   SizedBox(height: 40),

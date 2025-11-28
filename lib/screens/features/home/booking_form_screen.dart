@@ -174,6 +174,15 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
                     decoration: inputDecoration("Dokter akan tampil otomatis"),
                   ),
 
+                  SizedBox(height: 16),
+                  _buildLabel('Keluhan Awal *', width),
+                  SizedBox(height: 6),
+                  TextField(
+                    controller: keluhanController,
+                    decoration: inputDecoration("Masukkan keluhan"),
+                    maxLines: 3,
+                  ),
+
                   SizedBox(height: 40),
                 ],
               ),

@@ -1,15 +1,13 @@
 class EditProfileModel {
-  final String nama;
-  final String jenisKelamin;
-  final String noHandphone;
-  final String email;
-  final String fotoProfil;
-  
+  String nama;
+  String email;
+  String fotoProfil;
+  bool isEmailVerified; // ⬅ status baru
+
   EditProfileModel({
     required this.nama,
     required this.email,
-    required this.jenisKelamin,
-    required this.noHandphone,
     required this.fotoProfil,
+    this.isEmailVerified = false, // default tidak terdaftar
   });
 }

@@ -5,7 +5,6 @@ import 'package:sim_klinik_mobile/controllers/base/booking_form_controller.dart'
 import 'package:sim_klinik_mobile/models/poli_model.dart';
 import 'package:sim_klinik_mobile/models/sesi_model.dart';
 import 'package:sim_klinik_mobile/screens/reusables/custom_header.dart';
-import 'package:sim_klinik_mobile/screens/reusables/loading_screen.dart';
 
 class BookingFormScreen extends StatefulWidget {
   const BookingFormScreen({super.key});
@@ -16,13 +15,6 @@ class BookingFormScreen extends StatefulWidget {
 
 class _BookingFormScreenState extends State<BookingFormScreen> {
   final _controller = Get.find<BookingFormController>();
-  // Controllers
-
-  // Dropdown variables
-  // String? selectedPoli;
-  // String? selectedBulan;
-  // String? selectedTanggal;
-  // String? selectedSesi;
 
   int currentYear = DateTime.now().year;
 
@@ -178,7 +170,7 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
                   _buildLabel('Keluhan Awal *', width),
                   SizedBox(height: 6),
                   TextField(
-                    controller: keluhanController,
+                    controller: _controller.keluhanController,
                     decoration: inputDecoration("Masukkan keluhan"),
                     maxLines: 3,
                   ),

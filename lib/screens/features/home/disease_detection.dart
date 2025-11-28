@@ -150,22 +150,17 @@ class _DeteksiPenyakitScreenState extends State<DeteksiPenyakitScreen> {
   // GETTER BOTTOM NAVIGATION BAR
   // ============================
   Widget get _buildBottomNavBar {
-    if (_selectedImage == null) return const SizedBox();
+    if (_controller.selectedImage.value == null) {
+      return SizedBox.shrink();
+    }
 
     return Container(
       padding: EdgeInsets.fromLTRB(20, 0, 20, 36),
       height: 90,
       child: ElevatedButton(
         onPressed: () async {
-          Get.dialog(LoadingPopup(), barrierDismissible: false);
-          await Future.delayed(const Duration(seconds: 2));
-
-          DeteksiResultModel result = await dummyModelPrediction(
-            _selectedImage!,
-          );
-
-          Get.back(); // tutup loading
-          _showDetectionResult(result);
+          final result = await _controller.checkDisease();
+          showDetectionResult(result);
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xFF7134FC),
@@ -229,7 +224,9 @@ class _DeteksiPenyakitScreenState extends State<DeteksiPenyakitScreen> {
 
         return Scaffold(
           backgroundColor: const Color(0xFFE7F0FB),
-          bottomNavigationBar: _buildBottomNavBar, // ⬅️ PENTING!
+          bottomNavigationBar: Obx(() {
+            return _buildBottomNavBar; // ⬅️ PENTING!
+          }),
           body: SingleChildScrollView(
             padding: const EdgeInsets.only(bottom: 24),
             child: Column(
@@ -339,41 +336,41 @@ class _DeteksiPenyakitScreenState extends State<DeteksiPenyakitScreen> {
                 ),
 
                 SizedBox(height: 24),
-                Obx(() {
-                  if (_controller.selectedImage.value == null) {
-                    return SizedBox.shrink();
-                  }
+                // Obx(() {
+                //   if (_controller.selectedImage.value == null) {
+                //     return SizedBox.shrink();
+                //   }
 
-                  return Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: isSmallScreen ? 12 : 20,
-                    ),
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          final result = await _controller.checkDisease();
-                          showDetectionResult(result);
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFF7134FC),
-                          padding: EdgeInsets.symmetric(vertical: 16),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        ),
-                        child: Text(
-                          "Deteksi Sekarang",
-                          style: GoogleFonts.nunito(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                }),
+                //   return Padding(
+                //     padding: EdgeInsets.symmetric(
+                //       horizontal: isSmallScreen ? 12 : 20,
+                //     ),
+                //     child: SizedBox(
+                //       width: double.infinity,
+                //       child: ElevatedButton(
+                //         onPressed: () async {
+                //           final result = await _controller.checkDisease();
+                //           showDetectionResult(result);
+                //         },
+                //         style: ElevatedButton.styleFrom(
+                //           backgroundColor: Color(0xFF7134FC),
+                //           padding: EdgeInsets.symmetric(vertical: 16),
+                //           shape: RoundedRectangleBorder(
+                //             borderRadius: BorderRadius.circular(12),
+                //           ),
+                //         ),
+                //         child: Text(
+                //           "Deteksi Sekarang",
+                //           style: GoogleFonts.nunito(
+                //             color: Colors.white,
+                //             fontSize: 20,
+                //             fontWeight: FontWeight.w700,
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //   );
+                // }),
                 SizedBox(height: 32),
               ],
             ),

@@ -13,6 +13,7 @@ import 'package:sim_klinik_mobile/services/base/booking_form_service.dart';
 class BookingFormController extends GetxController {
   final TextEditingController keteranganDokterController =
       TextEditingController(text: "Menunggu pilihan poli & sesi...");
+  final TextEditingController keluhanController = TextEditingController();
 
   final GetStorage _box = GetStorage();
   final Logger log = Logger();
@@ -24,6 +25,7 @@ class BookingFormController extends GetxController {
   final selectedSesi = Rxn<SesiModel>();
   final selectedDoctor = Rxn<int>();
   final selectedHari = ''.obs;
+  final keluhan = ''.obs;
   final isSnackbarOpen = false.obs;
   final pasienId = ''.obs;
 
@@ -249,13 +251,17 @@ class BookingFormController extends GetxController {
   }
 
   Future<bool> validation() async {
+    keluhan.value = keluhanController.text.trim();
+
     if (pasienId.value.isEmpty ||
         selectedPoli.value == null ||
         selectedDoctor.value == null ||
         selectedSesi.value == null ||
         selectedBulanNumber.value.isEmpty ||
-        selectedTanggal.value == null) {
+        selectedTanggal.value == null ||
+        keluhan.value.isEmpty) {
       isSnackbarOpen.value = true;
+      Get.back();
       Get.snackbar(
         "Gagal",
         "Pastikan seluruh form telah terisi!",
@@ -283,7 +289,7 @@ class BookingFormController extends GetxController {
       final jamAkhir = sesiParts.jamSelesai;
       final dokterId = selectedDoctor.value;
 
-      final keluhanAwal = "Tessss";
+      final keluhanAwal = keluhan.value;
 
       final FormBookingModel formBookingModel = FormBookingModel(
         pasienId: int.parse(pasienId.value),

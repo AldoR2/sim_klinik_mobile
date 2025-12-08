@@ -6,12 +6,11 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
-import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:path_provider/path_provider.dart';
 import 'package:sim_klinik_mobile/models/disease_prediction_model.dart';
 import 'package:sim_klinik_mobile/screens/reusables/loading_screen.dart';
-import 'package:sim_klinik_mobile/services/home/disease_detection_services.dart';
+import 'package:sim_klinik_mobile/services/home/disease_detection_service.dart';
 
 class DiseaseDetectionController extends GetxController {
   final GetStorage _box = GetStorage();
@@ -55,23 +54,25 @@ class DiseaseDetectionController extends GetxController {
       arguments: imageFile,
     );
     if (result != null && result is File) {
+      final int fileSize = await result.length(); // Dalam byte
+      final double fileSizeInMB = fileSize / (1024 * 1024);
+
+      log.d(
+        "Ukuran gambar setelah crop: ${fileSizeInMB.toStringAsFixed(2)} MB",
+      );
+
+      if (fileSizeInMB > 2.0) {
+        Get.snackbar(
+          "Ukuran Terlalu Besar!",
+          "Gambar tidak boleh lebih dari 2 MB. Silakan crop ulang atau pilih gambar lain.",
+          duration: const Duration(seconds: 3),
+        );
+        return; // 🚫 jangan simpan gambar, berhenti sampai sini
+      }
+
+      // Jika valid → simpan
       selectedImage.value = result;
     }
-  }
-
-  Future<DiseasePredictionModel> dummyModelPrediction(File image) async {
-    await Future.delayed(const Duration(seconds: 2));
-
-    return DiseasePredictionModel(
-      classId: 3,
-      confidence: 0.92,
-      inferenceTimeMs: 100,
-      recommendations: [
-        "Jaga kebersihan area yang terinfeksi.",
-        "Hindari menggaruk agar tidak memperparah luka.",
-        "Gunakan salep antijamur OTC bila tersedia.",
-      ],
-    );
   }
 
   Future<DiseasePredictionModel> checkDisease() async {
@@ -98,7 +99,7 @@ class DiseaseDetectionController extends GetxController {
         return DiseasePredictionModel(
           classId: 0,
           confidence: 0,
-          inferenceTimeMs: 0,
+          // inferenceTimeMs: 0.00,
           recommendations: [],
         );
       }
@@ -108,13 +109,14 @@ class DiseaseDetectionController extends GetxController {
       return DiseasePredictionModel(
         classId: 0,
         confidence: 0,
-        inferenceTimeMs: 0,
+        // inferenceTimeMs: 0,
         recommendations: [],
       );
     }
   }
 
   Future<String> generateDiseaseReportPDF(DiseasePredictionModel result) async {
+    log.d("Tes");
     final fontRegular = pw.Font.ttf(
       await rootBundle.load("assets/fonts/Poppins-Black.ttf"),
     );
@@ -146,8 +148,8 @@ class DiseaseDetectionController extends GetxController {
             pw.Text(
               "- Confidence: ${(result.confidence * 100).toStringAsFixed(2)}%",
             ),
-            pw.Text("- Waktu inferensi: ${result.inferenceTimeMs} ms"),
 
+            // pw.Text("- Waktu inferensi: ${result.inferenceTimeMs} ms"),
             pw.SizedBox(height: 20),
 
             pw.Text(

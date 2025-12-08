@@ -81,6 +81,7 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
                             onChanged: (val) {
                               _controller.selectedBulan.value = val;
                               _controller.selectedTanggal.value = null;
+                              _controller.selectedDoctor.value = null;
                             },
                           );
                         }),
@@ -109,6 +110,8 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
                             items: tanggalItems,
                             onChanged: (val) {
                               _controller.selectedTanggal.value = val;
+                              _controller.selectedDoctor.value = null;
+                              _controller.fetchKeterangan();
                               _controller.getHari();
                               _controller.fetchSesi();
                             },

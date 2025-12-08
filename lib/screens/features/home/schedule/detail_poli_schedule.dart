@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sim_klinik_mobile/controllers/home/schedule_practice_controller.dart';
+import 'package:sim_klinik_mobile/models/doctor_schedule_model.dart';
 import 'package:sim_klinik_mobile/screens/features/models/home/schedule/detail_schedule_model.dart';
 import 'package:sim_klinik_mobile/screens/features/widgets/home/detail_schedule_card.dart';
 import 'package:sim_klinik_mobile/screens/reusables/custom_header.dart';
@@ -13,83 +16,88 @@ class JadwalPoliScreen extends StatefulWidget {
 
 class _JadwalPoliScreenState extends State<JadwalPoliScreen> {
   final TextEditingController _searchController = TextEditingController();
+  final _controller = Get.find<SchedulePracticeController>();
 
   // Data dummy asli
-  final Map<String, List<DetailScheduleModel>> doctorScheduleByDay = {
-    'Senin': [
-      DetailScheduleModel(
-        doctorName: 'dr. Bima Achmad Fiil A.',
-        doctorImage: 'assets/images/foto_dokter.jpg',
-        time: '09.00 - 11.00',
-        practiceDays: ['Senin', 'Selasa'],
-        spesialisasi: 'Dokter Gizi',
-      ),
-      DetailScheduleModel(
-        doctorName: 'dr. Izzul Islam R.',
-        doctorImage: 'assets/images/foto_dokter2.jpg',
-        time: '13.00 - 15.00',
-        practiceDays: ['Senin', 'Rabu'],
-        spesialisasi: 'Dokter Umum',
-      ),
-    ],
-    'Selasa': [
-      DetailScheduleModel(
-        doctorName: 'dr. Bima Aditya Pratama',
-        doctorImage: 'assets/images/foto_dokter.jpg',
-        time: '09.00 - 11.00',
-        practiceDays: ['Selasa'],
-        spesialisasi: 'Dokter Gadungan',
-      ),
-    ],
-    'Rabu': [
-      DetailScheduleModel(
-        doctorName: 'dr. Izzul Islam R.',
-        doctorImage: 'assets/images/foto_dokter2.jpg',
-        time: '13.00 - 15.00',
-        practiceDays: ['Rabu'],
-        spesialisasi: 'Dokter Gigi',
-      ),
-    ],
-    'Kamis': [
-      DetailScheduleModel(
-        doctorName: 'dr. Salsabila Rahman',
-        doctorImage: 'assets/images/foto_dokter.jpg',
-        time: '13.00 - 15.00',
-        practiceDays: ['Kamis', 'Jumat'],
-        spesialisasi: 'Dokter Spesialis Gigi',
-      ),
-      DetailScheduleModel(
-        doctorName: 'dr. Salsabila Rahman',
-        doctorImage: 'assets/images/foto_dokter.jpg',
-        time: '13.00 - 15.00',
-        practiceDays: ['Kamis'],
-        spesialisasi: 'Dokter Umum',
-      ),
-    ],
-  };
+  // final Map<String, List<DetailScheduleModel>> doctorScheduleByDay = {
+  //   'Senin': [
+  //     DetailScheduleModel(
+  //       doctorName: 'dr. Bima Achmad Fiil A.',
+  //       doctorImage: 'assets/images/foto_dokter.jpg',
+  //       time: '09.00 - 11.00',
+  //       practiceDays: ['Senin', 'Selasa'],
+  //       spesialisasi: 'Dokter Gizi',
+  //     ),
+  //     DetailScheduleModel(
+  //       doctorName: 'dr. Izzul Islam R.',
+  //       doctorImage: 'assets/images/foto_dokter2.jpg',
+  //       time: '13.00 - 15.00',
+  //       practiceDays: ['Senin', 'Rabu'],
+  //       spesialisasi: 'Dokter Umum',
+  //     ),
+  //   ],
+  //   'Selasa': [
+  //     DetailScheduleModel(
+  //       doctorName: 'dr. Bima Aditya Pratama',
+  //       doctorImage: 'assets/images/foto_dokter.jpg',
+  //       time: '09.00 - 11.00',
+  //       practiceDays: ['Selasa'],
+  //       spesialisasi: 'Dokter Gadungan',
+  //     ),
+  //   ],
+  //   'Rabu': [
+  //     DetailScheduleModel(
+  //       doctorName: 'dr. Izzul Islam R.',
+  //       doctorImage: 'assets/images/foto_dokter2.jpg',
+  //       time: '13.00 - 15.00',
+  //       practiceDays: ['Rabu'],
+  //       spesialisasi: 'Dokter Gigi',
+  //     ),
+  //   ],
+  //   'Kamis': [
+  //     DetailScheduleModel(
+  //       doctorName: 'dr. Salsabila Rahman',
+  //       doctorImage: 'assets/images/foto_dokter.jpg',
+  //       time: '13.00 - 15.00',
+  //       practiceDays: ['Kamis', 'Jumat'],
+  //       spesialisasi: 'Dokter Spesialis Gigi',
+  //     ),
+  //     DetailScheduleModel(
+  //       doctorName: 'dr. Salsabila Rahman',
+  //       doctorImage: 'assets/images/foto_dokter.jpg',
+  //       time: '13.00 - 15.00',
+  //       practiceDays: ['Kamis'],
+  //       spesialisasi: 'Dokter Umum',
+  //     ),
+  //   ],
+  // };
 
   // Data hasil pencarian
-  late Map<String, List<DetailScheduleModel>> filteredDoctorScheduleByDay;
+  final filteredDoctorScheduleByDay = <String, List<DoctorScheduleModel>>{}.obs;
 
   @override
   void initState() {
     super.initState();
-    filteredDoctorScheduleByDay = Map.from(doctorScheduleByDay);
+    filteredDoctorScheduleByDay.value = Map.from(
+      _controller.doctorScheduleByDay,
+    );
   }
 
   // Fungsi pencarian
   void filterSearch(String query) {
     if (query.isEmpty) {
       setState(() {
-        filteredDoctorScheduleByDay = Map.from(doctorScheduleByDay);
+        filteredDoctorScheduleByDay.value = Map.from(
+          _controller.doctorScheduleByDay,
+        );
       });
       return;
     }
 
     final lowerQuery = query.toLowerCase();
-    final Map<String, List<DetailScheduleModel>> filtered = {};
+    final Map<String, List<DoctorScheduleModel>> filtered = {};
 
-    doctorScheduleByDay.forEach((day, doctors) {
+    _controller.doctorScheduleByDay.forEach((day, doctors) {
       final filteredDoctors = doctors.where((doctor) {
         final nameMatch = doctor.doctorName.toLowerCase().contains(lowerQuery);
         return nameMatch;
@@ -101,7 +109,7 @@ class _JadwalPoliScreenState extends State<JadwalPoliScreen> {
     });
 
     setState(() {
-      filteredDoctorScheduleByDay = filtered;
+      filteredDoctorScheduleByDay.value = filtered;
     });
   }
 
@@ -169,82 +177,91 @@ class _JadwalPoliScreenState extends State<JadwalPoliScreen> {
 
           // 📋 List hasil filter
           Expanded(
-            child: filteredDoctorScheduleByDay.isEmpty
-                ? Center(
-                    child: Text(
-                      "Tidak ada hasil ditemukan",
-                      style: GoogleFonts.rubik(
-                        fontSize: 14,
-                        color: Colors.grey.shade600,
+            child: Obx(() {
+              final data = _controller.doctorScheduleByDay;
+              if (_searchController.text.isEmpty) {
+                filteredDoctorScheduleByDay.value = Map.from(data);
+              }
+              return filteredDoctorScheduleByDay.isEmpty
+                  ? Center(
+                      child: Text(
+                        "Tidak ada hasil ditemukan",
+                        style: GoogleFonts.rubik(
+                          fontSize: 14,
+                          color: Colors.grey.shade600,
+                        ),
                       ),
-                    ),
-                  )
-                : ListView(
-                    padding: EdgeInsets.only(
-                      left: width * 0.035,
-                      right: width * 0.035,
-                      bottom: height * 0.02,
-                    ),
-                    children: filteredDoctorScheduleByDay.entries.map((entry) {
-                      final day = entry.key;
-                      final doctors = entry.value;
+                    )
+                  : ListView(
+                      padding: EdgeInsets.only(
+                        left: width * 0.035,
+                        right: width * 0.035,
+                        bottom: height * 0.02,
+                      ),
+                      children: filteredDoctorScheduleByDay.entries.map((
+                        entry,
+                      ) {
+                        final day = entry.key;
+                        final doctors = entry.value;
 
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                              vertical: height * 0.015,
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  day,
-                                  style: GoogleFonts.rubik(
-                                    fontSize: width * 0.045,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                Text(
-                                  '${doctors.length} dokter',
-                                  style: GoogleFonts.rubik(
-                                    fontSize: width * 0.035,
-                                    color: Colors.grey[600],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          ...doctors.map(
-                            (doctor) => DetailScheduleCard(
-                              doctor: doctor,
-                              onViewDetail: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.vertical(
-                                      top: Radius.circular(20),
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                vertical: height * 0.015,
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    day,
+                                    style: GoogleFonts.rubik(
+                                      fontSize: width * 0.045,
+                                      fontWeight: FontWeight.w600,
                                     ),
                                   ),
-                                  builder: (_) =>
-                                      _buildDoctorDetailSheet(doctor),
-                                );
-                              },
+                                  Text(
+                                    '${doctors.length} dokter',
+                                    style: GoogleFonts.rubik(
+                                      fontSize: width * 0.035,
+                                      color: Colors.grey[600],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 10),
-                        ],
-                      );
-                    }).toList(),
-                  ),
+                            ...doctors.map(
+                              (doctor) => DetailScheduleCard(
+                                doctor: doctor,
+                                onViewDetail: () {
+                                  showModalBottomSheet(
+                                    context: context,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(20),
+                                      ),
+                                    ),
+                                    builder: (_) =>
+                                        _buildDoctorDetailSheet(doctor),
+                                  );
+                                },
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                          ],
+                        );
+                      }).toList(),
+                    );
+            }),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildDoctorDetailSheet(DetailScheduleModel doctor) {
+  Widget _buildDoctorDetailSheet(DoctorScheduleModel doctor) {
     return Padding(
       padding: const EdgeInsets.all(20),
       child: Container(
@@ -282,7 +299,7 @@ class _JadwalPoliScreenState extends State<JadwalPoliScreen> {
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: Image.asset(
-                  doctor.doctorImage,
+                  doctor.doctorImage!,
                   width: 90,
                   height: 90,
                   fit: BoxFit.cover,

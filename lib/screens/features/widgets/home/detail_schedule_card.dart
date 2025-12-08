@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sim_klinik_mobile/models/doctor_schedule_model.dart';
 import 'package:sim_klinik_mobile/screens/features/models/home/schedule/detail_schedule_model.dart';
 
 class DetailScheduleCard extends StatelessWidget {
-  final DetailScheduleModel doctor;
+  final DoctorScheduleModel doctor;
 
   const DetailScheduleCard({
     super.key,
@@ -36,7 +37,7 @@ class DetailScheduleCard extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: Image.asset(
-              doctor.doctorImage,
+              doctor.doctorImage!,
               width: width * 0.15,
               height: width * 0.15,
               fit: BoxFit.cover,
@@ -106,7 +107,7 @@ class DetailScheduleCard extends StatelessWidget {
     );
   }
 
-  void _showSchedulePopup(BuildContext context, DetailScheduleModel doctor) {
+  void _showSchedulePopup(BuildContext context, DoctorScheduleModel doctor) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
 
@@ -141,7 +142,7 @@ class DetailScheduleCard extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: Image.asset(
-                  doctor.doctorImage,
+                  doctor.doctorImage!,
                   width: width * 0.3,
                   height: width * 0.3,
                   fit: BoxFit.cover,

@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sim_klinik_mobile/models/schedule_doctor_model.dart';
 import '../../models/home/doctor_schedule_model.dart';
 import '../../widgets/home/doctor_schedule_card.dart';
 
 class DashboardContent extends StatefulWidget {
   final Map data;
+  final List<ScheduleDoctorModel> schedules;
 
-  const DashboardContent({super.key, required this.data});
+  const DashboardContent({
+    super.key,
+    required this.data,
+    required this.schedules,
+  });
 
   @override
   State<DashboardContent> createState() => _DashboardContentState();
@@ -17,71 +23,71 @@ class _DashboardContentState extends State<DashboardContent> {
   final now = DateTime.now();
   int currentWeekOffset = 0;
 
-  final doctorSchedules = [
-    DoctorScheduleModel(
-      poliName: 'Poli Gigi',
-      iconPath: 'assets/icons/ic_poli_gigi.png',
-      poliColor: Color(0xFF2088FF),
-      doctors: [
-        DoctorModel(
-          name: 'dr. Bima Aditya Pratama',
-          time: '09.00 - 11.00',
-          imagePath: 'assets/images/foto_dokter.jpg',
-        ),
-        DoctorModel(
-          name: 'dr. Sinta Lestari',
-          time: '12.00 - 14.00',
-          imagePath: 'assets/images/foto_dokter.jpg',
-        ),
-      ],
-    ),
-    DoctorScheduleModel(
-      poliName: 'Poli Umum',
-      iconPath: 'assets/icons/ic_poli_umum.png',
-      poliColor: Color(0xFFFFC720),
-      doctors: [
-        DoctorModel(
-          name: 'dr. Ratna Kusuma',
-          time: '13.00 - 15.00',
-          imagePath: 'assets/images/foto_dokter.jpg',
-        ),
-      ],
-    ),
-    DoctorScheduleModel(
-      poliName: 'Poli Ibu dan Anak',
-      iconPath: 'assets/icons/ic_poli_ibu_dan_anak.png',
-      poliColor: Color(0xFF18B300),
-      doctors: [
-        DoctorModel(
-          name: 'dr. Bima Aditya Pratama',
-          time: '09.00 - 11.00',
-          imagePath: 'assets/images/foto_dokter.jpg',
-        ),
-        DoctorModel(
-          name: 'dr. Sinta Lestari',
-          time: '12.00 - 14.00',
-          imagePath: 'assets/images/foto_dokter.jpg',
-        ),
-      ],
-    ),
-    DoctorScheduleModel(
-      poliName: 'Poli Gizi',
-      iconPath: 'assets/icons/ic_poli_gizi.png',
-      poliColor: Color(0xFFE27C00),
-      doctors: [
-        DoctorModel(
-          name: 'dr. Bima Aditya Pratama',
-          time: '09.00 - 11.00',
-          imagePath: 'assets/images/foto_dokter.jpg',
-        ),
-        DoctorModel(
-          name: 'dr. Sinta Lestari',
-          time: '12.00 - 14.00',
-          imagePath: 'assets/images/foto_dokter.jpg',
-        ),
-      ],
-    ),
-  ];
+  // final doctorSchedules = [
+  //   DoctorScheduleModel(
+  //     poliName: 'Poli Gigi',
+  //     iconPath: 'assets/icons/ic_poli_gigi.png',
+  //     poliColor: Color(0xFF2088FF),
+  //     doctors: [
+  //       DoctorModel(
+  //         name: 'dr. Bima Aditya Pratama',
+  //         time: '09.00 - 11.00',
+  //         imagePath: 'assets/images/foto_dokter.jpg',
+  //       ),
+  //       DoctorModel(
+  //         name: 'dr. Sinta Lestari',
+  //         time: '12.00 - 14.00',
+  //         imagePath: 'assets/images/foto_dokter.jpg',
+  //       ),
+  //     ],
+  //   ),
+  //   // DoctorScheduleModel(
+  //   //   poliName: 'Poli Umum',
+  //   //   iconPath: 'assets/icons/ic_poli_umum.png',
+  //   //   poliColor: Color(0xFFFFC720),
+  //   //   doctors: [
+  //   //     DoctorModel(
+  //   //       name: 'dr. Ratna Kusuma',
+  //   //       time: '13.00 - 15.00',
+  //   //       imagePath: 'assets/images/foto_dokter.jpg',
+  //   //     ),
+  //   //   ],
+  //   // ),
+  //   // DoctorScheduleModel(
+  //   //   poliName: 'Poli Ibu dan Anak',
+  //   //   iconPath: 'assets/icons/ic_poli_ibu_dan_anak.png',
+  //   //   poliColor: Color(0xFF18B300),
+  //   //   doctors: [
+  //   //     DoctorModel(
+  //   //       name: 'dr. Bima Aditya Pratama',
+  //   //       time: '09.00 - 11.00',
+  //   //       imagePath: 'assets/images/foto_dokter.jpg',
+  //   //     ),
+  //   //     DoctorModel(
+  //   //       name: 'dr. Sinta Lestari',
+  //   //       time: '12.00 - 14.00',
+  //   //       imagePath: 'assets/images/foto_dokter.jpg',
+  //   //     ),
+  //   //   ],
+  //   // ),
+  //   // DoctorScheduleModel(
+  //   //   poliName: 'Poli Gizi',
+  //   //   iconPath: 'assets/icons/ic_poli_gizi.png',
+  //   //   poliColor: Color(0xFFE27C00),
+  //   //   doctors: [
+  //   //     DoctorModel(
+  //   //       name: 'dr. Bima Aditya Pratama',
+  //   //       time: '09.00 - 11.00',
+  //   //       imagePath: 'assets/images/foto_dokter.jpg',
+  //   //     ),
+  //   //     DoctorModel(
+  //   //       name: 'dr. Sinta Lestari',
+  //   //       time: '12.00 - 14.00',
+  //   //       imagePath: 'assets/images/foto_dokter.jpg',
+  //   //     ),
+  //   //   ],
+  //   // ),
+  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -200,9 +206,20 @@ class _DashboardContentState extends State<DashboardContent> {
 
                   SizedBox(height: h * 0.025),
 
-                  ...doctorSchedules
-                      .map((item) => DoctorScheduleCard(schedule: item))
-                      .toList(),
+                  Obx(() {
+                    if (widget.schedules.isEmpty) {
+                      return const Text(
+                        "Tidak ada jadwal hari ini",
+                        style: TextStyle(color: Colors.grey),
+                      );
+                    }
+
+                    return Column(
+                      children: widget.schedules.map((item) {
+                        return DoctorScheduleCard(schedule: item);
+                      }).toList(),
+                    );
+                  }),
                 ],
               ),
             ),

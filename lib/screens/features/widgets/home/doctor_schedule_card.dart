@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sim_klinik_mobile/screens/features/models/home/doctor_schedule_model.dart';
+import 'package:get/get.dart';
+import 'package:sim_klinik_mobile/models/schedule_doctor_model.dart';
 
 class DoctorScheduleCard extends StatelessWidget {
-  final DoctorScheduleModel schedule;
+  final ScheduleDoctorModel schedule;
 
   const DoctorScheduleCard({super.key, required this.schedule});
 
@@ -36,7 +37,7 @@ class DoctorScheduleCard extends StatelessWidget {
               ),
               const SizedBox(width: 6),
               Text(
-                schedule.poliName,
+                schedule.namaPoli!,
                 style: TextStyle(
                   color: schedule.poliColor,
                   fontWeight: FontWeight.bold,
@@ -54,54 +55,56 @@ class DoctorScheduleCard extends StatelessWidget {
           Divider(height: 20, color: Colors.black.withOpacity(0.12)),
 
           // 🔹 Daftar dokter
-          ...schedule.doctors.map(
-            (doctor) => Padding(
-              padding: const EdgeInsets.only(bottom: 15),
-              child: Row(
-                children: [
-                  // 🔸 Foto dokter dari assets
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Image.asset(
-                      doctor.imagePath,
-                      width: 50,
-                      height: 50,
-                      fit: BoxFit.cover,
+          if (schedule.doctors != null && schedule.doctors!.isNotEmpty)
+            ...schedule.doctors!.map(
+              (doctor) => Padding(
+                padding: const EdgeInsets.only(bottom: 15),
+                child: Row(
+                  children: [
+                    // 🔸 Foto dokter dari assets
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.asset(
+                        doctor.imagePath ??
+                            "assets/images/default profile.png",
+                        width: 50,
+                        height: 50,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          doctor.name,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 15,
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            doctor.nama ?? "Dokter",
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 15,
+                            ),
                           ),
-                        ),
-                        Row(
-                          children: [
-                            const Icon(
-                              Icons.access_time,
-                              size: 16,
-                              color: Colors.grey,
-                            ),
-                            const SizedBox(width: 5),
-                            Text(
-                              doctor.time,
-                              style: const TextStyle(color: Colors.grey),
-                            ),
-                          ],
-                        ),
-                      ],
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.access_time,
+                                size: 16,
+                                color: Colors.grey,
+                              ),
+                              const SizedBox(width: 5),
+                              Text(
+                                doctor.time ?? "",
+                                style: const TextStyle(color: Colors.grey),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
         ],
       ),
     );

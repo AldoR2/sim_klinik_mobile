@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:open_filex/open_filex.dart';
 import 'package:sim_klinik_mobile/controllers/home/disease_detection_controller.dart';
 import 'package:sim_klinik_mobile/models/disease_prediction_model.dart';
 import 'package:sim_klinik_mobile/screens/features/models/home/disease_detection_model.dart';
@@ -111,7 +112,11 @@ class _DeteksiPenyakitScreenState extends State<DeteksiPenyakitScreen> {
                     child: OutlinedButton(
                       onPressed: () async {
                         print("Press");
-                        await _controller.generateDiseaseReportPDF(result);
+                        final path = await _controller.generateDiseaseReportPDF(
+                          result,
+                        );
+                        print("Saved path: $path");
+                        OpenFilex.open(path);
                       },
                       style: OutlinedButton.styleFrom(
                         side: const BorderSide(
@@ -130,7 +135,9 @@ class _DeteksiPenyakitScreenState extends State<DeteksiPenyakitScreen> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF7134FC),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.toNamed("/booking_form");
+                      },
                       child: Text(
                         "Konsultasi Dokter",
                         style: TextStyle(color: Colors.white),
@@ -336,41 +343,6 @@ class _DeteksiPenyakitScreenState extends State<DeteksiPenyakitScreen> {
                 ),
 
                 SizedBox(height: 24),
-                // Obx(() {
-                //   if (_controller.selectedImage.value == null) {
-                //     return SizedBox.shrink();
-                //   }
-
-                //   return Padding(
-                //     padding: EdgeInsets.symmetric(
-                //       horizontal: isSmallScreen ? 12 : 20,
-                //     ),
-                //     child: SizedBox(
-                //       width: double.infinity,
-                //       child: ElevatedButton(
-                //         onPressed: () async {
-                //           final result = await _controller.checkDisease();
-                //           showDetectionResult(result);
-                //         },
-                //         style: ElevatedButton.styleFrom(
-                //           backgroundColor: Color(0xFF7134FC),
-                //           padding: EdgeInsets.symmetric(vertical: 16),
-                //           shape: RoundedRectangleBorder(
-                //             borderRadius: BorderRadius.circular(12),
-                //           ),
-                //         ),
-                //         child: Text(
-                //           "Deteksi Sekarang",
-                //           style: GoogleFonts.nunito(
-                //             color: Colors.white,
-                //             fontSize: 20,
-                //             fontWeight: FontWeight.w700,
-                //           ),
-                //         ),
-                //       ),
-                //     ),
-                //   );
-                // }),
                 SizedBox(height: 32),
               ],
             ),

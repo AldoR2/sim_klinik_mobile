@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sim_klinik_mobile/controllers/account/edit_profile_controller.dart';
-import 'package:sim_klinik_mobile/screens/features/models/account/edit_profile_model.dart';
 import 'package:sim_klinik_mobile/screens/reusables/loading_screen.dart';
 
 class EditProfileScreen extends StatefulWidget {
@@ -15,18 +14,18 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
-  late EditProfileModel user;
+  // late EditProfileModel user;
   final _controller = Get.find<EditProfileController>();
 
   @override
   void initState() {
     super.initState();
-    user = EditProfileModel(
-      nama: "Izzul Islam Ramadhan",
-      email: "izzul123@gmail.com",
-      fotoProfil: "assets/images/default profile.png",
-      isEmailVerified: false, // contoh: email sudah terdaftar
-    );
+    // user = EditProfileModel(
+    //   nama: "Izzul Islam Ramadhan",
+    //   email: "izzul123@gmail.com",
+    //   fotoProfil: "assets/images/default profile.png",
+    //   isEmailVerified: false, // contoh: email sudah terdaftar
+    // );
   }
 
   @override
@@ -169,7 +168,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                           return (imageUrl.isNotEmpty)
                                               ? FadeInImage.assetNetwork(
                                                   placeholder:
-                                                      "assets/images/foto_user.jpg",
+                                                      "assets/images/default profile.png",
                                                   image: imageUrl,
                                                   height: 300,
                                                   width: 300,
@@ -180,14 +179,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                                         url,
                                                         error,
                                                       ) => Image.asset(
-                                                        "assets/images/foto_user.jpg",
+                                                        "assets/images/default profile.png",
                                                         height: 300,
                                                         width: 300,
                                                         fit: BoxFit.cover,
                                                       ),
                                                 )
                                               : Image.asset(
-                                                  "assets/images/foto_user.jpg",
+                                                  "assets/images/default profile.png",
                                                   height: 300,
                                                   width: 300,
                                                   fit: BoxFit.cover,
@@ -221,21 +220,22 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           final imageUrl = _controller.storedProfile.value;
                           return (imageUrl.isNotEmpty)
                               ? FadeInImage.assetNetwork(
-                                  placeholder: "assets/images/foto_user.jpg",
+                                  placeholder:
+                                      "assets/images/default profile.png",
                                   image: imageUrl,
                                   height: 140,
                                   width: 140,
                                   fit: BoxFit.cover,
                                   imageErrorBuilder: (context, url, error) =>
                                       Image.asset(
-                                        "assets/images/foto_user.jpg",
+                                        "assets/images/default profile.png",
                                         height: 140,
                                         width: 140,
                                         fit: BoxFit.cover,
                                       ),
                                 )
                               : Image.asset(
-                                  "assets/images/foto_user.jpg",
+                                  "assets/images/default profile.png",
                                   height: 140,
                                   width: 140,
                                   fit: BoxFit.cover,
@@ -281,10 +281,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _buildFieldLabel("Username"),
-                  _buildTextField(user.nama, Icons.edit),
-
+                  Obx(() {
+                    return _buildTextField(
+                      _controller.username.value,
+                      Icons.edit,
+                    );
+                  }),
                   _buildFieldLabel("Email"),
-                  _buildEmailField(user.email),
+                  Obx(() {
+                    return _buildEmailField(_controller.email.value);
+                  }),
 
                   SizedBox(height: h * 0.05),
                 ],
@@ -383,7 +389,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           children: [
             GestureDetector(
               onTap: () {
-                if (!user.isEmailVerified) {
+                if (_controller.statusPasien.value == "valid") {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: const Text(
@@ -406,7 +412,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   vertical: w * 0.02,
                 ),
                 decoration: BoxDecoration(
-                  color: user.isEmailVerified
+                  color: (_controller.statusPasien.value == "valid")
                       ? Colors.green.withOpacity(0.12)
                       : Colors.red.withOpacity(0.12),
                   borderRadius: BorderRadius.circular(8),
@@ -416,23 +422,29 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 child: Row(
                   children: [
                     Icon(
-                      user.isEmailVerified
+                      (_controller.statusPasien.value == "valid")
                           ? Icons.check_circle
                           : Icons.warning_amber_rounded,
-                      color: user.isEmailVerified ? Colors.green : Colors.red,
+                      color: (_controller.statusPasien.value == "valid")
+                          ? Colors.green
+                          : Colors.red,
                       size: w * 0.045,
                     ),
                     SizedBox(width: w * 0.02),
-                    Text(
-                      user.isEmailVerified
-                          ? "Email sudah terdaftar KIB"
-                          : "Email belum terdaftar KIB",
-                      style: GoogleFonts.nunito(
-                        fontSize: w * 0.037,
-                        fontWeight: FontWeight.w700,
-                        color: user.isEmailVerified ? Colors.green : Colors.red,
-                      ),
-                    ),
+                    Obx(() {
+                      return Text(
+                        (_controller.statusPasien.value == "valid")
+                            ? "Email sudah terdaftar KIB"
+                            : "Email belum terdaftar KIB",
+                        style: GoogleFonts.nunito(
+                          fontSize: w * 0.037,
+                          fontWeight: FontWeight.w700,
+                          color: (_controller.statusPasien.value == "valid")
+                              ? Colors.green
+                              : Colors.red,
+                        ),
+                      );
+                    }),
                   ],
                 ),
               ),

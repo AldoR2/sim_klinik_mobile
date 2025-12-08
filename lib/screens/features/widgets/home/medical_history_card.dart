@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../models/home/medical_history/medical_history_model.dart';
+import 'package:sim_klinik_mobile/models/medical_history_model.dart';
 
 class MedicalHistoryCard extends StatelessWidget {
   final MedicalHistoryModel data;
@@ -28,7 +28,7 @@ class MedicalHistoryCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            data.keterangan,
+            data.status ?? "-",
             style: GoogleFonts.inter(
               fontSize: 18 / scale,
               fontWeight: FontWeight.w600,
@@ -37,14 +37,14 @@ class MedicalHistoryCard extends StatelessWidget {
           ),
           const SizedBox(height: 6),
           Text(
-            data.namapoli,
+            data.namaPoli ?? "-",
             style: GoogleFonts.inter(
               fontSize: 15 / scale,
               fontWeight: FontWeight.w600,
             ),
           ),
           const SizedBox(height: 4),
-          Text(data.waktu, style: GoogleFonts.inter(fontSize: 14 / scale)),
+          Text(data.tglKunjungan ?? "-", style: GoogleFonts.inter(fontSize: 14 / scale)),
           const SizedBox(height: 20),
 
           Row(
@@ -56,7 +56,7 @@ class MedicalHistoryCard extends StatelessWidget {
                   children: [
                     Flexible(
                       child: Text(
-                        data.pemesanan,
+                        data.pemesanan ?? "-",
                         style: GoogleFonts.nunito(
                           fontSize: 11 / scale,
                           color: Colors.grey[700],

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sim_klinik_mobile/routes/app_screens.dart';
-import 'package:sim_klinik_mobile/screens/features/models/home/schedule/poli_model.dart';
+import 'package:sim_klinik_mobile/controllers/home/schedule_practice_controller.dart';
+import 'package:sim_klinik_mobile/models/poli_model.dart';
 
 class PoliCard extends StatelessWidget {
   final PoliModel poli;
@@ -26,6 +25,7 @@ class PoliCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+    final _controller = Get.find<SchedulePracticeController>();
 
     final cardWidth = width ?? screenWidth * 0.9;
     final cardHeight = height ?? screenHeight * 0.12;
@@ -40,7 +40,7 @@ class PoliCard extends StatelessWidget {
           shadowColor: Colors.black.withOpacity(0.08),
           child: InkWell(
             borderRadius: BorderRadius.circular(16),
-            onTap: () => Get.toNamed("/home/schedule/detail_poli_schedule"),
+            onTap: () => _controller.toDetailPoli(poli.id!),
             splashColor: color.withOpacity(0.15),
             highlightColor: color.withOpacity(0.08),
             child: Container(
@@ -53,7 +53,7 @@ class PoliCard extends StatelessWidget {
               child: Row(
                 children: [
                   Image.asset(
-                    poli.imagePath,
+                    poli.imagePath!,
                     width: screenWidth * 0.08,
                     height: screenWidth * 0.08,
                     color: color,
@@ -61,7 +61,7 @@ class PoliCard extends StatelessWidget {
                   SizedBox(width: screenWidth * 0.035),
                   Expanded(
                     child: Text(
-                      poli.namaPoli,
+                      poli.nama!,
                       style: GoogleFonts.nunito(
                         color: color,
                         fontSize: screenWidth * 0.055,

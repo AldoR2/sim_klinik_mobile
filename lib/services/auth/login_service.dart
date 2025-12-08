@@ -52,8 +52,15 @@ class LoginService extends GetxService {
           _box.write("user_id", data['user_id']);
           _box.write("email", data['email']);
           _box.write("username", data['username']);
-          _box.write("pasien_id", data['pasien_id']);
-          _box.write("nama", data['nama']);
+          // _box.write("nama", data['nama']);
+          if (data['pasien_id'] != null) {
+            _box.write("pasien_id", data['pasien_id']);
+            _box.write("status_pasien", 'valid');
+          } else {
+            _box.write("status_pasien", 'tidakValid');
+
+          }
+
           return Pasien.fromJson({
             ...data,
             'status': body['status'],

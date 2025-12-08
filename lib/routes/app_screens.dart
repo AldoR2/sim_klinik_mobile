@@ -5,11 +5,14 @@ import 'package:sim_klinik_mobile/bindings/auth/forget_password_verification_bin
 import 'package:sim_klinik_mobile/bindings/auth/login_binding.dart';
 import 'package:sim_klinik_mobile/bindings/auth/register-_account_binding.dart';
 import 'package:sim_klinik_mobile/bindings/auth/register_account_verification_binding.dart';
+import 'package:sim_klinik_mobile/bindings/features/base_binding.dart';
 import 'package:sim_klinik_mobile/bindings/features/booking_form_binding.dart';
 import 'package:sim_klinik_mobile/bindings/features/change_password_binding.dart';
 import 'package:sim_klinik_mobile/bindings/features/dashboard_binding.dart';
 import 'package:sim_klinik_mobile/bindings/features/disease_detection_binding.dart';
 import 'package:sim_klinik_mobile/bindings/features/edit_profile_binding.dart';
+import 'package:sim_klinik_mobile/bindings/features/medical_history_binding.dart';
+import 'package:sim_klinik_mobile/bindings/features/option_poli_schedule_binding.dart';
 import 'package:sim_klinik_mobile/bindings/features/profile_binding.dart';
 import 'package:sim_klinik_mobile/screens/auth/register_account_verification_screen.dart';
 import 'package:sim_klinik_mobile/screens/features/account/Settings/assistance/assistance_screen.dart';
@@ -81,7 +84,7 @@ class AppScreens {
     GetPage(
       name: "/base",
       page: () => BaseScreen(),
-      bindings: [DashboardBinding(), ProfileBinding()],
+      bindings: [BaseBinding(), DashboardBinding(), ProfileBinding()],
     ),
     // HOME SECTION
     GetPage(
@@ -91,7 +94,11 @@ class AppScreens {
         return DetailRiwayatScreen(data: data);
       },
     ),
-    GetPage(name: "/home/medical_history", page: () => RiwayatBerobatScreen()),
+    GetPage(
+      name: "/home/medical_history",
+      page: () => RiwayatBerobatScreen(),
+      binding: MedicalHistoryBinding(),
+    ),
     GetPage(
       name: "/home/disease_detection",
       page: () => DeteksiPenyakitScreen(),
@@ -104,6 +111,7 @@ class AppScreens {
     GetPage(
       name: "/home/schedule/poli_schedule",
       page: () => PilihPoliScreen(),
+      binding: OptionPoliScheduleBinding(),
     ),
     GetPage(
       name: "/home/schedule/detail_poli_schedule",

@@ -1,13 +1,13 @@
 class DiseasePredictionModel {
   final int classId;
   final double confidence;
-  final double inferenceTimeMs;
+  // final double inferenceTimeMs;
   final List<String> recommendations;
 
   DiseasePredictionModel({
     required this.classId,
     required this.confidence,
-    required this.inferenceTimeMs,
+    // required this.inferenceTimeMs,
     required this.recommendations,
   });
 
@@ -31,7 +31,7 @@ class DiseasePredictionModel {
     return DiseasePredictionModel(
       classId: prediction["class_id"],
       confidence: prediction["confidence"],
-      inferenceTimeMs: prediction["inference_time_ms"],
+      // inferenceTimeMs: prediction["inference_time_ms"],
       recommendations: List<String>.from(json["treatment"]),
     );
   }

@@ -21,7 +21,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
       body: Obx(() {
         return _controller.isLoading.value
             ? const DashboardShimmer()
-            : DashboardContent(data: _controller.data);
+            : DashboardContent(data: _controller.data,
+            schedules: _controller.listSchedule,
+            );
       }),
     );
   }

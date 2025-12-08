@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sim_klinik_mobile/routes/app_screens.dart';
+import 'package:sim_klinik_mobile/controllers/home/medical_history_controller.dart';
+import 'package:sim_klinik_mobile/models/medical_history_model.dart';
 import 'package:sim_klinik_mobile/screens/features/models/home/medical_history/detail_medical_history_model.dart';
-import 'package:sim_klinik_mobile/screens/features/models/home/medical_history/medical_history_model.dart';
+// import 'package:sim_klinik_mobile/screens/features/models/home/medical_history/medical_history_model.dart';
 import 'package:sim_klinik_mobile/screens/features/widgets/home/medical_history_card.dart';
 import 'package:sim_klinik_mobile/screens/reusables/custom_header.dart';
 
@@ -16,44 +17,24 @@ class RiwayatBerobatScreen extends StatefulWidget {
 
 class _RiwayatBerobatScreenState extends State<RiwayatBerobatScreen> {
   final TextEditingController _searchController = TextEditingController();
-
-  final List<MedicalHistoryModel> _dataHistory = [
-    MedicalHistoryModel(
-      keterangan: "Berhasil",
-      namapoli: "Poli Umum",
-      waktu: "Kamis, 11 September 2025",
-      pemesanan: "Pemesanan Via Aplikasi",
-    ),
-    MedicalHistoryModel(
-      keterangan: "Berhasil",
-      namapoli: "Poli Gigi",
-      waktu: "Rabu, 10 September 2025",
-      pemesanan: "Pemesanan Via Klinik",
-    ),
-    MedicalHistoryModel(
-      keterangan: "Berhasil",
-      namapoli: "Poli Gizi",
-      waktu: "Senin, 8 September 2025",
-      pemesanan: "Pemesanan Via Aplikasi",
-    ),
-  ];
+  final _controller = Get.find<MedicalHistoryController>();
 
   List<MedicalHistoryModel> _filteredHistory = [];
 
   @override
   void initState() {
     super.initState();
-    _filteredHistory = _dataHistory; // awalnya tampil semua
+    _filteredHistory = _controller.listHistory; // awalnya tampil semua
   }
 
   void _filterSearch(String query) {
     setState(() {
       if (query.isEmpty) {
-        _filteredHistory = _dataHistory;
+        _filteredHistory = _controller.listHistory;
       } else {
-        _filteredHistory = _dataHistory.where((item) {
-          final name = item.namapoli.toLowerCase();
-          final day = item.waktu.toLowerCase();
+        _filteredHistory = _controller.listHistory.where((item) {
+          final name = item.namaPoli!.toLowerCase();
+          final day = item.tglKunjungan!.toLowerCase();
           final search = query.toLowerCase();
 
           return name.contains(search) || day.contains(search);
@@ -125,45 +106,47 @@ class _RiwayatBerobatScreenState extends State<RiwayatBerobatScreen> {
 
           /// 📋 Daftar Riwayat
           Expanded(
-            child: _filteredHistory.isEmpty
-                ? Center(
-                    child: Text(
-                      "Tidak ada hasil ditemukan",
-                      style: GoogleFonts.nunito(
-                        color: Colors.grey,
-                        fontSize: width * 0.04,
+            child: Obx(() {
+              return _filteredHistory.isEmpty
+                  ? Center(
+                      child: Text(
+                        "Tidak ada hasil ditemukan",
+                        style: GoogleFonts.nunito(
+                          color: Colors.grey,
+                          fontSize: width * 0.04,
+                        ),
                       ),
-                    ),
-                  )
-                : ListView.separated(
-                    padding: EdgeInsets.symmetric(vertical: height * 0.015),
-                    itemCount: _filteredHistory.length,
-                    separatorBuilder: (_, __) =>
-                        SizedBox(height: height * 0.012),
-                    itemBuilder: (context, index) {
-                      final item = _filteredHistory[index];
+                    )
+                  : ListView.separated(
+                      padding: EdgeInsets.symmetric(vertical: height * 0.015),
+                      itemCount: _filteredHistory.length,
+                      separatorBuilder: (_, __) =>
+                          SizedBox(height: height * 0.012),
+                      itemBuilder: (context, index) {
+                        final item = _filteredHistory[index];
 
-                      return MedicalHistoryCard(
-                        data: item,
-                        onDiagnosaPressed: () {},
-                        onDetailPressed: () {
-                          final detailData = RiwayatDetailModel(
-                            idPemesanan: "ID${index + 1001}",
-                            namapasien: "Izzul Islam Ramadhan",
-                            namapoli: item.namapoli,
-                            namadokter: "dr. Andi Kusuma",
-                            tanggal: item.waktu,
-                            jam: "09:00",
-                          );
+                        return MedicalHistoryCard(
+                          data: item,
+                          onDiagnosaPressed: () {},
+                          onDetailPressed: () {
+                            final detailData = RiwayatDetailModel(
+                              idPemesanan: "ID${item.id}",
+                              namapasien: item.namaPasien ?? "-",
+                              namapoli: item.namaPoli ?? "-",
+                              namadokter: item.namaDokter ?? "-",
+                              tanggal: item.tglKunjungan ?? "-",
+                              jam: item.jamAwal ?? "-",
+                            );
 
-                          Get.toNamed(
-                            "/home/medical_history/detail_medical_history",
-                            arguments: detailData,
-                          );
-                        },
-                      );
-                    },
-                  ),
+                            Get.toNamed(
+                              "/home/medical_history/detail_medical_history",
+                              arguments: detailData,
+                            );
+                          },
+                        );
+                      },
+                    );
+            }),
           ),
         ],
       ),

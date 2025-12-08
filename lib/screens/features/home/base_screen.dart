@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sim_klinik_mobile/controllers/base/base_controller.dart';
 import 'package:sim_klinik_mobile/screens/features/account/profile_screen.dart';
 import 'package:sim_klinik_mobile/screens/features/home/dashboard/dashboard_screen.dart';
 
@@ -13,6 +14,7 @@ class BaseScreen extends StatefulWidget {
 
 class _BaseScreenState extends State<BaseScreen> {
   final RxInt _selectedIndex = 0.obs;
+  final _controller = Get.find<BaseController>();
 
   // hanya Dashboard & Profile sekarang (Booking dibuka terpisah)
   final List<Widget> _pages = [const DashboardScreen(), const ProfileScreen()];
@@ -34,8 +36,7 @@ class _BaseScreenState extends State<BaseScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // PENTING: Pastikan route name sama persis dengan yang didaftarkan di getPages
-          Get.toNamed('/booking_form');
+          _controller.bookForm();
         },
         backgroundColor: const Color(0xFF7134FC),
         shape: const CircleBorder(),

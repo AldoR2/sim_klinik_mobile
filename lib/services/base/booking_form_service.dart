@@ -135,7 +135,7 @@ class BookingFormService extends GetxService {
     try {
       final token = await _box.read("auth_token");
 
-      final url = Uri.parse("$_baseURL/list/doctor");
+      final url = Uri.parse("$_baseURL/list/dashboard/doctor");
       log.d(url);
 
       final response = await http.get(
